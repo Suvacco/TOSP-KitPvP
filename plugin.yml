@@ -1,0 +1,8 @@
+name: OldSchoolProject
+version: 0.0.1
+main: oldschoolproject.Main
+author: Suvacco
+description: A kitpvp Minecraft plugin for the Old School Project
+api-version: 1.19
+commands:
+  
