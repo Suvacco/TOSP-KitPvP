@@ -5,7 +5,8 @@ import org.bukkit.entity.Player;
 public class User {
 	
 	Player player;
-	Kit kit;
+	Kits kit;
+	State state;
 	
 	public User(Player player) {
 		this.player = player;
@@ -15,11 +16,23 @@ public class User {
 		return this.player;
 	}
 	
-	public void setKit(Kit kit) {
+	public void setState(State state) {
+		this.state = state;
+	}
+	
+	public State getState() {
+		return this.state;
+	}
+	
+	public boolean isProtected() {
+		return this.state != State.Ingame;
+	}
+	
+	public void setKit(Kits kit) {
 		this.kit = kit;
 	}
 	
-	public Kit getKit() {
+	public Kits getKit() {
 		return this.kit;
 	}
 	

@@ -11,6 +11,7 @@ public class LJoin extends BaseListener {
 	@EventHandler
 	public void join(PlayerJoinEvent e) {
 		UserManager.registerUser(e.getPlayer());
+		e.getPlayer().getInventory().clear();
 	}
 
 }

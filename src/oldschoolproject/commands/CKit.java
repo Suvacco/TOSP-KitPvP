@@ -3,7 +3,10 @@ package oldschoolproject.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import oldschoolproject.entities.User;
 import oldschoolproject.managers.InventoryManager;
+import oldschoolproject.managers.KitManager;
+import oldschoolproject.managers.UserManager;
 import oldschoolproject.utils.loaders.command.BaseCommand;
 
 public class CKit extends BaseCommand {
@@ -15,13 +18,14 @@ public class CKit extends BaseCommand {
 	@Override
 	public void onCommand(CommandSender sender, String[] args) {
 		Player p = (Player)sender;
+		User user = UserManager.getUser(p);
 		
 		if (args.length == 0) {
 			p.sendMessage("§cErro: /kit <nome_do_kit>");
 			return;
 		}
 		
-		KitManager.giveKit(p);
+		KitManager.setKit(user, args[0]);
 	}
 
 }

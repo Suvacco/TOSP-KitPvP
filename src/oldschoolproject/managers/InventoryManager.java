@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.Inventory;
 
-import oldschoolproject.entities.Kit;
+import oldschoolproject.entities.Kits;
 import oldschoolproject.utils.loaders.listener.BaseListener;
 
 public class InventoryManager extends BaseListener {
@@ -17,7 +17,7 @@ public class InventoryManager extends BaseListener {
 	public static void openInventory(Player p) {
 		kitInventory = Bukkit.createInventory(null, 54, "Kits");
 		
-		for (Kit kit : Kit.values()) {
+		for (Kits kit : Kits.values()) {
 			if (p.hasPermission("kit." + kit.name().toLowerCase())) {
 				kitInventory.addItem(kit.getSkillItem());
 			}
