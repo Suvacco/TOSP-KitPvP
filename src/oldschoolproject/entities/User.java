@@ -1,8 +1,6 @@
-package oldschoolproject.managers;
+package oldschoolproject.entities;
 
 import org.bukkit.entity.Player;
-
-import oldschoolproject.managers.skills.Kit;
 
 public class User {
 	

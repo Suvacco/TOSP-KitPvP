@@ -6,22 +6,17 @@ import org.bukkit.entity.Player;
 import oldschoolproject.managers.InventoryManager;
 import oldschoolproject.utils.loaders.command.BaseCommand;
 
-public class CKit extends BaseCommand {
+public class CInventory extends BaseCommand {
 
-	public CKit() {
-		super("kit");
+	public CInventory() {
+		super("kitinv");
 	}
 
 	@Override
 	public void onCommand(CommandSender sender, String[] args) {
 		Player p = (Player)sender;
 		
-		if (args.length == 0) {
-			p.sendMessage("§cErro: /kit <nome_do_kit>");
-			return;
-		}
-		
-		KitManager.giveKit(p);
+		InventoryManager.openInventory(p);
 	}
 
 }

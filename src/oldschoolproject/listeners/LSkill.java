@@ -1,15 +1,16 @@
-package oldschoolproject.managers.skills;
+package oldschoolproject.listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import oldschoolproject.managers.User;
+import oldschoolproject.entities.Kit;
+import oldschoolproject.entities.User;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.utils.loaders.listener.BaseListener;
 
-public class SkillHandler extends BaseListener {
+public class LSkill extends BaseListener {
 	
 	@EventHandler
 	public void onSkill(PlayerInteractEvent e) {
@@ -38,6 +39,8 @@ public class SkillHandler extends BaseListener {
 			player.sendMessage("§cCooldown: " + kit.getCooldownTime());
 			return;
 		}
+		
+		e.setCancelled(true);
 		
 		kit.activateSkill(player);
 	}

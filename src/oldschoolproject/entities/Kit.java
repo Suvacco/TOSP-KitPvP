@@ -1,4 +1,4 @@
-package oldschoolproject.managers.skills;
+package oldschoolproject.entities;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;

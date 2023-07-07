@@ -1,4 +1,4 @@
-package oldschoolproject.managers.skills;
+package oldschoolproject.entities;
 
 public interface Skill {
 	public void activate();

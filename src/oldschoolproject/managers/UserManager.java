@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 
+import oldschoolproject.entities.User;
+
 public class UserManager {
 	
 	private static Map<Player, User> userMap = new HashMap<>();
