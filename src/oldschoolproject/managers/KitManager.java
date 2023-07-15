@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import oldschoolproject.entities.Kits;
+import oldschoolproject.entities.Kit;
 import oldschoolproject.entities.State;
 import oldschoolproject.entities.User;
 import oldschoolproject.utils.builders.ItemBuilder;
@@ -33,39 +33,50 @@ public class KitManager {
 	
 	public static void giveKit(User user) {
 		Player p = user.getPlayer();
-		Inventory inv = p.getInventory();
 		
 		if (!user.isProtected()) {
 			return;
 		}
 		
 		if (!user.hasKit()) {
-			user.setKit(Kits.PvP);
+			user.setKit(Kit.PvP);
 			p.sendMessage("§eKit PvP selecionado automaticamente");
 		}
 		
-		inv.clear();
+		setupInventory(user);
 		
-		inv.setItem(0, user.getKit() == Kits.PvP ? new ItemBuilder(Material.STONE_SWORD).setName("§aEspada").toItemStack() : new ItemBuilder(Material.WOODEN_SWORD).setName("§aEspada").toItemStack());
-		
-		if (user.getKit() != Kits.PvP) 
-			inv.setItem(1, user.getKit().getSkillItem());
-		
-		for (int i = 0; i < inv.getSize(); i++) {
-			p.getInventory().addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Sopa").toItemStack());
-		}
-		
-		user.setState(State.Ingame);
+		user.setState(State.Playing);
 		
 		p.sendMessage("§aVocê recebeu o kit: " + user.getKit().getName());
 	}
 	
-	public static Kits findKit(String kitName) {
-		return Arrays.stream(Kits.values()).filter(kit -> kit.name().equalsIgnoreCase(kitName)).findFirst().orElse(null);
+	public static Kit findKit(String kitName) {
+		return Arrays.stream(Kit.values()).filter(kit -> kit.name().equalsIgnoreCase(kitName)).findFirst().orElse(null);
 	}
 	
 	public static boolean kitExists(String kitName) {
 		return findKit(kitName) != null;
 	}
-
+	
+	public static void setupInventory(User user) {
+		Inventory inv = user.getPlayer().getInventory();
+		
+		inv.clear();
+		
+		inv.setItem(0, user.getKit() == Kit.PvP ?
+				new ItemBuilder(Material.STONE_SWORD).setName("§aEspada").toItemStack() 
+				: 
+				new ItemBuilder(Material.WOODEN_SWORD).setName("§aEspada").toItemStack()
+		);
+		
+		inv.setItem(1, user.getKit().getSkillItem() == null ?
+				new ItemBuilder(Material.AIR).toItemStack()
+				:
+				new ItemBuilder(user.getKit().getSkillItem()).setName("§b" + user.getKit().getName()).toItemStack()
+		);
+		
+		for (int i = 0; i < inv.getSize(); i++) {
+			inv.addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Sopa").toItemStack());
+		}
+	}
 }

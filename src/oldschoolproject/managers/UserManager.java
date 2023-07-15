@@ -11,8 +11,10 @@ public class UserManager {
 	
 	private static Map<Player, User> userMap = new HashMap<>();
 	
-	public static void registerUser(Player p) {
-		userMap.put(p, new User(p));
+	public static User registerUser(Player p) {
+		User user = new User(p);
+		userMap.put(p, user);
+		return user;
 	}
 	
 	public static void unregisterUser(Player p) {

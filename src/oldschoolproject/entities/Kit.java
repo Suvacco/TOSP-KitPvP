@@ -12,21 +12,25 @@ import oldschoolproject.Main;
 import oldschoolproject.kits.SKangaroo;
 import oldschoolproject.kits.SPvP;
 
-public enum Kits {
+public enum Kit {
 	
 	PvP(new SPvP()),
 	Kangaroo(new SKangaroo());
 	
 	Skill skill;
 	
-	private static Map<Kits, Long> cooldowned = new HashMap<>();
+	private static Map<Kit, Long> cooldowned = new HashMap<>();
 	
-	Kits(Skill skill) {
+	Kit(Skill skill) {
 		this.skill = skill;
 	}
 	
 	public String getName() {
 		return this.skill.name;
+	}
+	
+	public ItemStack getKitSelectorItem() {
+		return this.skill.kitSelectorItem;
 	}
 	
 	public ItemStack getSkillItem() {
@@ -47,14 +51,14 @@ public enum Kits {
 	
 	public void activateSkill(Player player) {
 		this.skill.activate(player);
-		
+
 		cooldowned.put(this, System.currentTimeMillis());
 		
 		new BukkitRunnable() {
 			
 			public void run() {
 				
-				cooldowned.remove(Kits.this);
+				cooldowned.remove(Kit.this);
 				
 				player.sendMessage("§6Habilidade recarregada");
 			}

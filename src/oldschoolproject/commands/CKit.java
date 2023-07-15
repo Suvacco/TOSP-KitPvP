@@ -1,10 +1,12 @@
 package oldschoolproject.commands;
 
+import java.util.Arrays;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import oldschoolproject.entities.Kit;
 import oldschoolproject.entities.User;
-import oldschoolproject.managers.InventoryManager;
 import oldschoolproject.managers.KitManager;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.utils.loaders.command.BaseCommand;
@@ -21,7 +23,12 @@ public class CKit extends BaseCommand {
 		User user = UserManager.getUser(p);
 		
 		if (args.length == 0) {
-			p.sendMessage("§cErro: /kit <nome_do_kit>");
+			
+			StringBuilder sb = new StringBuilder();
+			
+			Arrays.stream(Kit.values()).forEach(kit -> sb.append(kit.getName() + ", "));
+			
+			p.sendMessage("§cErro: /kit [" + sb.toString().substring(0, sb.toString().length() - 2) + "]");
 			return;
 		}
 		

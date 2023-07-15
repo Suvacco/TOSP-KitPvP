@@ -3,12 +3,13 @@ package oldschoolproject.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import oldschoolproject.managers.InventoryManager;
+import oldschoolproject.managers.UserManager;
+import oldschoolproject.menus.KitSelectorMenu;
 import oldschoolproject.utils.loaders.command.BaseCommand;
 
-public class CInventory extends BaseCommand {
+public class CKitSelector extends BaseCommand {
 
-	public CInventory() {
+	public CKitSelector() {
 		super("kitinv");
 	}
 
@@ -16,7 +17,7 @@ public class CInventory extends BaseCommand {
 	public void onCommand(CommandSender sender, String[] args) {
 		Player p = (Player)sender;
 		
-		InventoryManager.openInventory(p);
+		new KitSelectorMenu(UserManager.getUser(p)).open();
 	}
 
 }
