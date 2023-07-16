@@ -45,6 +45,55 @@ public class Avatar extends Kit {
 		user.getPlayer().getInventory().setItemInMainHand(user.getKit().getSkillItem());
 	}
 	
+	@Override
+	public void activateSkill(PlayerInteractEvent e) {
+		if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+			
+			User user = UserManager.getUser(e.getPlayer());
+			
+			swapBeam(user);
+			
+			cancelCooldown(e.getPlayer());
+			
+			return;
+		}
+		
+		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			
+			BlockIterator bi = new BlockIterator(e.getPlayer().getEyeLocation(), 0, 24);
+			
+			new BukkitRunnable() {
+				public void run() {
+					if (bi.hasNext()) {
+						
+						Location loc = bi.next().getLocation();
+						loc.getWorld().playEffect(loc, Effect.STEP_SOUND, BeamType.values()[index].getMaterial());
+						
+						for (Entity nearby : loc.getWorld().getNearbyEntities(loc, 2.5D, 2.5D, 2.5D)) {
+							if (nearby == e.getPlayer()) {
+								continue;
+							}
+							
+							if (!(nearby instanceof LivingEntity)) {
+								continue;
+							}
+							
+							((LivingEntity)nearby).setNoDamageTicks(0);
+							((LivingEntity)nearby).damage(BeamType.values()[index].getDamage(), e.getPlayer());
+							((LivingEntity)nearby).setFireTicks(nearby.getFireTicks() + BeamType.values()[index].getFireTicks());
+							
+							if (BeamType.values()[index].getPotionEffect() != null) {
+								((LivingEntity)nearby).addPotionEffect(BeamType.values()[index].getPotionEffect());
+							}
+						}
+					} else {
+						this.cancel();
+					}
+				}
+			}.runTaskTimer(Main.getInstance(), 0, 1);
+		}
+	}
+	
 	public enum BeamType {
 		
 		Air(Material.QUARTZ_BLOCK, 1D, 0, new PotionEffect(PotionEffectType.WEAKNESS, 100, 1)),
@@ -78,53 +127,6 @@ public class Avatar extends Kit {
 		
 		PotionEffect getPotionEffect() {
 			return potionEffect;
-		}
-	}
-
-	@Override
-	public void activateSkill(PlayerInteractEvent e) {
-		if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
-			
-			User user = UserManager.getUser(e.getPlayer());
-			
-			swapBeam(user);
-			
-			cancelCooldown(e.getPlayer());
-			
-			return;
-		}
-		
-		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			BlockIterator bi = new BlockIterator(e.getPlayer().getEyeLocation(), 0, 24);
-			
-			new BukkitRunnable() {
-				public void run() {
-					if (bi.hasNext()) {
-						
-						Location loc = bi.next().getLocation();
-						loc.getWorld().playEffect(loc, Effect.STEP_SOUND, BeamType.values()[index].getMaterial());
-						
-						for (Entity nearby : loc.getWorld().getNearbyEntities(loc, 2.5D, 2.5D, 2.5D)) {
-							if (nearby == e.getPlayer()) {
-								continue;
-							}
-							
-							if (!(nearby instanceof LivingEntity)) {
-								continue;
-							}
-							
-							((LivingEntity)nearby).setNoDamageTicks(0);
-							((LivingEntity)nearby).damage(BeamType.values()[index].getDamage(), e.getPlayer());
-							((LivingEntity)nearby).setFireTicks(nearby.getFireTicks() + BeamType.values()[index].getFireTicks());
-							if (BeamType.values()[index].getPotionEffect() != null) {
-								((LivingEntity)nearby).addPotionEffect(BeamType.values()[index].getPotionEffect());
-							}
-						}
-					} else {
-						this.cancel();
-					}
-				}
-			}.runTaskTimer(Main.getInstance(), 0, 1);
 		}
 	}
 }
