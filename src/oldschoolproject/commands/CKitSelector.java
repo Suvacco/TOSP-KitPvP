@@ -3,9 +3,9 @@ package oldschoolproject.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import oldschoolproject.managers.UserManager;
 import oldschoolproject.menus.KitSelectorMenu;
-import oldschoolproject.utils.loaders.command.BaseCommand;
+import oldschoolproject.users.managers.UserManager;
+import oldschoolproject.utils.commands.BaseCommand;
 
 public class CKitSelector extends BaseCommand {
 

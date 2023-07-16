@@ -6,10 +6,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import oldschoolproject.entities.Kit;
-import oldschoolproject.entities.User;
-import oldschoolproject.managers.KitManager;
-import oldschoolproject.managers.UserManager;
+import oldschoolproject.kits.managers.Kit;
+import oldschoolproject.kits.managers.KitEnum;
+import oldschoolproject.kits.managers.KitManager;
+import oldschoolproject.users.User;
+import oldschoolproject.users.managers.UserManager;
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.menus.PaginatedMenu;
 
@@ -29,7 +30,7 @@ public class KitSelectorMenu extends PaginatedMenu {
 	@Override
 	public void handleInteraction(InventoryClickEvent e) {
 		if (e.getCurrentItem().equals(nextPageBtn)) {
-			if (!((index + 1) >= Kit.values().length)) {
+			if (!((index + 1) >= KitEnum.values().length)) {
 				page++;
 				this.open();
 			}
@@ -57,7 +58,7 @@ public class KitSelectorMenu extends PaginatedMenu {
 
 	@Override
 	public void fillMenu() {
-		Kit[] kits = Kit.values();
+		KitEnum[] kits = KitEnum.values();
 		
 		for (int i = 0; i < getMaxItemsPerPage(); i++) {
 			index = getMaxItemsPerPage() * page + i;
@@ -68,11 +69,11 @@ public class KitSelectorMenu extends PaginatedMenu {
 			
 			if (kits[index] != null) {
 			
-				ItemStack item = kits[index].getKitSelectorItem();
+				ItemStack item = kits[index].getStaticInstance().getKitSelectorItem();
 				
 				ItemMeta meta = item.getItemMeta();
 				
-				meta.setDisplayName("§6" + kits[index].getName());
+				meta.setDisplayName("§6" + kits[index].getStaticInstance().getName());
 				
 				item.setItemMeta(meta);
 			

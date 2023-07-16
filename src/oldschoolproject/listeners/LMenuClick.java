@@ -5,9 +5,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.InventoryHolder;
 
-import oldschoolproject.entities.User;
-import oldschoolproject.managers.UserManager;
-import oldschoolproject.utils.loaders.listener.BaseListener;
+import oldschoolproject.users.User;
+import oldschoolproject.users.managers.UserManager;
+import oldschoolproject.utils.listeners.BaseListener;
 import oldschoolproject.utils.menus.Menu;
 
 public class LMenuClick extends BaseListener {
@@ -24,16 +24,16 @@ public class LMenuClick extends BaseListener {
 		
 		// Holder is not the actual holder, but the object inventory
 		if (holder instanceof Menu) {
+			
+			Menu menu = (Menu) holder;
 		
-		if (e.getCurrentItem() == null) {
-			return;
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			
+			menu.handleInteraction(e);
+			
+			e.setCancelled(true);
 		}
-		
-		Menu menu = (Menu) holder;
-		
-		menu.handleInteraction(e);
-		
-		e.setCancelled(true);
-		
-		}}
+	}
 }

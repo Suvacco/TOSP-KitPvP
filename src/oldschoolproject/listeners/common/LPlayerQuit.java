@@ -3,8 +3,8 @@ package oldschoolproject.listeners.common;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import oldschoolproject.managers.UserManager;
-import oldschoolproject.utils.loaders.listener.BaseListener;
+import oldschoolproject.users.managers.UserManager;
+import oldschoolproject.utils.listeners.BaseListener;
 
 public class LPlayerQuit extends BaseListener {
 	

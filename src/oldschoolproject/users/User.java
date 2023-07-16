@@ -1,4 +1,4 @@
-package oldschoolproject.entities;
+package oldschoolproject.users;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -7,13 +7,16 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import oldschoolproject.kits.managers.Kit;
+import oldschoolproject.kits.managers.KitEnum;
+import oldschoolproject.users.managers.UserState;
 import oldschoolproject.utils.builders.ItemBuilder;
 
 public class User {
 	
 	Player player;
 	Kit kit;
-	State state;
+	UserState state;
 	
 	public User(Player player) {
 		this.player = player;
@@ -23,20 +26,20 @@ public class User {
 		return this.player;
 	}
 	
-	public void setState(State state) {
+	public void setState(UserState state) {
 		this.state = state;
 	}
 	
-	public State getState() {
+	public UserState getState() {
 		return this.state;
 	}
 	
 	public boolean isProtected() {
-		return this.state == State.Protected;
+		return this.state == UserState.Protected;
 	}
 	
-	public void setKit(Kit kit) {
-		this.kit = kit;
+	public void setKit(KitEnum kit) {
+		this.kit = kit.instanceKit();
 	}
 	
 	public Kit getKit() {
@@ -70,10 +73,10 @@ public class User {
 		this.player.getInventory().setArmorContents(null);
 		this.player.getInventory().clear();
 		this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
-		this.state = State.Protected;
+		this.state = UserState.Protected;
 		this.kit = null;
 		
-		this.player.getInventory().setItem(4, new ItemBuilder(Material.CHEST).setName("§6Kit Selector").toItemStack());
+		this.player.getInventory().setItem(4, new ItemBuilder(Material.CHEST).setName("§6Kits").toItemStack());
 	}
 	
 	public boolean hasKit() {

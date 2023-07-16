@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import oldschoolproject.entities.User;
+import oldschoolproject.users.User;
 import oldschoolproject.utils.builders.ItemBuilder;
 
 public abstract class PaginatedMenu extends Menu {

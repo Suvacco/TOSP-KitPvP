@@ -3,7 +3,7 @@ package oldschoolproject.listeners.common;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import oldschoolproject.utils.loaders.listener.BaseListener;
+import oldschoolproject.utils.listeners.BaseListener;
 
 public class LPlayerDeath extends BaseListener {
 	

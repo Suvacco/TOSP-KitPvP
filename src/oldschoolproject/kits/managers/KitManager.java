@@ -1,4 +1,4 @@
-package oldschoolproject.managers;
+package oldschoolproject.kits.managers;
 
 import java.util.Arrays;
 
@@ -6,9 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import oldschoolproject.entities.Kit;
-import oldschoolproject.entities.State;
-import oldschoolproject.entities.User;
+import oldschoolproject.kits.PvP;
+import oldschoolproject.users.User;
+import oldschoolproject.users.managers.UserState;
 import oldschoolproject.utils.builders.ItemBuilder;
 
 public class KitManager {
@@ -39,19 +39,19 @@ public class KitManager {
 		}
 		
 		if (!user.hasKit()) {
-			user.setKit(Kit.PvP);
+			user.setKit(KitEnum.PvP);
 			p.sendMessage("§eKit PvP selecionado automaticamente");
 		}
 		
 		setupInventory(user);
 		
-		user.setState(State.Playing);
+		user.setState(UserState.Playing);
 		
 		p.sendMessage("§aVocê recebeu o kit: " + user.getKit().getName());
 	}
 	
-	public static Kit findKit(String kitName) {
-		return Arrays.stream(Kit.values()).filter(kit -> kit.name().equalsIgnoreCase(kitName)).findFirst().orElse(null);
+	public static KitEnum findKit(String kitName) {
+		return Arrays.stream(KitEnum.values()).filter(kit -> kit.name().equalsIgnoreCase(kitName)).findFirst().orElse(null);
 	}
 	
 	public static boolean kitExists(String kitName) {
@@ -63,7 +63,7 @@ public class KitManager {
 		
 		inv.clear();
 		
-		inv.setItem(0, user.getKit() == Kit.PvP ?
+		inv.setItem(0, user.getKit() instanceof PvP ?
 				new ItemBuilder(Material.STONE_SWORD).setName("§aEspada").toItemStack() 
 				: 
 				new ItemBuilder(Material.WOODEN_SWORD).setName("§aEspada").toItemStack()
@@ -79,4 +79,5 @@ public class KitManager {
 			inv.addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Sopa").toItemStack());
 		}
 	}
+
 }

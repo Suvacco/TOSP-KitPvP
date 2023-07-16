@@ -1,11 +1,11 @@
-package oldschoolproject.managers;
+package oldschoolproject.users.managers;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
 
-import oldschoolproject.entities.User;
+import oldschoolproject.users.User;
 
 public class UserManager {
 	

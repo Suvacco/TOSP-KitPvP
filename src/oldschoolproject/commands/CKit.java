@@ -5,11 +5,11 @@ import java.util.Arrays;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import oldschoolproject.entities.Kit;
-import oldschoolproject.entities.User;
-import oldschoolproject.managers.KitManager;
-import oldschoolproject.managers.UserManager;
-import oldschoolproject.utils.loaders.command.BaseCommand;
+import oldschoolproject.kits.managers.KitEnum;
+import oldschoolproject.kits.managers.KitManager;
+import oldschoolproject.users.User;
+import oldschoolproject.users.managers.UserManager;
+import oldschoolproject.utils.commands.BaseCommand;
 
 public class CKit extends BaseCommand {
 
@@ -26,7 +26,7 @@ public class CKit extends BaseCommand {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			Arrays.stream(Kit.values()).forEach(kit -> sb.append(kit.getName() + ", "));
+			Arrays.stream(KitEnum.values()).forEach(kit -> sb.append(kit.getStaticInstance().getName() + ", "));
 			
 			p.sendMessage("§cErro: /kit [" + sb.toString().substring(0, sb.toString().length() - 2) + "]");
 			return;

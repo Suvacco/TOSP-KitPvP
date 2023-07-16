@@ -1,4 +1,4 @@
-package oldschoolproject.utils.loaders.command;
+package oldschoolproject.utils.commands;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -13,6 +13,8 @@ import org.bukkit.plugin.Plugin;
 
 import oldschoolproject.Main;
 import oldschoolproject.utils.ClassGetter;
+import oldschoolproject.utils.listeners.BaseListener;
+import oldschoolproject.utils.listeners.ListenerLoader;
 
 public class CommandLoader {
 
@@ -23,7 +25,10 @@ public class CommandLoader {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void loadCommandsAndRegister() {
+	public void loadCommandsAndRegister() {
+		int i = 0;
+		String sourcePkgName = CommandLoader.class.getPackage().getName().substring(0, CommandLoader.class.getPackage().getName().indexOf('.'));
+		
 		try {
 			Field commandmapfield = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 			commandmapfield.setAccessible(true);
@@ -31,9 +36,9 @@ public class CommandLoader {
 		} catch (Exception e) {
 			Bukkit.getLogger().warning("[CommandLoader] Error when trying to access the Command Map");
 		}
-		int i = 0;
-		for (Class<?> commandClass : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), "oldschoolproject.commands")) {
-			if (BaseCommandWithTab.class.isAssignableFrom(commandClass)) {
+		
+		for (Class<?> commandClass : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), sourcePkgName)) {
+			if (BaseCommandWithTab.class.isAssignableFrom(commandClass) && !commandClass.equals(BaseCommand.class) && !commandClass.equals(BaseCommandWithTab.class)) {
 				try {
 					BaseCommandWithTab command = null;
 					try {
@@ -43,12 +48,13 @@ public class CommandLoader {
 						command = (BaseCommandWithTab) commandClass.newInstance();
 					}
 					registerCommand((CommandExecutor) command, command.getName(), command.getDescription(), command.getAliases()).setTabCompleter((TabCompleter) command);
+					i++;
 				} catch (Exception e) {
 					Main.getInstance().getLogger().warning("[CommandLoader] Error when registering the command " + commandClass.getName() + " (TabCompleter)");
 				}
 				continue;
 			}
-			if (BaseCommand.class.isAssignableFrom(commandClass)) {
+			if (BaseCommand.class.isAssignableFrom(commandClass) && !commandClass.equals(BaseCommand.class) && !commandClass.equals(BaseCommandWithTab.class)) {
 				try {
 					BaseCommand command = null;
 					try {
@@ -58,12 +64,12 @@ public class CommandLoader {
 						command = (BaseCommand) commandClass.newInstance();
 					}
 					registerCommand((CommandExecutor) command, command.getName(), command.getDescription(), command.getAliases());
+					i++;
 				} catch (Exception e) {
 					e.printStackTrace();
 					Main.getInstance().getLogger().warning("[CommandLoader] Error when registering the command " + commandClass.getName());
 				}
 			}
-			i++;
 		}
 		Main.getInstance().getLogger().info("[CommandLoader] " + i + " commands loaded");
 	}

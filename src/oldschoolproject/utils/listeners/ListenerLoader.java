@@ -1,4 +1,4 @@
-package oldschoolproject.utils.loaders.listener;
+package oldschoolproject.utils.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -13,10 +13,13 @@ public class ListenerLoader {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void loadListenersAndRegister() {
+	public void loadListenersAndRegister() {
 		int i = 0;
-		for (Class<?> baseListener : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), "oldschoolproject.listeners")) {
-			if (BaseListener.class.isAssignableFrom(baseListener)) {
+		
+		String sourcePkgName = ListenerLoader.class.getPackage().getName().substring(0, ListenerLoader.class.getPackage().getName().indexOf('.'));
+		
+		for (Class<?> baseListener : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), sourcePkgName)) {
+			if (BaseListener.class.isAssignableFrom(baseListener) && !baseListener.equals(BaseListener.class)) {
 				try {
 					BaseListener listener;
 					try {

@@ -1,4 +1,4 @@
-package oldschoolproject.utils.loaders.listener;
+package oldschoolproject.utils.listeners;
 
 import org.bukkit.event.Listener;
 

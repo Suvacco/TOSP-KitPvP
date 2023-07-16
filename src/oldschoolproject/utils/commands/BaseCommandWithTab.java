@@ -1,11 +1,12 @@
-package oldschoolproject.utils.loaders.command;
+package oldschoolproject.utils.commands;
 
 import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 
-public abstract class BaseCommandWithTab extends BaseCommand implements TabExecutor {
+public abstract class BaseCommandWithTab extends BaseCommand implements TabExecutor  {
   
 	public BaseCommandWithTab(String command) {
 		super(command);

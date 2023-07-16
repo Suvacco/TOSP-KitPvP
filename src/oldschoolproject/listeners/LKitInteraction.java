@@ -9,12 +9,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import oldschoolproject.entities.Kit;
-import oldschoolproject.entities.User;
-import oldschoolproject.managers.KitManager;
-import oldschoolproject.managers.UserManager;
+import oldschoolproject.kits.managers.Kit;
+import oldschoolproject.kits.managers.KitManager;
+import oldschoolproject.users.User;
+import oldschoolproject.users.managers.UserManager;
 import oldschoolproject.utils.builders.ItemBuilder;
-import oldschoolproject.utils.loaders.listener.BaseListener;
+import oldschoolproject.utils.listeners.BaseListener;
 
 public class LKitInteraction extends BaseListener {
 	
@@ -76,22 +76,15 @@ public class LKitInteraction extends BaseListener {
 			return;
 		}
 		
-		// Isn't right clicking
-		if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) {
-			return;
-		}
-		
 		// Isn't on cooldown
 		if (kit.isOnCooldown()) {
-			player.sendMessage("§cCooldown: " + kit.getCooldownTime());
+			player.sendMessage("§cCooldown: " + kit.getCooldownTimeFormatted());
 			return;
 		}
-		
-		player.setCooldown(kit.getSkillItem().getType(), kit.getCooldownSeconds() * 20);
 		
 		e.setCancelled(true);
 		
-		kit.activateSkill(player);
+		kit.useSkill(e);
 	}
 
 }

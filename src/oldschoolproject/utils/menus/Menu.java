@@ -5,7 +5,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
-import oldschoolproject.entities.User;
+import oldschoolproject.users.User;
 
 public abstract class Menu implements InventoryHolder {
 	

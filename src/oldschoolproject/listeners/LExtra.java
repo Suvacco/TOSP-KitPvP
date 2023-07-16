@@ -4,7 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
-import oldschoolproject.utils.loaders.listener.BaseListener;
+import oldschoolproject.utils.listeners.BaseListener;
 
 public class LExtra extends BaseListener {
 	
