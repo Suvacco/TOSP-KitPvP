@@ -13,8 +13,6 @@ import org.bukkit.plugin.Plugin;
 
 import oldschoolproject.Main;
 import oldschoolproject.utils.ClassGetter;
-import oldschoolproject.utils.listeners.BaseListener;
-import oldschoolproject.utils.listeners.ListenerLoader;
 
 public class CommandLoader {
 
@@ -24,10 +22,10 @@ public class CommandLoader {
 		loadCommandsAndRegister();
 	}
 
-	@SuppressWarnings("deprecation")
 	public void loadCommandsAndRegister() {
 		int i = 0;
-		String sourcePkgName = CommandLoader.class.getPackage().getName().substring(0, CommandLoader.class.getPackage().getName().indexOf('.'));
+		
+		String srcPackage = CommandLoader.class.getPackage().getName().substring(0, CommandLoader.class.getPackage().getName().indexOf('.'));
 		
 		try {
 			Field commandmapfield = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -37,17 +35,13 @@ public class CommandLoader {
 			Bukkit.getLogger().warning("[CommandLoader] Error when trying to access the Command Map");
 		}
 		
-		for (Class<?> commandClass : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), sourcePkgName)) {
+		for (Class<?> commandClass : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), srcPackage)) {
 			if (BaseCommandWithTab.class.isAssignableFrom(commandClass) && !commandClass.equals(BaseCommand.class) && !commandClass.equals(BaseCommandWithTab.class)) {
 				try {
-					BaseCommandWithTab command = null;
-					try {
-						Constructor<?> con = commandClass.getConstructor(new Class[] { Main.class });
-						command = (BaseCommandWithTab) con.newInstance(new Object[] { Main.getInstance() });
-					} catch (Exception ex) {
-						command = (BaseCommandWithTab) commandClass.newInstance();
-					}
+					BaseCommandWithTab command = (BaseCommandWithTab) commandClass.getConstructor().newInstance();
+					
 					registerCommand((CommandExecutor) command, command.getName(), command.getDescription(), command.getAliases()).setTabCompleter((TabCompleter) command);
+					
 					i++;
 				} catch (Exception e) {
 					Main.getInstance().getLogger().warning("[CommandLoader] Error when registering the command " + commandClass.getName() + " (TabCompleter)");
@@ -56,14 +50,10 @@ public class CommandLoader {
 			}
 			if (BaseCommand.class.isAssignableFrom(commandClass) && !commandClass.equals(BaseCommand.class) && !commandClass.equals(BaseCommandWithTab.class)) {
 				try {
-					BaseCommand command = null;
-					try {
-						Constructor<?> con = commandClass.getConstructor(new Class[] { Main.class });
-						command = (BaseCommand) con.newInstance(new Object[] { Main.getInstance() });
-					} catch (Exception ex) {
-						command = (BaseCommand) commandClass.newInstance();
-					}
+					BaseCommand command = (BaseCommand) commandClass.getConstructor().newInstance();
+					
 					registerCommand((CommandExecutor) command, command.getName(), command.getDescription(), command.getAliases());
+					
 					i++;
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -3,10 +3,10 @@ package oldschoolproject.kits;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import oldschoolproject.kits.managers.Kit;
 import oldschoolproject.utils.builders.ItemBuilder;
+import oldschoolproject.utils.kits.BaseKit;
 
-public class PvP extends Kit {
+public class PvP extends BaseKit {
 
 	public PvP() {
 		super("PvP", null, new ItemBuilder(Material.STONE_SWORD).toItemStack(), null);
@@ -16,7 +16,7 @@ public class PvP extends Kit {
 	public void activateSkill(PlayerInteractEvent e) { }
 
 	@Override
-	public Kit createInstance() {
+	public BaseKit createInstance() {
 		return new PvP();
 	}
 

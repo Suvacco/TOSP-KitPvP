@@ -13,12 +13,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BlockIterator;
 
 import oldschoolproject.Main;
-import oldschoolproject.kits.managers.Kit;
+import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.users.managers.UserManager;
 import oldschoolproject.utils.builders.ItemBuilder;
+import oldschoolproject.utils.kits.BaseKit;
 
-public class Avatar extends Kit {
+public class Avatar extends BaseKit {
 	
 	public Avatar() {
 		super(
@@ -29,7 +29,7 @@ public class Avatar extends Kit {
 	}
 	
 	@Override
-	public Kit createInstance() {
+	public BaseKit createInstance() {
 		return new Avatar();
 	}
 	

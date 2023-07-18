@@ -6,7 +6,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LExtra extends BaseListener {
+public class LExtra implements BaseListener {
 	
 	@EventHandler
 	public void preventHealthRegen(EntityRegainHealthEvent e) {

@@ -4,11 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.users.managers.UserManager;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LPlayerRespawn extends BaseListener {
+public class LPlayerRespawn implements BaseListener {
 	
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {

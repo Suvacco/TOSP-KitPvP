@@ -3,10 +3,10 @@ package oldschoolproject.kits;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import oldschoolproject.kits.managers.Kit;
 import oldschoolproject.utils.builders.ItemBuilder;
+import oldschoolproject.utils.kits.BaseKit;
 
-public class Kangaroo extends Kit {
+public class Kangaroo extends BaseKit {
 
 	public Kangaroo() {
 		super("Kangaroo", new ItemBuilder(Material.FIREWORK_ROCKET).toItemStack(), 2);
@@ -19,7 +19,7 @@ public class Kangaroo extends Kit {
 	}
 
 	@Override
-	public Kit createInstance() {
+	public BaseKit createInstance() {
 		return new Kangaroo();
 	}
 

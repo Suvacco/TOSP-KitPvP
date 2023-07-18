@@ -1,6 +1,4 @@
-package oldschoolproject.kits.managers;
-
-import java.util.Arrays;
+package oldschoolproject.managers;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -8,8 +6,10 @@ import org.bukkit.inventory.Inventory;
 
 import oldschoolproject.kits.PvP;
 import oldschoolproject.users.User;
-import oldschoolproject.users.managers.UserState;
+import oldschoolproject.users.User.UserState;
 import oldschoolproject.utils.builders.ItemBuilder;
+import oldschoolproject.utils.kits.BaseKit;
+import oldschoolproject.utils.kits.KitLoader;
 
 public class KitManager {
 	
@@ -39,7 +39,7 @@ public class KitManager {
 		}
 		
 		if (!user.hasKit()) {
-			user.setKit(KitEnum.PvP);
+			user.setKit(new PvP());
 			p.sendMessage("§eKit PvP selecionado automaticamente");
 		}
 		
@@ -50,8 +50,8 @@ public class KitManager {
 		p.sendMessage("§aVocê recebeu o kit: " + user.getKit().getName());
 	}
 	
-	public static KitEnum findKit(String kitName) {
-		return Arrays.stream(KitEnum.values()).filter(kit -> kit.name().equalsIgnoreCase(kitName)).findFirst().orElse(null);
+	public static BaseKit findKit(String kitName) {
+		return KitLoader.getKitInstances().stream().filter(kit -> kit.getName().equalsIgnoreCase(kitName)).findFirst().orElse(null);
 	}
 	
 	public static boolean kitExists(String kitName) {

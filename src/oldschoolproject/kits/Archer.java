@@ -3,10 +3,10 @@ package oldschoolproject.kits;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import oldschoolproject.kits.managers.Kit;
 import oldschoolproject.utils.builders.ItemBuilder;
+import oldschoolproject.utils.kits.BaseKit;
 
-public class Archer extends Kit {
+public class Archer extends BaseKit {
 
 	public Archer() {
 		super("Archer", new ItemBuilder(Material.BOW).toItemStack(), null);
@@ -18,7 +18,7 @@ public class Archer extends Kit {
 	}
 
 	@Override
-	public Kit createInstance() {
+	public BaseKit createInstance() {
 		return new Archer();
 	}
 

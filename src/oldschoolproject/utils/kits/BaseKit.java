@@ -1,4 +1,4 @@
-package oldschoolproject.kits.managers;
+package oldschoolproject.utils.kits;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -12,28 +12,32 @@ import org.bukkit.scheduler.BukkitTask;
 
 import oldschoolproject.Main;
 
-public abstract class Kit {
+public abstract class BaseKit {
 	
-	private static Map<Kit, Long> cooldowned = new HashMap<>();
+	private static Map<BaseKit, Long> cooldowned = new HashMap<>();
 
 	String name;
 	ItemStack skillItem, kitSelectorItem;
 	Integer cooldownSeconds;
 	BukkitTask cooldownTask;
 	
-	public Kit(String name, ItemStack skillItem, Integer cooldownSeconds) {
+	public BaseKit(String name, ItemStack skillItem, Integer cooldownSeconds) {
 		this.name = name;
 		this.skillItem = skillItem;
 		this.kitSelectorItem = skillItem;
 		this.cooldownSeconds = cooldownSeconds;
 	}
 	
-	public Kit(String name, ItemStack skillItem, ItemStack kitSelectorItem, Integer cooldownSeconds) {
+	public BaseKit(String name, ItemStack skillItem, ItemStack kitSelectorItem, Integer cooldownSeconds) {
 		this.name = name;
 		this.skillItem = skillItem;
 		this.kitSelectorItem = kitSelectorItem;
 		this.cooldownSeconds = cooldownSeconds;
 	}
+	
+	public abstract void activateSkill(PlayerInteractEvent e);
+	
+	public abstract BaseKit createInstance();
 	
 	public void useSkill(PlayerInteractEvent e) {
 		if (hasCooldown()) {
@@ -46,7 +50,7 @@ public abstract class Kit {
 				
 				public void run() {
 					
-					cooldowned.remove(Kit.this);
+					cooldowned.remove(BaseKit.this);
 					
 					e.getPlayer().sendMessage("§6Habilidade recarregada");
 					
@@ -61,21 +65,13 @@ public abstract class Kit {
 	public void cancelCooldown(Player p) {
 		this.cooldownTask.cancel();
 		
-		cooldowned.remove(Kit.this);
+		cooldowned.remove(BaseKit.this);
 		
 		p.setCooldown(getSkillItem().getType(), 0);
 	}
 	
-	public abstract void activateSkill(PlayerInteractEvent e);
-	
-	public abstract Kit createInstance();
-
 	public String getName() {
 		return this.name;
-	}
-	
-	public boolean hasCooldown() {
-		return cooldownSeconds != null && cooldownSeconds != 0;
 	}
 	
 	public ItemStack getKitSelectorItem() {
@@ -86,16 +82,20 @@ public abstract class Kit {
 		return this.skillItem;
 	}
 	
-	public boolean isOnCooldown() {
-		return cooldowned.containsKey(this);
-	}
-	
 	public Integer getCooldownSeconds() {
 		return this.cooldownSeconds;
 	}
 	
 	public String getCooldownTimeFormatted() {
 		return String.valueOf(new DecimalFormat("#.##").format((double)(cooldowned.get(this) / 1000.0 + this.getCooldownSeconds() - System.currentTimeMillis() / 1000.0)));
+	}
+
+	public boolean hasCooldown() {
+		return cooldownSeconds != null && cooldownSeconds != 0;
+	}
+	
+	public boolean isOnCooldown() {
+		return cooldowned.containsKey(this);
 	}
 
 }

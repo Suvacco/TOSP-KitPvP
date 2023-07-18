@@ -4,9 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import oldschoolproject.users.managers.UserManager;
+import oldschoolproject.managers.UserManager;
 import oldschoolproject.utils.AutoReloader;
 import oldschoolproject.utils.commands.CommandLoader;
+import oldschoolproject.utils.kits.KitLoader;
 import oldschoolproject.utils.listeners.ListenerLoader;
 
 public class Main extends JavaPlugin {
@@ -51,6 +52,8 @@ public class Main extends JavaPlugin {
 		new CommandLoader();
 		
 		new ListenerLoader();
+		
+		new KitLoader();
 		
 		new AutoReloader();
 		

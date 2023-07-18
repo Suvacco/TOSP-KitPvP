@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.builders.ItemBuilder;
 
-public abstract class PaginatedMenu extends Menu {
+public abstract class PaginatedMenu extends BaseMenu {
 	
 	protected int page = 0;
 	protected int index = 0;

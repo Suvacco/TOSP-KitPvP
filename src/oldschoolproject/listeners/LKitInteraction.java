@@ -5,18 +5,17 @@ import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import oldschoolproject.kits.managers.Kit;
-import oldschoolproject.kits.managers.KitManager;
+import oldschoolproject.managers.KitManager;
+import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.users.managers.UserManager;
 import oldschoolproject.utils.builders.ItemBuilder;
+import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LKitInteraction extends BaseListener {
+public class LKitInteraction implements BaseListener {
 	
 	@EventHandler
 	public void onMoveThroughSponge(PlayerMoveEvent e) {
@@ -69,7 +68,7 @@ public class LKitInteraction extends BaseListener {
 			return;
 		}
 		
-		Kit kit = user.getKit();
+		BaseKit kit = user.getKit();
 		
 		// Isn't holding ability item
 		if (!player.getInventory().getItemInMainHand().isSimilar(kit.getSkillItem())) {

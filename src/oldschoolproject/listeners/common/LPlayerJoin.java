@@ -6,10 +6,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import oldschoolproject.users.managers.UserManager;
+import oldschoolproject.managers.UserManager;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LPlayerJoin extends BaseListener {
+public class LPlayerJoin implements BaseListener {
 	
 	@EventHandler
 	public void join(PlayerJoinEvent e) {

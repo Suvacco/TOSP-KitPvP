@@ -7,15 +7,13 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import oldschoolproject.kits.managers.Kit;
-import oldschoolproject.kits.managers.KitEnum;
-import oldschoolproject.users.managers.UserState;
 import oldschoolproject.utils.builders.ItemBuilder;
+import oldschoolproject.utils.kits.BaseKit;
 
 public class User {
 	
 	Player player;
-	Kit kit;
+	BaseKit kit;
 	UserState state;
 	
 	public User(Player player) {
@@ -38,11 +36,11 @@ public class User {
 		return this.state == UserState.Protected;
 	}
 	
-	public void setKit(KitEnum kit) {
-		this.kit = kit.instanceKit();
+	public void setKit(BaseKit kit) {
+		this.kit = kit;
 	}
 	
-	public Kit getKit() {
+	public BaseKit getKit() {
 		return this.kit;
 	}
 	
@@ -82,4 +80,9 @@ public class User {
 	public boolean hasKit() {
 		return this.kit != null;
 	}
+	
+	public enum UserState {
+		Playing, Protected;
+	}
+
 }

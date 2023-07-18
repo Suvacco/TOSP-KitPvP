@@ -1,4 +1,4 @@
-package oldschoolproject.users.managers;
+package oldschoolproject.managers;
 
 import java.util.HashMap;
 import java.util.Map;

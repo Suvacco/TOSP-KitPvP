@@ -5,7 +5,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LPlayerDeath extends BaseListener {
+public class LPlayerDeath implements BaseListener {
 	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {

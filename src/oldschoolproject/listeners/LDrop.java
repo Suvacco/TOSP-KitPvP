@@ -4,11 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
+import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.users.managers.UserManager;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LDrop extends BaseListener {
+public class LDrop implements BaseListener {
 	
 	@EventHandler
 	public void onDropProtected(PlayerDropItemEvent e) {

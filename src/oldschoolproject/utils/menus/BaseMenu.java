@@ -7,14 +7,14 @@ import org.bukkit.inventory.InventoryHolder;
 
 import oldschoolproject.users.User;
 
-public abstract class Menu implements InventoryHolder {
+public abstract class BaseMenu implements InventoryHolder {
 	
 	protected Inventory inventory;
 	protected User holder;
 	protected Integer slots;
 	protected String title;
 	
-	public Menu(User holder, Integer slots, String title) {
+	public BaseMenu(User holder, Integer slots, String title) {
 		this.holder = holder;
 		this.slots = slots;
 		this.title = title;

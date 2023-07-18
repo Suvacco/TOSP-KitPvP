@@ -12,21 +12,15 @@ public class ListenerLoader {
 		loadListenersAndRegister();
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void loadListenersAndRegister() {
 		int i = 0;
 		
-		String sourcePkgName = ListenerLoader.class.getPackage().getName().substring(0, ListenerLoader.class.getPackage().getName().indexOf('.'));
+		String srcPackage = ListenerLoader.class.getPackage().getName().substring(0, ListenerLoader.class.getPackage().getName().indexOf('.'));
 		
-		for (Class<?> baseListener : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), sourcePkgName)) {
+		for (Class<?> baseListener : (Iterable<Class<?>>) ClassGetter.getClassesForPackage(Main.getInstance(), srcPackage)) {
 			if (BaseListener.class.isAssignableFrom(baseListener) && !baseListener.equals(BaseListener.class)) {
 				try {
-					BaseListener listener;
-					try {
-						listener = (BaseListener) baseListener.getConstructor(new Class[] { Main.class }).newInstance(new Object[] { Main.getInstance() });
-					} catch (Exception e) {
-						listener = (BaseListener) baseListener.newInstance();
-					}
+					BaseListener listener = (BaseListener) baseListener.getConstructor().newInstance();
 					Bukkit.getPluginManager().registerEvents((Listener) listener, Main.getInstance());
 				} catch (Exception e) {
 					e.printStackTrace();
