@@ -9,6 +9,7 @@ import oldschoolproject.utils.AutoReloader;
 import oldschoolproject.utils.commands.CommandLoader;
 import oldschoolproject.utils.kits.KitLoader;
 import oldschoolproject.utils.listeners.ListenerLoader;
+import oldschoolproject.utils.warps.WarpLoader;
 
 public class Main extends JavaPlugin {
 	
@@ -33,16 +34,6 @@ public class Main extends JavaPlugin {
 	 * 
 	 */
 	
-	/*
-	 * Ideas
-	 * 
-	 * Skill could be an interface,
-	 *  Kit and abstract class instead of Skill and Kits the enum.
-	 *  But for now everythings good
-	 *  
-	 * Listener registration could be through Reflections to better coupling
-	 */
-	
 	public static Main getInstance() {
 		return getPlugin(Main.class);
 	}
@@ -54,6 +45,8 @@ public class Main extends JavaPlugin {
 		new ListenerLoader();
 		
 		new KitLoader();
+		
+		new WarpLoader();
 		
 		new AutoReloader();
 		

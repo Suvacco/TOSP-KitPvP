@@ -9,11 +9,13 @@ import org.bukkit.util.Vector;
 
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.kits.BaseKit;
+import oldschoolproject.utils.warps.BaseWarp;
 
 public class User {
 	
 	Player player;
 	BaseKit kit;
+	BaseWarp warp;
 	UserState state;
 	
 	public User(Player player) {
@@ -42,6 +44,14 @@ public class User {
 	
 	public BaseKit getKit() {
 		return this.kit;
+	}
+	
+	public void setWarp(BaseWarp warp) { 
+		this.warp = warp;
+	}
+	
+	public BaseWarp getWarp() {
+		return this.warp;
 	}
 	
 	public void reset() {

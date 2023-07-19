@@ -16,7 +16,7 @@ public class KitLoader {
 		loadKits();
 	}
 	
-	public static void loadKits() {
+	public void loadKits() {
 		int i = 0;
 		
 		// Gets the source package of the project
