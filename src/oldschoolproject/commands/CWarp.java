@@ -30,8 +30,6 @@ public class CWarp extends BaseCommand {
 			return;
 		}
 		
-		WarpManager.setWarp(user, args[0]);
+		WarpManager.changeWarp(user, args[0]);
 	}
-	
-
 }

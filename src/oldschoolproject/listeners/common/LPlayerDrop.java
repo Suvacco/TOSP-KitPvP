@@ -1,4 +1,4 @@
-package oldschoolproject.listeners;
+package oldschoolproject.listeners.common;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -8,7 +8,7 @@ import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LDrop implements BaseListener {
+public class LPlayerDrop implements BaseListener {
 	
 	@EventHandler
 	public void onDropProtected(PlayerDropItemEvent e) {

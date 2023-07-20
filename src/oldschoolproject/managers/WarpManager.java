@@ -7,8 +7,16 @@ import oldschoolproject.utils.warps.BaseWarp;
 import oldschoolproject.utils.warps.WarpLoader;
 
 public class WarpManager {
-
-	public static void setWarp(User user, String warpName) {
+	
+	public static void setWarp(User user, BaseWarp warp) {
+		user.setWarp(warp);
+		
+		warp.addPlayer(user.getPlayer());
+		
+		user.getPlayer().teleport(user.getWarp().getSpawnLocation());
+	}
+	
+	public static void changeWarp(User user, String warpName) {
 		Player p = user.getPlayer();
 		
 		if (!warpExists(warpName)) {
@@ -21,17 +29,20 @@ public class WarpManager {
 			return;
 		}
 		
-		BaseWarp warp = findWarp(warpName);
-
-		warp.addPlayer(p);
+		BaseWarp destination = findWarp(warpName);
 		
-		user.setWarp(warp);
+		if (user.getWarp().getClass() == destination.getClass()) {
+			p.sendMessage("§cErro: Você já está warp solicitada");
+			return;
+		}
 		
-		user.getPlayer().teleport(user.getWarp().getSpawnLocation());
+		user.getWarp().removePlayer(user.getPlayer());
 		
-		p.sendMessage("§aVocê foi teleportado para a warp: " + warpName);
+		setWarp(user, destination);
+		
+		p.sendMessage("§aVocê foi teleportado para a warp: " + warpName.substring(0, 1).toUpperCase() + warpName.substring(1).toLowerCase());
 	}
-
+	
 	public static BaseWarp findWarp(String warpName) {
 		return WarpLoader.getWarpInstances().stream().filter(warp -> warp.getName().equalsIgnoreCase(warpName)).findFirst().orElse(null);
 	}

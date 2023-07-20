@@ -1,32 +1,18 @@
-package oldschoolproject.listeners;
+package oldschoolproject.listeners.common;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 
-import oldschoolproject.managers.KitManager;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.builders.ItemBuilder;
-import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LKitInteraction implements BaseListener {
-	
-	@EventHandler
-	public void onMoveThroughSponge(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		User user = UserManager.getUser(p);
-		
-		if (p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE) {
-			KitManager.giveKit(user);
-		}
-	}
-	
+public class LPlayerInteract implements BaseListener {
+
 	@EventHandler
 	public void soupHeal(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
@@ -59,31 +45,27 @@ public class LKitInteraction implements BaseListener {
 	}
 	
 	@EventHandler
-	public void onSkill(PlayerInteractEvent e) {
-		Player player = e.getPlayer();
-		User user = UserManager.getUser(player);
+	public void openKitSelector(PlayerInteractEvent e) {
+		User user = UserManager.getUser(e.getPlayer());
 		
-		// Doesn't have kit
-		if (!user.hasKit()) {
+		if (!user.isProtected()) {
 			return;
 		}
 		
-		BaseKit kit = user.getKit();
-		
-		// Isn't holding ability item
-		if (!player.getInventory().getItemInMainHand().isSimilar(kit.getSkillItem())) {
+		if (e.getItem() == null) {
 			return;
 		}
 		
-		// Isn't on cooldown
-		if (kit.isOnCooldown()) {
-			player.sendMessage("§cCooldown: " + kit.getCooldownTimeFormatted());
+		if (e.getItem().getType().equals(Material.CHEST)) {
+			e.getPlayer().performCommand("kitinv");
+			return;
+		}
+		
+		if (e.getItem().getType().equals(Material.NETHER_STAR)) {
+			e.getPlayer().performCommand("warpinv");
 			return;
 		}
 		
 		e.setCancelled(true);
-		
-		kit.useSkill(e);
 	}
-
 }

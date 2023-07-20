@@ -6,10 +6,10 @@ import org.bukkit.entity.Player;
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.warps.BaseWarp;
 
-public class Duels extends BaseWarp {
+public class Spawn extends BaseWarp {
 
-	public Duels() {
-		super("Duels", new ItemBuilder(Material.BLAZE_ROD).toItemStack());
+	public Spawn() {
+		super("Spawn", new ItemBuilder(Material.COMPASS).toItemStack());
 	}
 
 	@Override
@@ -23,5 +23,7 @@ public class Duels extends BaseWarp {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 }

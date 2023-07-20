@@ -24,5 +24,4 @@ public class UserManager {
 	public static User getUser(Player player) {
 		return userMap.get(player);
 	}
-
 }

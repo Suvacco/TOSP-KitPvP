@@ -51,7 +51,9 @@ public class KitSelectorMenu extends PaginatedMenu {
 		
 		User user = UserManager.getUser((Player)e.getWhoClicked());
 		
-		KitManager.setKit(user, e.getCurrentItem().getItemMeta().getDisplayName().substring(2));
+//		KitManager.setKit(user, e.getCurrentItem().getItemMeta().getDisplayName().substring(2));
+		
+		user.getPlayer().performCommand("kit " + e.getCurrentItem().getItemMeta().getDisplayName().substring(2));
 		
 		user.getPlayer().closeInventory();
 	}
@@ -69,7 +71,7 @@ public class KitSelectorMenu extends PaginatedMenu {
 			
 			if (kits[index] != null) {
 			
-				ItemStack item = kits[index].getKitSelectorItem();
+				ItemStack item = kits[index].getMenuItem();
 				
 				ItemMeta meta = item.getItemMeta();
 				

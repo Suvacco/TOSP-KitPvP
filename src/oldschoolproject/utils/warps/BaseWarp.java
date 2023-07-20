@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import oldschoolproject.utils.builders.FileBuilder;
 
@@ -14,10 +15,12 @@ public abstract class BaseWarp {
 	String warpName;
 	FileBuilder fileBuilder;
 	Location spawnLocation;
+	ItemStack menuItem;
 	List<Player> players;
 	
-	public BaseWarp(String warpName) {
+	public BaseWarp(String warpName, ItemStack menuItem) {
 		this.warpName = warpName;
+		this.menuItem = menuItem;
 		this.fileBuilder = new FileBuilder("warps/" + warpName);
 		this.players = new ArrayList<>();
 		
@@ -50,15 +53,27 @@ public abstract class BaseWarp {
 	
 	public void addPlayer(Player player) {
 		this.players.add(player);
+		
+		handlePlayerJoin(player);
 	}
 	
 	public void removePlayer(Player player) {
 		this.players.remove(player);
+		
+		handlePlayerQuit(player);
 	}
 	
 	public List<Player> getPlayerList() {
 		return this.players;
 	}
+	
+	public ItemStack getMenuItem() {
+		return this.menuItem;
+	}
+	
+	public abstract void handlePlayerJoin(Player player);
+	
+	public abstract void handlePlayerQuit(Player player);
 	
 	public void setLocation(String path, Location location) {
 		this.fileBuilder.set(path + ".x", location.getX());

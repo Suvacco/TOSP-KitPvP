@@ -5,33 +5,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import oldschoolproject.Main;
+import oldschoolproject.utils.listeners.BaseListener;
 
 public abstract class BaseKit {
 	
 	private static Map<BaseKit, Long> cooldowned = new HashMap<>();
 
 	String name;
-	ItemStack skillItem, kitSelectorItem;
+	ItemStack skillItem, menuItem;
 	Integer cooldownSeconds;
 	BukkitTask cooldownTask;
 	
 	public BaseKit(String name, ItemStack skillItem, Integer cooldownSeconds) {
 		this.name = name;
 		this.skillItem = skillItem;
-		this.kitSelectorItem = skillItem;
+		this.menuItem = skillItem;
 		this.cooldownSeconds = cooldownSeconds;
 	}
 	
-	public BaseKit(String name, ItemStack skillItem, ItemStack kitSelectorItem, Integer cooldownSeconds) {
+	public BaseKit(String name, ItemStack skillItem, ItemStack menuItem, Integer cooldownSeconds) {
 		this.name = name;
 		this.skillItem = skillItem;
-		this.kitSelectorItem = kitSelectorItem;
+		this.menuItem = menuItem;
 		this.cooldownSeconds = cooldownSeconds;
 	}
 	
@@ -74,8 +76,8 @@ public abstract class BaseKit {
 		return this.name;
 	}
 	
-	public ItemStack getKitSelectorItem() {
-		return this.kitSelectorItem;
+	public ItemStack getMenuItem() {
+		return this.menuItem;
 	}
 	
 	public ItemStack getSkillItem() {
@@ -97,5 +99,4 @@ public abstract class BaseKit {
 	public boolean isOnCooldown() {
 		return cooldowned.containsKey(this);
 	}
-
 }

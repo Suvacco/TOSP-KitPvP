@@ -7,9 +7,11 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import oldschoolproject.managers.WarpManager;
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.warps.BaseWarp;
+import oldschoolproject.warps.Spawn;
 
 public class User {
 	
@@ -82,9 +84,10 @@ public class User {
 		this.player.getInventory().clear();
 		this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
 		this.state = UserState.Protected;
+		
 		this.kit = null;
 		
-		this.player.getInventory().setItem(4, new ItemBuilder(Material.CHEST).setName("§6Kits").toItemStack());
+		WarpManager.setWarp(this, WarpManager.findWarp("Spawn"));
 	}
 	
 	public boolean hasKit() {

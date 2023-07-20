@@ -26,7 +26,7 @@ public class KitManager {
 			return;
 		}
 		
-		user.setKit(findKit(kitName));
+		user.setKit(findKit(kitName).createInstance());
 		
 		p.sendMessage("§eKit selecionado: " + kitName.substring(0, 1).toUpperCase() + kitName.substring(1).toLowerCase());
 	}

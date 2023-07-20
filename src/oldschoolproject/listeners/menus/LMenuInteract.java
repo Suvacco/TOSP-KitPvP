@@ -1,4 +1,4 @@
-package oldschoolproject.listeners;
+package oldschoolproject.listeners.menus;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,7 +10,7 @@ import oldschoolproject.users.User;
 import oldschoolproject.utils.listeners.BaseListener;
 import oldschoolproject.utils.menus.BaseMenu;
 
-public class LMenuClick implements BaseListener {
+public class LMenuInteract implements BaseListener {
 	
 	@EventHandler
 	public void menuClick(InventoryClickEvent e) {
