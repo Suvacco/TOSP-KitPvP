@@ -1,6 +1,5 @@
-package oldschoolproject.listeners.kits;
+package oldschoolproject.kits.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -10,7 +9,7 @@ import oldschoolproject.users.User;
 import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LKitInteract implements BaseListener {
+public class LInteract implements BaseListener {
 	
 	@EventHandler
 	public void onSkill(PlayerInteractEvent e) {

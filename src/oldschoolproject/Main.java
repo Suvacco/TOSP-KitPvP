@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import oldschoolproject.managers.UserManager;
+import oldschoolproject.managers.WarpManager;
+import oldschoolproject.users.User;
 import oldschoolproject.utils.AutoReloader;
 import oldschoolproject.utils.commands.CommandLoader;
 import oldschoolproject.utils.kits.KitLoader;
@@ -52,7 +54,9 @@ public class Main extends JavaPlugin {
 		
 		// temp
 		for (Player all : Bukkit.getOnlinePlayers()) {
-			UserManager.registerUser(all);
+			User user = UserManager.registerUser(all);
+			
+			WarpManager.setWarp(user, WarpManager.findWarp("Spawn"));
 			
 			all.damage(20D);
 		}

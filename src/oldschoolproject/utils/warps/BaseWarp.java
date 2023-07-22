@@ -54,13 +54,15 @@ public abstract class BaseWarp {
 	public void addPlayer(Player player) {
 		this.players.add(player);
 		
-		handlePlayerJoin(player);
+		this.handlePlayerJoin(player);
+		
+		this.setDefaultItems(player);
 	}
 	
 	public void removePlayer(Player player) {
 		this.players.remove(player);
 		
-		handlePlayerQuit(player);
+		this.handlePlayerQuit(player);
 	}
 	
 	public List<Player> getPlayerList() {
@@ -70,6 +72,8 @@ public abstract class BaseWarp {
 	public ItemStack getMenuItem() {
 		return this.menuItem;
 	}
+	
+	public abstract void setDefaultItems(Player player);
 	
 	public abstract void handlePlayerJoin(Player player);
 	

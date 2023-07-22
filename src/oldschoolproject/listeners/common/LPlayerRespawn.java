@@ -1,6 +1,5 @@
 package oldschoolproject.listeners.common;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
@@ -14,9 +13,9 @@ public class LPlayerRespawn implements BaseListener {
 	public void onRespawn(PlayerRespawnEvent e) {
 		User user = UserManager.getUser(e.getPlayer());
 		
+		e.setRespawnLocation(user.getWarp().getSpawnLocation());
+		
 		user.reset();
-
-		e.setRespawnLocation(Bukkit.getWorld("world").getSpawnLocation());
 	}
 
 }

@@ -10,14 +10,21 @@ import oldschoolproject.users.User.UserState;
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.kits.KitLoader;
+import oldschoolproject.warps.Spawn;
 
 public class KitManager {
 	
+	// Direct command
 	public static void setKit(User user, String kitName) {
 		Player p = user.getPlayer();
 		
 		if (!kitExists(kitName)) {
 			p.sendMessage("§cErro: Kit inexistente: " + kitName); 
+			return;
+		}
+		
+		if (!(user.getWarp() instanceof Spawn)) {
+			p.sendMessage("§cErro: Não é possivel selecionar um kit fora do spawn");
 			return;
 		}
 		
@@ -31,13 +38,22 @@ public class KitManager {
 		p.sendMessage("§eKit selecionado: " + kitName.substring(0, 1).toUpperCase() + kitName.substring(1).toLowerCase());
 	}
 	
+	// Steping on sponge
 	public static void giveKit(User user) {
 		Player p = user.getPlayer();
+
+		// Doesn't make sense to send message every time unprotected player steps into sponge block
+		if (!(user.getWarp() instanceof Spawn)) {
+			return;
+		}
 		
+		// This guard exists for one reason: Having a kit doesn't mean you're playing, you can have a kit while beign protected
+		// Not beign protected means you're playing
 		if (!user.isProtected()) {
 			return;
 		}
 		
+		// this doesn't matter for the upper guard conditions
 		if (!user.hasKit()) {
 			user.setKit(new PvP());
 			p.sendMessage("§eKit PvP selecionado automaticamente");

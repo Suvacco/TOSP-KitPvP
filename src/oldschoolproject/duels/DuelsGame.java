@@ -8,12 +8,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 
+import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class Duels implements BaseListener {
+public class DuelsGame implements BaseListener {
 	
-	Map<Player, Player> requestsMap = new HashMap<>();
+	private ItemStack requestRod;
+	private Map<Player, Player> requestsMap;
+	
+	public DuelsGame() {
+		this.requestRod = new ItemBuilder(Material.BLAZE_ROD).setName("§cConvidar Jogador").toItemStack();
+		this.requestsMap = new HashMap<>();
+	}
+	
+	public ItemStack getRequestRod() {
+		return this.requestRod;
+	}
 	
 	@EventHandler
 	public void onClick(PlayerInteractAtEntityEvent e) {
@@ -24,7 +36,7 @@ public class Duels implements BaseListener {
 			
 			if (e.getHand().equals(EquipmentSlot.HAND)) {
 			
-				if (player.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
+				if (player.getInventory().getItemInMainHand().equals(requestRod)) {
 					
 					// If player clicking was clicked before by the player he is clicking
 					if (requestsMap.get(clicked) == player) { 
@@ -49,6 +61,4 @@ public class Duels implements BaseListener {
 			}
 		}
 	}
-
-	
 }

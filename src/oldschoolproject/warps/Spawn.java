@@ -14,16 +14,17 @@ public class Spawn extends BaseWarp {
 
 	@Override
 	public void handlePlayerJoin(Player player) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void handlePlayerQuit(Player player) {
-		// TODO Auto-generated method stub
+	public void handlePlayerQuit(Player player) { }
+
+	@Override
+	public void setDefaultItems(Player player) {
+		player.getInventory().setItem(4, new ItemBuilder(Material.CHEST).setName("§6Kits").toItemStack());
 		
+		player.getInventory().setItem(6, new ItemBuilder(Material.NETHER_STAR).setName("§bWarps").toItemStack());
 	}
 	
-	
-
 }

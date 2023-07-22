@@ -1,4 +1,4 @@
-package oldschoolproject.listeners.kits;
+package oldschoolproject.kits.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -11,7 +11,7 @@ import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.listeners.BaseListener;
 
-public class LKitDeliverMove implements BaseListener {
+public class LMove implements BaseListener {
 	
 	@EventHandler
 	public void onMoveThroughSponge(PlayerMoveEvent e) {
@@ -19,6 +19,7 @@ public class LKitDeliverMove implements BaseListener {
 		User user = UserManager.getUser(p);
 		
 		if (p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE) {
+			// launch player fowards
 			KitManager.giveKit(user);
 		}
 	}

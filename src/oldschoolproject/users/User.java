@@ -1,17 +1,13 @@
 package oldschoolproject.users;
 
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.WeatherType;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import oldschoolproject.managers.WarpManager;
-import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.warps.BaseWarp;
-import oldschoolproject.warps.Spawn;
 
 public class User {
 	
@@ -84,10 +80,18 @@ public class User {
 		this.player.getInventory().clear();
 		this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
 		this.state = UserState.Protected;
-		
 		this.kit = null;
 		
-		WarpManager.setWarp(this, WarpManager.findWarp("Spawn"));
+		this.teleportToWarp();
+		this.setWarpItems();
+	}
+	
+	public void setWarpItems() {
+		this.getWarp().setDefaultItems(this.getPlayer());
+	}
+	
+	public void teleportToWarp() {
+		this.getPlayer().teleport(this.getWarp().getSpawnLocation());
 	}
 	
 	public boolean hasKit() {

@@ -13,7 +13,7 @@ public class WarpManager {
 		
 		warp.addPlayer(user.getPlayer());
 		
-		user.getPlayer().teleport(user.getWarp().getSpawnLocation());
+		user.reset();
 	}
 	
 	public static void changeWarp(User user, String warpName) {

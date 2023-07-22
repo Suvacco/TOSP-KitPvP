@@ -3,6 +3,7 @@ package oldschoolproject.listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 
 import oldschoolproject.utils.listeners.BaseListener;
 
@@ -16,5 +17,11 @@ public class LExtra implements BaseListener {
 	@EventHandler
 	public void preventHunger(FoodLevelChangeEvent e) {
 		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void motd(ServerListPingEvent e) {
+		e.setMotd("§6§lTHE §e§lOLD SCHOOL §6§lPROJECT §7- §aKitPvP\n"
+				+ "§bServidor ligado e funcionando!");
 	}
 }
