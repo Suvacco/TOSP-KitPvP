@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
@@ -74,13 +75,17 @@ public class Avatar extends BaseKit {
 								continue;
 							}
 							
+							if (nearby instanceof Player && UserManager.getUser((Player)nearby).isProtected()) {
+								continue;
+							}
+							
 							if (!(nearby instanceof LivingEntity)) {
 								continue;
 							}
 							
 							((LivingEntity)nearby).setNoDamageTicks(0);
 							((LivingEntity)nearby).damage(BeamType.values()[index].getDamage(), e.getPlayer());
-							((LivingEntity)nearby).setFireTicks(nearby.getFireTicks() + BeamType.values()[index].getFireTicks());
+							((LivingEntity)nearby).setFireTicks(BeamType.values()[index].getFireTicks());
 							
 							if (BeamType.values()[index].getPotionEffect() != null) {
 								((LivingEntity)nearby).addPotionEffect(BeamType.values()[index].getPotionEffect());

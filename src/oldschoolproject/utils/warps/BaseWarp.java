@@ -1,8 +1,5 @@
 package oldschoolproject.utils.warps;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -12,17 +9,14 @@ import oldschoolproject.utils.builders.FileBuilder;
 
 public abstract class BaseWarp {
 	
-	String warpName;
-	FileBuilder fileBuilder;
-	Location spawnLocation;
-	ItemStack menuItem;
-	List<Player> players;
+	protected String warpName;
+	protected FileBuilder fileBuilder;
+	protected ItemStack menuItem;
 	
 	public BaseWarp(String warpName, ItemStack menuItem) {
 		this.warpName = warpName;
 		this.menuItem = menuItem;
 		this.fileBuilder = new FileBuilder("warps/" + warpName);
-		this.players = new ArrayList<>();
 		
 		loadSpawnLocation();
 	}
@@ -31,20 +25,24 @@ public abstract class BaseWarp {
 		Location defaultSpawn = Bukkit.getWorld("world").getSpawnLocation();
 		
 		if (fileBuilder.get("spawn") == null) {
-			setSpawnLocation(defaultSpawn);
 			setLocation("spawn", defaultSpawn);
+		}
+	}
+	
+	public void teleportToLocation(Player player, String path) {
+		Location loc = getLocation(path);
+		
+		if (loc == null) {
+			player.teleport(getSpawnLocation());
+			player.sendMessage("§cLocalização ainda não setada");
 			return;
 		}
 		
-		this.spawnLocation = this.loadLocation("spawn");
+		player.teleport(loc);
 	}
 	
 	public Location getSpawnLocation() {
-		return this.spawnLocation;
-	}
-	
-	public void setSpawnLocation(Location spawnLocation) {
-		this.spawnLocation = spawnLocation;
+		return this.getLocation("spawn");
 	}
 	
 	public String getName() {
@@ -52,21 +50,13 @@ public abstract class BaseWarp {
 	}
 	
 	public void addPlayer(Player player) {
-		this.players.add(player);
-		
 		this.handlePlayerJoin(player);
 		
 		this.setDefaultItems(player);
 	}
 	
 	public void removePlayer(Player player) {
-		this.players.remove(player);
-		
 		this.handlePlayerQuit(player);
-	}
-	
-	public List<Player> getPlayerList() {
-		return this.players;
 	}
 	
 	public ItemStack getMenuItem() {
@@ -83,13 +73,21 @@ public abstract class BaseWarp {
 		this.fileBuilder.set(path + ".x", location.getX());
 		this.fileBuilder.set(path + ".y", location.getY());
 		this.fileBuilder.set(path + ".z", location.getZ());
+		this.fileBuilder.set(path + ".yaw", location.getYaw());
+		this.fileBuilder.set(path + ".pitch", location.getPitch());
 	}
 	
-	public Location loadLocation(String path) {
+	public Location getLocation(String path) {
+		if (this.fileBuilder.get(path + ".x") == null) {
+			return null;
+		}
+		
 		double x = (double) this.fileBuilder.get(path + ".x");
 		double y = (double) this.fileBuilder.get(path + ".y");
 		double z = (double) this.fileBuilder.get(path + ".z");
+		double yaw = (double) this.fileBuilder.get(path + ".yaw");
+		double pitch = (double) this.fileBuilder.get(path + ".pitch");
 		
-		return new Location(Bukkit.getWorld("world"), x, y, z);
+		return new Location(Bukkit.getWorld("world"), x, y, z, (float)yaw, (float)pitch);
 	}
 }
