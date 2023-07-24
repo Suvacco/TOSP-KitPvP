@@ -9,9 +9,9 @@ import oldschoolproject.users.User;
 import oldschoolproject.utils.commands.BaseCommand;
 import oldschoolproject.utils.warps.WarpLoader;
 
-public class CWarp extends BaseCommand {
+public class CmdWarp extends BaseCommand {
 
-	public CWarp() {
+	public CmdWarp() {
 		super("warp");
 	}
 

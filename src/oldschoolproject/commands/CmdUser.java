@@ -7,18 +7,18 @@ import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.commands.BaseCommand;
 
-public class CUser extends BaseCommand {
+public class CmdUser extends BaseCommand {
 
-	public CUser() {
+	public CmdUser() {
 		super("user");
 	}
 
 	@Override
 	public void onCommand(CommandSender sender, String[] args) {
-		Player player = (Player)sender;
-		
+		Player player = (Player) sender;
+
 		User user = UserManager.getUser(player);
-		
+
 		player.sendMessage("§aUser: " + player.getName());
 //		player.sendMessage("§aKit: " + user.ki == null ? "Nada" : user.getKit().getName());
 		player.sendMessage("§aWarp: " + user.getWarp().getName());

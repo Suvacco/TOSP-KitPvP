@@ -27,6 +27,8 @@ public class Spawn extends BaseWarp implements BaseListener {
 
 	@Override
 	public void setDefaultItems(Player player) {
+		player.getInventory().setItem(2, new ItemBuilder(Material.EMERALD).setName("§aShop").toItemStack());
+		
 		player.getInventory().setItem(4, new ItemBuilder(Material.CHEST).setName("§6Kits").toItemStack());
 		
 		player.getInventory().setItem(6, new ItemBuilder(Material.NETHER_STAR).setName("§bWarps").toItemStack());

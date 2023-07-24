@@ -6,9 +6,13 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import lombok.Getter;
+import lombok.Setter;
 import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.warps.BaseWarp;
 
+@Getter
+@Setter
 public class User {
 	
 	Player player;
@@ -18,38 +22,6 @@ public class User {
 	
 	public User(Player player) {
 		this.player = player;
-	}
-	
-	public Player getPlayer() {
-		return this.player;
-	}
-	
-	public void setState(UserState state) {
-		this.state = state;
-	}
-	
-	public UserState getState() {
-		return this.state;
-	}
-	
-	public boolean isProtected() {
-		return this.state == UserState.Protected;
-	}
-	
-	public void setKit(BaseKit kit) {
-		this.kit = kit;
-	}
-	
-	public BaseKit getKit() {
-		return this.kit;
-	}
-	
-	public void setWarp(BaseWarp warp) { 
-		this.warp = warp;
-	}
-	
-	public BaseWarp getWarp() {
-		return this.warp;
 	}
 	
 	public void reset() {
@@ -92,6 +64,10 @@ public class User {
 	
 	public void teleportToWarp() {
 		this.getPlayer().teleport(this.getWarp().getSpawnLocation());
+	}
+	
+	public boolean isProtected() {
+		return this.state == UserState.Protected;
 	}
 	
 	public boolean hasKit() {

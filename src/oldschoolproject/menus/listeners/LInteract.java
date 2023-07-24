@@ -32,8 +32,6 @@ public class LInteract implements BaseListener {
 			}
 			
 			menu.handleInteraction(e);
-			
-			e.setCancelled(true);
 		}
 	}
 }

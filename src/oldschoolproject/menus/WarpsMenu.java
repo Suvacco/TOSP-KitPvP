@@ -37,6 +37,8 @@ public class WarpsMenu extends BaseMenu {
 
 	@Override
 	public void handleInteraction(InventoryClickEvent e) {
+		e.setCancelled(true);
+		
 		User user = UserManager.getUser((Player)e.getWhoClicked());
 		
 		WarpManager.changeWarp(user, e.getCurrentItem().getItemMeta().getDisplayName().substring(2));

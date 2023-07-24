@@ -9,9 +9,9 @@ import oldschoolproject.users.User;
 import oldschoolproject.utils.commands.BaseCommand;
 import oldschoolproject.utils.kits.KitLoader;
 
-public class CKit extends BaseCommand {
+public class CmdKit extends BaseCommand {
 
-	public CKit() {
+	public CmdKit() {
 		super("kit");
 	}
 

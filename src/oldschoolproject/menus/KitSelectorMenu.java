@@ -29,6 +29,8 @@ public class KitSelectorMenu extends PaginatedMenu {
 
 	@Override
 	public void handleInteraction(InventoryClickEvent e) {
+		e.setCancelled(true);
+		
 		if (e.getCurrentItem().equals(nextPageBtn)) {
 			if (!((index + 1) >= KitLoader.getKitInstances().size())) {
 				page++;
@@ -60,22 +62,23 @@ public class KitSelectorMenu extends PaginatedMenu {
 
 	@Override
 	public void fillMenu() {
-		BaseKit[] kits = KitLoader.getKitInstances().toArray(new BaseKit[KitLoader.getKitInstances().size()]);
+		BaseKit[] allKits = KitLoader.getKitInstances().toArray(new BaseKit[KitLoader.getKitInstances().size()]);
 		
 		for (int i = 0; i < getMaxItemsPerPage(); i++) {
+			
 			index = getMaxItemsPerPage() * page + i;
 			
-			if (index >= kits.length) {
+			if (index >= allKits.length) {
 				break;
 			}
 			
-			if (kits[index] != null) {
+			if (allKits[index] != null) {
 			
-				ItemStack item = kits[index].getMenuItem();
+				ItemStack item = allKits[index].getMenuItem();
 				
 				ItemMeta meta = item.getItemMeta();
 				
-				meta.setDisplayName("§6" + kits[index].getName());
+				meta.setDisplayName("§6" + allKits[index].getName());
 				
 				item.setItemMeta(meta);
 			

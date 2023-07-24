@@ -21,7 +21,11 @@ public class LPlayerJoin implements BaseListener {
 		
 		player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 15F, 0F);
 		
-		player.sendMessage("§aBem-vindo, " + player.getName());
+		player.setPlayerListHeaderFooter(
+				"\n §6§lTHE §e§lOLD SCHOOL §6§lPROJECT \n \n §7- §a§lKITPVP §7- \n",
+				"\n §e§lGitHub \n §bgithub.com/Suvacco/TOSP-KitPvP \n");
+		
+		player.sendTitle("§6§lTHE §e§lOS §6§lPROJECT", "§aBem-vindo " + player.getName() + "!", 1, 20 * 2, 10);
 		
 		e.setJoinMessage(null);
 	}

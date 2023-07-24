@@ -26,6 +26,13 @@
 	</repositories>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.28</version>
+			<scope>provided</scope>
+		</dependency>
+		
 	    <!--This adds the Spigot API artifact to the build -->
 	    <dependency>
 	           <groupId>org.spigotmc</groupId>

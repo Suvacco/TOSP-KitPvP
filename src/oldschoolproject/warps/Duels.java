@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -47,7 +48,9 @@ public class Duels extends BaseWarp implements BaseListener {
 
 	@Override
 	public void setDefaultItems(Player player) {
-		player.getInventory().setItem(4, new ItemBuilder(Material.BLAZE_ROD).setName("§cConvidar Jogador").toItemStack());
+		player.getInventory().setItem(1, new ItemBuilder(Material.BLAZE_ROD).setName("§eConvidar Jogador").toItemStack());
+		
+		player.getInventory().setItem(7, new ItemBuilder(Material.OAK_DOOR).setName("§cRetornar ao Spawn").toItemStack());
 	}
 	
 	private void giveItems(Player player) {
@@ -218,6 +221,28 @@ public class Duels extends BaseWarp implements BaseListener {
 					}
 				}
 			}
+		}
+	}
+	
+	@EventHandler
+	public void duelsInteract(PlayerInteractEvent e) {
+		User user = UserManager.getUser(e.getPlayer());
+		
+		if (!(user.getWarp() instanceof Duels)) {
+			return;
+		}
+		
+		if (!user.isProtected()) {
+			return;
+		}
+		
+		if (e.getItem() == null) {
+			return;
+		}
+		
+		if (e.getItem().getType().equals(Material.OAK_DOOR)) {
+			e.getPlayer().performCommand("warp spawn");
+			return;
 		}
 	}
 }

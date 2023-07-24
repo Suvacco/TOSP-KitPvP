@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import oldschoolproject.listeners.LExtra;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.managers.WarpManager;
 import oldschoolproject.users.User;
@@ -19,21 +18,19 @@ public class Main extends JavaPlugin {
 	/*
 	 * To-Do List
 	 * 
-	 * - 1v1 (Duels)
 	 * - SQL / MongoDB
 	 * - Scoreboard
-	 * - Warps 
 	 * - Ranks
 	 * - Elos
 	 * - Economy
-	 * - Kill Streak
-	 * - Kits Skills
-	 * - Soup Signs
+	 * - Kill Streak (w/ Combos)
 	 * - Boss Bar
 	 * - Holograms
 	 * - Tags
-	 * - Tab
-	 * - Title Messages
+	 * - NPCs
+	 * - Website
+	 * - Kit Store
+	 * - Feast
 	 * 
 	 */
 	

@@ -10,15 +10,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import lombok.Getter;
 import oldschoolproject.Main;
 
 public abstract class BaseKit {
 	
 	private static Map<BaseKit, Long> cooldowned = new HashMap<>();
 
+	@Getter
 	String name;
+	
+	@Getter
 	ItemStack skillItem, menuItem;
+	
+	@Getter
 	Integer cooldownSeconds;
+	
 	BukkitTask cooldownTask;
 	
 	public BaseKit(String name, ItemStack skillItem, Integer cooldownSeconds) {
@@ -68,22 +75,6 @@ public abstract class BaseKit {
 		cooldowned.remove(BaseKit.this);
 		
 		p.setCooldown(getSkillItem().getType(), 0);
-	}
-	
-	public String getName() {
-		return this.name;
-	}
-	
-	public ItemStack getMenuItem() {
-		return this.menuItem;
-	}
-	
-	public ItemStack getSkillItem() {
-		return this.skillItem;
-	}
-	
-	public Integer getCooldownSeconds() {
-		return this.cooldownSeconds;
 	}
 	
 	public String getCooldownTimeFormatted() {

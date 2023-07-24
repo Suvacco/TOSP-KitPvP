@@ -7,9 +7,9 @@ import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.commands.BaseCommand;
 
-public class CWarpLocation extends BaseCommand {
+public class CmdWarpLocation extends BaseCommand {
 
-	public CWarpLocation() {
+	public CmdWarpLocation() {
 		super("warploc");
 	}
 
