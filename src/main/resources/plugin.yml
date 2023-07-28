@@ -1,0 +1,7 @@
+name: TOSP-KitPvP
+version: 1.0
+main: oldschoolproject.Main
+api-version: '1.19'
+author: Suvacco
+description: A kitpvp Minecraft plugin for the Old School Project
+commands:

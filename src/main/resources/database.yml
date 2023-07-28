@@ -1,0 +1,20 @@
+# Database Configuration File
+
+# Choose in the option below what database you would like to use based on the provided options.
+# Options (Not case sensitive): "MongoDB" (Default option) or "SQL"
+
+DB_OPTION: 'MongoDB'
+
+# Insert your database connection details below, replace the curly brackets
+# with the corresponding information of the chosen database option
+
+# MongoDB
+
+MONGO_URI: 'mongodb+srv://{username}:{password}@{cluster}'
+MONGO_DATABASE: '{database}'
+ 
+# SQL
+
+SQL_URL: '{url}'
+SQL_USERNAME: '{username}'
+SQL_PASSWORD: '{password}'
