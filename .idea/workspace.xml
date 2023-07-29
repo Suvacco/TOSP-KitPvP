@@ -9,7 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="" />
+    <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TOSP_KitPvP_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/TOSP_KitPvP_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDamage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDamage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +30,13 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="2T5Z39G1jKwFYXj5b62CgxrYN18" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="false" />
@@ -31,26 +44,28 @@
     <option name="showMembers" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.1506683&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2226311&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15370595",
+    "project.structure.side.proportion": "0.2226311",
+    "settings.editor.selected.configurable": "settings.sync",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DESKTOP\Documents\Projects\Applications\Java\TOSP-KitPvP\src\main\resources" />
       <recent name="C:\Users\DESKTOP\Desktop\TOSP-KitPvP\src\main\resources" />
     </key>
   </component>
@@ -99,11 +114,21 @@
       <workItem from="1690522246891" duration="55000" />
       <workItem from="1690522330651" duration="145000" />
       <workItem from="1690522700508" duration="8000" />
-      <workItem from="1690523864070" duration="636000" />
+      <workItem from="1690523864070" duration="1215000" />
+      <workItem from="1690525262838" duration="18000" />
+      <workItem from="1690525371137" duration="601000" />
+      <workItem from="1690584684953" duration="5232000" />
+      <workItem from="1690593436150" duration="3494000" />
+      <workItem from="1690605175355" duration="1678000" />
+      <workItem from="1690609905959" duration="3494000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

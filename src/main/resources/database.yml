@@ -12,7 +12,7 @@ DB_OPTION: 'MongoDB'
 
 MONGO_URI: 'mongodb+srv://{username}:{password}@{cluster}'
 MONGO_DATABASE: '{database}'
- 
+
 # SQL
 
 SQL_URL: '{url}'

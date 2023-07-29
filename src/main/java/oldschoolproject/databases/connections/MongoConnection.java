@@ -24,7 +24,7 @@ public class MongoConnection implements DatabaseConnection {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.database);
         MongoCollection<Document> defaultCollection = mongoDatabase.getCollection("users");
 
-        Main.getInstance().getLogger().info("[DatabaseLoader] Connected to the MongoDB database");
+        Main.getInstance().getLogger().info("[DatabaseLoader] Successfully connected to MongoDB database");
     }
 
     @Override
