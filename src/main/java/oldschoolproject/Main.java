@@ -1,6 +1,7 @@
 package oldschoolproject;
 
 import oldschoolproject.databases.DatabaseLoader;
+import oldschoolproject.managers.DatabaseManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,6 +40,7 @@ public class Main extends JavaPlugin {
 		return getPlugin(Main.class);
 	}
 
+	@Override
 	public void onEnable() {
 
 		new CommandLoader();
@@ -53,10 +55,23 @@ public class Main extends JavaPlugin {
 
 		new AutoReloader();
 
-		resetPlayers();
+		registerPlayers();
 	}
 
-	public void resetPlayers() {
+	@Override
+	public void onDisable() {
+		unregisterPlayers();
+	}
+
+	// Debug Methods (Temporary)
+
+	public void unregisterPlayers() {
+		for (Player all : Bukkit.getOnlinePlayers()) {
+			DatabaseManager.saveUser(UserManager.getUser(all));
+		}
+	}
+
+	public void registerPlayers() {
 		for (Player all : Bukkit.getOnlinePlayers()) {
 			User user = UserManager.registerUser(all);
 

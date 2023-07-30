@@ -10,12 +10,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/data/DataType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/data/RankType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/TOSP_KitPvP_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/TOSP_KitPvP_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdKit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdKit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdDebug.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdWarpLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdSetLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDamage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDamage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/SQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/SQLConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerJoin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +37,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -44,25 +55,25 @@
     <option name="showMembers" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15370595",
-    "project.structure.side.proportion": "0.2226311",
-    "settings.editor.selected.configurable": "settings.sync",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15370595&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2226311&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DESKTOP\Documents\Projects\Applications\Java\TOSP-KitPvP\src\main\resources" />
@@ -120,7 +131,12 @@
       <workItem from="1690584684953" duration="5232000" />
       <workItem from="1690593436150" duration="3494000" />
       <workItem from="1690605175355" duration="1678000" />
-      <workItem from="1690609905959" duration="3494000" />
+      <workItem from="1690609905959" duration="3585000" />
+      <workItem from="1690671992188" duration="2624000" />
+      <workItem from="1690676769613" duration="275000" />
+      <workItem from="1690677063016" duration="228000" />
+      <workItem from="1690677307290" duration="128000" />
+      <workItem from="1690677453287" duration="15003000" />
     </task>
     <servers />
   </component>

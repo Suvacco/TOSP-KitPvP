@@ -13,11 +13,18 @@ public class UserManager {
 	
 	public static User registerUser(Player p) {
 		User user = new User(p);
+
+		DatabaseManager.authUser(user);
+
 		userMap.put(p, user);
+
 		return user;
 	}
 	
 	public static void unregisterUser(Player p) {
+
+		DatabaseManager.saveUser(getUser(p));
+
 		userMap.remove(p);
 	}
 	

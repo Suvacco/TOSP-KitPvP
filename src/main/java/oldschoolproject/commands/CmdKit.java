@@ -32,5 +32,4 @@ public class CmdKit extends BaseCommand {
 		
 		KitManager.setKit(user, args[0]);
 	}
-
 }

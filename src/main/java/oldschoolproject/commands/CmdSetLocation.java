@@ -7,10 +7,10 @@ import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.commands.BaseCommand;
 
-public class CmdWarpLocation extends BaseCommand {
+public class CmdSetLocation extends BaseCommand {
 
-	public CmdWarpLocation() {
-		super("warploc");
+	public CmdSetLocation() {
+		super("setloc");
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class CmdWarpLocation extends BaseCommand {
 		Player player = (Player)sender;
 		
 		if (args.length == 0) {
-			player.sendMessage("§cErro: /warploc [locname]");
+			player.sendMessage("§cErro: /setloc [locname]");
 			return;
 		}
 		

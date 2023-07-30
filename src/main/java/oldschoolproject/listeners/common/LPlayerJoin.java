@@ -16,12 +16,11 @@ public class LPlayerJoin implements BaseListener {
 	@EventHandler
 	public void join(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
+
 		User user = UserManager.registerUser(player);
-		
+
 		WarpManager.setWarp(user, WarpManager.findWarp("Spawn"));
 
-		DatabaseManager.registerPlayer(user);
-		
 		player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 15F, 0F);
 		
 		player.setPlayerListHeaderFooter(

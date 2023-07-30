@@ -6,10 +6,12 @@ import org.bukkit.entity.Player;
 
 public class DatabaseManager {
 
-    public static void registerPlayer(User user) {
-        Player player = user.getPlayer();
+    public static void authUser(User user) {
+        DatabaseLoader.getDatabaseConnection().authUser(user);
+    }
 
-        DatabaseLoader.getDatabaseConnection().registerPlayer(player);
+    public static void saveUser(User user) {
+        DatabaseLoader.getDatabaseConnection().saveUser(user);
     }
 
 }

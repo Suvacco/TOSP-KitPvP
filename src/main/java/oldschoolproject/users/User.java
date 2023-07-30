@@ -1,5 +1,6 @@
 package oldschoolproject.users;
 
+import oldschoolproject.users.data.RankType;
 import org.bukkit.GameMode;
 import org.bukkit.WeatherType;
 import org.bukkit.attribute.Attribute;
@@ -18,10 +19,16 @@ public class User {
 	Player player;
 	BaseKit kit;
 	BaseWarp warp;
+	@Getter @Setter
+	Integer kills, deaths, coins, duelsCount, duelsWins, duelsLosses;
+	@Getter @Setter
+	RankType rank;
 	UserState state;
 	
 	public User(Player player) {
 		this.player = player;
+		this.rank = RankType.MEMBER;
+		this.kills = this.deaths = this.coins = this.duelsCount = this.duelsWins = this.duelsLosses = 0;
 	}
 	
 	public void reset() {
@@ -51,6 +58,7 @@ public class User {
 		this.player.getInventory().setArmorContents(null);
 		this.player.getInventory().clear();
 		this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
+
 		this.state = UserState.Protected;
 		this.kit = null;
 		
