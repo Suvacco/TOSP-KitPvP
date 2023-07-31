@@ -20,6 +20,7 @@ public class CmdChat extends BaseCommand implements BaseListener {
 	public void onCommand(CommandSender sender, String[] args) {
 		if (args.length == 0) {
 			sender.sendMessage("§cErro: /chat [Stop : Resume : Clear]");
+			return;
 		}
 		
 		if (args[0].equalsIgnoreCase("stop")) {
@@ -49,23 +50,14 @@ public class CmdChat extends BaseCommand implements BaseListener {
 				Bukkit.broadcastMessage("");
 			}
 			sender.sendMessage("§aChat limpo!");
-			return;
 		}
 	}
 	
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
-		if (chatStatus) {
-			return;
+		if (!chatStatus && !e.getPlayer().isOp()) {
+			e.setCancelled(true);
+			e.getPlayer().sendMessage("§cO chat foi desativado");
 		}
-		
-		// Change to permission
-		if (e.getPlayer().isOp()) {
-			return;
-		}
-		
-		e.setCancelled(true);
-		e.getPlayer().sendMessage("§cO chat foi desativado");
 	}
-
 }

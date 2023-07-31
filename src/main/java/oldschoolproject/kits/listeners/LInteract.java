@@ -1,5 +1,7 @@
 package oldschoolproject.kits.listeners;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -30,7 +32,7 @@ public class LInteract implements BaseListener {
 		
 		// Isn't on cooldown
 		if (kit.isOnCooldown()) {
-			player.sendMessage("§cCooldown: " + kit.getCooldownTimeFormatted());
+			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§cSeu kit está em cooldown!"));
 			return;
 		}
 		

@@ -1,6 +1,6 @@
 package oldschoolproject.databases.connections;
 
-import oldschoolproject.users.data.DataType;
+import oldschoolproject.databases.DataType;
 import oldschoolproject.databases.DatabaseConnection;
 import oldschoolproject.users.User;
 
@@ -17,7 +17,7 @@ public class SQLConnection implements DatabaseConnection {
     }
 
     @Override
-    public void authUser(User user) {
+    public void loadUser(User user) {
 
     }
 
@@ -27,12 +27,12 @@ public class SQLConnection implements DatabaseConnection {
     }
 
     @Override
-    public void modifyData(User user, DataType dataType, Object value) {
+    public void modifyData(User user, DataType userData, Object value) {
 
     }
 
     @Override
-    public Object getData(User user, DataType dataType) {
+    public Object getData(User user, DataType userData) {
         return null;
     }
 }

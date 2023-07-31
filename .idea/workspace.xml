@@ -10,22 +10,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/data/DataType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/data/RankType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TOSP_KitPvP_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/TOSP_KitPvP_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdRank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdReload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/TagManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/ranks/Rank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/tags/TagBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdKit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdKit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdDebug.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdWarpLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdSetLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/CmdChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DatabaseLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/SQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/SQLConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/Archer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/Archer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/Avatar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/Avatar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/Kangaroo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/Kangaroo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/PvP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/PvP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/listeners/LInteract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/listeners/LInteract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDamage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDamage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDeath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerDeath.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/listeners/common/LPlayerJoin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/UserManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/data/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/DataType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/data/RankType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/AutoReloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/AutoReloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/kits/BaseKit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/kits/BaseKit.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +46,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -136,7 +146,8 @@
       <workItem from="1690676769613" duration="275000" />
       <workItem from="1690677063016" duration="228000" />
       <workItem from="1690677307290" duration="128000" />
-      <workItem from="1690677453287" duration="15003000" />
+      <workItem from="1690677453287" duration="15709000" />
+      <workItem from="1690742306587" duration="32419000" />
     </task>
     <servers />
   </component>

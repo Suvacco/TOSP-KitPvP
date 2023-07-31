@@ -1,6 +1,6 @@
 package oldschoolproject.users;
 
-import oldschoolproject.users.data.RankType;
+import oldschoolproject.users.ranks.Rank;
 import org.bukkit.GameMode;
 import org.bukkit.WeatherType;
 import org.bukkit.attribute.Attribute;
@@ -12,22 +12,25 @@ import lombok.Setter;
 import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.warps.BaseWarp;
 
-@Getter
-@Setter
+@Getter @Setter
 public class User {
 	
 	Player player;
+
 	BaseKit kit;
 	BaseWarp warp;
+
+	UserState state;
+
+	@Getter
+	Rank rank;
+
 	@Getter @Setter
 	Integer kills, deaths, coins, duelsCount, duelsWins, duelsLosses;
-	@Getter @Setter
-	RankType rank;
-	UserState state;
-	
+
 	public User(Player player) {
 		this.player = player;
-		this.rank = RankType.MEMBER;
+		this.rank = Rank.MEMBER;
 		this.kills = this.deaths = this.coins = this.duelsCount = this.duelsWins = this.duelsLosses = 0;
 	}
 	
@@ -60,10 +63,22 @@ public class User {
 		this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
 
 		this.state = UserState.Protected;
-		this.kit = null;
-		
+
+		this.resetKit();
 		this.teleportToWarp();
 		this.setWarpItems();
+	}
+
+	public void resetKit() {
+		if (this.hasKit()) {
+			this.getKit().removeBossBar(this.getPlayer());
+
+			if (this.getKit().isOnCooldown()) {
+				this.getKit().cancelCooldown(this.getPlayer());
+			}
+		}
+
+		this.kit = null;
 	}
 	
 	public void setWarpItems() {
@@ -80,6 +95,10 @@ public class User {
 	
 	public boolean hasKit() {
 		return this.kit != null;
+	}
+
+	public void setRank(String rank) {
+		this.rank = Rank.valueOf(rank);
 	}
 	
 	public enum UserState {

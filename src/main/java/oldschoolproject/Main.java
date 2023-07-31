@@ -17,25 +17,6 @@ import oldschoolproject.utils.warps.WarpLoader;
 
 public class Main extends JavaPlugin {
 
-	/*
-	 * To-Do List
-	 * 
-	 * - SQL / MongoDB with option to Config file
-	 * - Scoreboard
-	 * - Ranks
-	 * - Elos
-	 * - Economy
-	 * - Kill Streak (w/ Combos)
-	 * - Boss Bar
-	 * - Holograms
-	 * - Tags
-	 * - NPCs
-	 * - Website
-	 * - Kit Store
-	 * - Feast
-	 * 
-	 */
-
 	public static Main getInstance() {
 		return getPlugin(Main.class);
 	}
@@ -58,18 +39,7 @@ public class Main extends JavaPlugin {
 		registerPlayers();
 	}
 
-	@Override
-	public void onDisable() {
-		unregisterPlayers();
-	}
-
 	// Debug Methods (Temporary)
-
-	public void unregisterPlayers() {
-		for (Player all : Bukkit.getOnlinePlayers()) {
-			DatabaseManager.saveUser(UserManager.getUser(all));
-		}
-	}
 
 	public void registerPlayers() {
 		for (Player all : Bukkit.getOnlinePlayers()) {

@@ -4,6 +4,12 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +33,9 @@ public abstract class BaseKit {
 	Integer cooldownSeconds;
 	
 	BukkitTask cooldownTask;
-	
+
+	BossBar bossBar = Bukkit.getServer().createBossBar("", BarColor.RED, BarStyle.SOLID);
+
 	public BaseKit(String name, ItemStack skillItem, Integer cooldownSeconds) {
 		this.name = name;
 		this.skillItem = skillItem;
@@ -42,49 +50,65 @@ public abstract class BaseKit {
 		this.cooldownSeconds = cooldownSeconds;
 	}
 	
-	public abstract void activateSkill(PlayerInteractEvent e);
+	public abstract boolean activateSkill(PlayerInteractEvent e);
 	
 	public abstract BaseKit createInstance();
 	
 	public void useSkill(PlayerInteractEvent e) {
-		if (hasCooldown()) {
-			
-			e.getPlayer().setCooldown(getSkillItem().getType(), getCooldownSeconds() * 20);
-	
-			cooldowned.put(this, System.currentTimeMillis());
-			
-			this.cooldownTask = new BukkitRunnable() {
-				
-				public void run() {
-					
-					cooldowned.remove(BaseKit.this);
-					
-					e.getPlayer().sendMessage("§6Habilidade recarregada");
-					
-					this.cancel();
-				}
-			}.runTaskLater(Main.getInstance(), this.getCooldownSeconds() * 20);
+		if (this.activateSkill(e)) {
+			applyCooldown(e.getPlayer());
 		}
-		
-		this.activateSkill(e);
+	}
+
+	public void applyCooldown(Player player) {
+		player.setCooldown(getSkillItem().getType(), getCooldownSeconds() * 20);
+
+		cooldowned.put(this, System.currentTimeMillis());
+
+		this.bossBar.setColor(BarColor.RED);
+		this.bossBar.addPlayer(player);
+
+		this.cooldownTask = new BukkitRunnable() {
+
+			public void run() {
+
+				double progress = Math.max(0.0, Math.min(1.0, getCooldownTime() / getCooldownSeconds())); // Ensure progress is between 0.0 and 1.0
+
+				BaseKit.this.bossBar.setTitle("§c§l!! COOLDOWN " + getCooldownTimeFormatted() + "s !!");
+				BaseKit.this.bossBar.setProgress(progress);
+
+				if (getCooldownTime() <= 0) {
+					cancelCooldown(player);
+
+					player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(""));
+
+					BaseKit.this.bossBar.setTitle("§a§l!! SKILL READY !!");
+					BaseKit.this.bossBar.setColor(BarColor.GREEN);
+				}
+			}
+		}.runTaskTimer(Main.getInstance(), 0, 1);
+	}
+
+	public void removeBossBar(Player player) {
+		this.bossBar.removePlayer(player);
 	}
 	
-	public void cancelCooldown(Player p) {
+	public void cancelCooldown(Player player) {
 		this.cooldownTask.cancel();
-		
+
 		cooldowned.remove(BaseKit.this);
-		
-		p.setCooldown(getSkillItem().getType(), 0);
+
+		player.setCooldown(getSkillItem().getType(), 0);
+	}
+
+	public double getCooldownTime() {
+		return (double)(cooldowned.get(this) / 1000.0 + this.getCooldownSeconds() - System.currentTimeMillis() / 1000.0);
 	}
 	
 	public String getCooldownTimeFormatted() {
-		return String.valueOf(new DecimalFormat("#.##").format((double)(cooldowned.get(this) / 1000.0 + this.getCooldownSeconds() - System.currentTimeMillis() / 1000.0)));
+		return String.valueOf(new DecimalFormat("0.0").format(getCooldownTime()));
 	}
 
-	public boolean hasCooldown() {
-		return cooldownSeconds != null && cooldownSeconds != 0;
-	}
-	
 	public boolean isOnCooldown() {
 		return cooldowned.containsKey(this);
 	}

@@ -47,16 +47,14 @@ public class Avatar extends BaseKit {
 	}
 	
 	@Override
-	public void activateSkill(PlayerInteractEvent e) {
+	public boolean activateSkill(PlayerInteractEvent e) {
 		if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
 			
 			User user = UserManager.getUser(e.getPlayer());
 			
 			swapBeam(user);
 			
-			cancelCooldown(e.getPlayer());
-			
-			return;
+			return false;
 		}
 		
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -97,6 +95,7 @@ public class Avatar extends BaseKit {
 				}
 			}.runTaskTimer(Main.getInstance(), 0, 1);
 		}
+		return true;
 	}
 	
 	public enum BeamType {

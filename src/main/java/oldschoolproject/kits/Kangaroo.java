@@ -13,9 +13,9 @@ public class Kangaroo extends BaseKit {
 	}
 
 	@Override
-	public void activateSkill(PlayerInteractEvent e) {
+	public boolean activateSkill(PlayerInteractEvent e) {
 		e.getPlayer().setVelocity(e.getPlayer().getLocation().getDirection().multiply(1.5D));
-		
+		return true;
 	}
 
 	@Override

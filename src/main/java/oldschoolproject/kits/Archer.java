@@ -13,8 +13,8 @@ public class Archer extends BaseKit {
 	}
 
 	@Override
-	public void activateSkill(PlayerInteractEvent e) {
-		
+	public boolean activateSkill(PlayerInteractEvent e) {
+		return false;
 	}
 
 	@Override

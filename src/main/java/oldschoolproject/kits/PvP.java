@@ -13,7 +13,9 @@ public class PvP extends BaseKit {
 	}
 
 	@Override
-	public void activateSkill(PlayerInteractEvent e) { }
+	public boolean activateSkill(PlayerInteractEvent e) {
+		return false;
+	}
 
 	@Override
 	public BaseKit createInstance() {
