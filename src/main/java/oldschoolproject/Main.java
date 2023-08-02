@@ -42,12 +42,14 @@ public class Main extends JavaPlugin {
 	// Debug Methods (Temporary)
 
 	public void registerPlayers() {
-		for (Player all : Bukkit.getOnlinePlayers()) {
-			User user = UserManager.registerUser(all);
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			User user = new User(player.getUniqueId(), player.getName());
+
+			UserManager.registerUser(user);
 
 			WarpManager.setWarp(user, WarpManager.findWarp("Spawn"));
 
-			all.damage(20D);
+			player.damage(20D);
 		}
 	}
 }

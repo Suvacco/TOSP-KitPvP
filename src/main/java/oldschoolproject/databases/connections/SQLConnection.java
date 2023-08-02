@@ -27,12 +27,12 @@ public class SQLConnection implements DatabaseConnection {
     }
 
     @Override
-    public void modifyData(User user, DataType userData, Object value) {
+    public void updateUser(User user, DataType dataType, Object value) {
 
     }
 
     @Override
-    public Object getData(User user, DataType userData) {
+    public User findUserByName(String name) {
         return null;
     }
 }

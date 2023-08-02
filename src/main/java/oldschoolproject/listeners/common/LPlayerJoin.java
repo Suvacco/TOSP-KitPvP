@@ -1,5 +1,8 @@
 package oldschoolproject.listeners.common;
 
+import oldschoolproject.managers.DatabaseManager;
+import oldschoolproject.managers.TagManager;
+import oldschoolproject.managers.WarpManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +18,18 @@ public class LPlayerJoin implements BaseListener {
 	public void join(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 
-		User user = UserManager.registerUser(player);
+		User user = new User(player.getUniqueId(), player.getName());
+
+		UserManager.registerUser(user);
+
+		// Download all data from cloud to user object
+		DatabaseManager.loadUser(user);
+
+		// Reset player warp
+		WarpManager.setWarp(user, WarpManager.findWarp("Spawn"));
+
+		// Set players tag on the server
+		TagManager.setPrefix(user, user.getRank().getTag());
 
 		player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 15F, 0F);
 

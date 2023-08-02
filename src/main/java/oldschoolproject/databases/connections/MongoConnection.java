@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.bson.Document;
 
+import java.util.UUID;
+
 public class MongoConnection implements DatabaseConnection {
 
     String uri, database;
@@ -40,7 +42,7 @@ public class MongoConnection implements DatabaseConnection {
 
     @Override
     public void loadUser(User user) {
-        Document playerDocument = new Document("_id", user.getPlayer().getUniqueId().toString());
+        Document playerDocument = new Document("_id", user.getUuid().toString());
 
         Document foundPlayer = this.userCollection.find(playerDocument).first();
 
@@ -57,9 +59,10 @@ public class MongoConnection implements DatabaseConnection {
 
     @Override
     public void saveUser(User user) {
-        String userId = user.getPlayer().getUniqueId().toString();
+        String userId = user.getUuid().toString();
 
         Document playerDocument = new Document("_id", userId)
+                .append("name", user.getPlayer().getName())
                 .append("rank", user.getRank())
                 .append("kills", user.getKills())
                 .append("deaths", user.getDeaths())
@@ -68,36 +71,22 @@ public class MongoConnection implements DatabaseConnection {
                 .append("duels_wins", user.getDuelsWins())
                 .append("duels_losses", user.getDuelsLosses());
 
-        Document updateQuery = new Document("$set", playerDocument);
-
-        Document filterQuery = new Document("_id", userId);
-
-        this.userCollection.updateOne(filterQuery, updateQuery, new UpdateOptions().upsert(true));
-    }
-
-    @Override
-    public void modifyData(User user, DataType userData, Object value) {
-//        Document filter = new Document("uuid", user.getPlayer().getUniqueId().toString());
-//
-//        Document playerDocument = this.userCollection.find(filter).first();
-
         this.userCollection.updateOne(
-                new Document("_id", user.getPlayer().getUniqueId().toString()),
-                new Document("$set", new Document(userData.name().toLowerCase(), value)));
+                new Document("_id", userId),
+                new Document("$set", playerDocument),
+                new UpdateOptions().upsert(true));
     }
 
     @Override
-    public Object getData(User user, DataType userData) {
-//        Document playerDocument = new Document("uuid", user.getPlayer().getUniqueId().toString());
-//
-//        Document foundPlayer = this.userCollection.find(playerDocument).first();
-//
-//        if (foundPlayer != null) {
-//            return foundPlayer.get(dataType.name().toLowerCase());
-//        }
+    public void updateUser(User user, DataType dataType, Object value) {
+        this.userCollection.updateOne(
+                new Document("_id", user.getUuid().toString()),
+                new Document("$set", new Document(dataType.name().toLowerCase(), value)));
+    }
 
-        return this.userCollection.find(
-                new Document("_id", user.getPlayer().getUniqueId().toString())).first()
-                .get(userData.name().toLowerCase());
+    @Override
+    public User findUserByName(String name) {
+        Document document = this.userCollection.find(new Document("name", name)).first();
+        return document == null ? null : new User(UUID.fromString((String)document.get("_id")), (String)document.get("name"));
     }
 }

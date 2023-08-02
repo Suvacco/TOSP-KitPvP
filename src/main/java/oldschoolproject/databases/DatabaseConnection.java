@@ -10,7 +10,10 @@ public interface DatabaseConnection {
 
     public void saveUser(User user);
 
-    public void modifyData(User user, DataType userData, Object value);
+    public void updateUser(User user, DataType dataType, Object value);
 
-    public Object getData(User user, DataType userData);
+//    public Object getUserData(User user, DataType dataType);
+
+    public User findUserByName(String name);
+
 }
