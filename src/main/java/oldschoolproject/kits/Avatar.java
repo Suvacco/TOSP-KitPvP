@@ -59,7 +59,7 @@ public class Avatar extends BaseKit {
 		
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			
-			BlockIterator bi = new BlockIterator(e.getPlayer().getEyeLocation(), 0, 24);
+			BlockIterator bi = new BlockIterator(e.getPlayer().getEyeLocation(), 0, 11);
 			
 			new BukkitRunnable() {
 				public void run() {
@@ -85,9 +85,9 @@ public class Avatar extends BaseKit {
 							((LivingEntity)nearby).damage(BeamType.values()[index].getDamage(), e.getPlayer());
 							((LivingEntity)nearby).setFireTicks(BeamType.values()[index].getFireTicks());
 							
-							if (BeamType.values()[index].getPotionEffect() != null) {
+//							if (BeamType.values()[index].getPotionEffect() != null) {
 								((LivingEntity)nearby).addPotionEffect(BeamType.values()[index].getPotionEffect());
-							}
+//							}
 						}
 					} else {
 						this.cancel();
@@ -100,11 +100,11 @@ public class Avatar extends BaseKit {
 	
 	public enum BeamType {
 		
-		Air(Material.QUARTZ_BLOCK, 1D, 0, new PotionEffect(PotionEffectType.WEAKNESS, 100, 1)),
-		Water(Material.LAPIS_BLOCK, 0.5D, 0, new PotionEffect(PotionEffectType.POISON, 100, 1)),
-		Earth(Material.GRASS_BLOCK, 1D, 0, new PotionEffect(PotionEffectType.SLOW, 100, 2)),
-		Fire(Material.REDSTONE_BLOCK, 0.5D, 60, new PotionEffect(PotionEffectType.CONFUSION, 100, 1));
-		
+		Air(Material.QUARTZ_BLOCK, 0.5D, 0, new PotionEffect(PotionEffectType.WEAKNESS, 20 * 3, 2)),
+		Water(Material.LAPIS_BLOCK, 0.5D, 0, new PotionEffect(PotionEffectType.BLINDNESS, 20, 1)),
+		Earth(Material.GRASS_BLOCK, 0.5D, 0, new PotionEffect(PotionEffectType.SLOW, 20, 1)),
+		Fire(Material.REDSTONE_BLOCK, 0.5D, 60, new PotionEffect(PotionEffectType.CONFUSION, 20 * 3, 2));
+
 		Material material;
 		Double damage;
 		Integer fireTicks;

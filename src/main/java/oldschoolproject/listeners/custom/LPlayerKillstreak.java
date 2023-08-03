@@ -7,6 +7,7 @@ import oldschoolproject.users.User;
 import oldschoolproject.users.UserStats;
 import oldschoolproject.utils.listeners.BaseListener;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 
 public class LPlayerKillstreak implements BaseListener {
@@ -26,6 +27,7 @@ public class LPlayerKillstreak implements BaseListener {
             if (killstreak > (Integer)e.getUser().getStat(UserStats.KILLSTREAK_RECORD)) {
                 user.setStat(UserStats.KILLSTREAK_RECORD, killstreak);
                 user.getPlayer().sendMessage("§a§lNOVO RECORDE! §7Você atingiu um novo recorde de killstreak: §a" + killstreak);
+                user.getPlayer().playSound(user.getPlayer(), Sound.ENTITY_PLAYER_LEVELUP, 15.0F, 1.0F);
             }
 
             user.setStat(UserStats.KILLSTREAK, 0);
@@ -36,10 +38,19 @@ public class LPlayerKillstreak implements BaseListener {
 
             if (killstreak >= 3 && killstreak <= 8 || (killstreak >= 10 && killstreak % 5 == 0)) {
                 user.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(getStreakState((Integer)user.getStat(UserStats.KILLSTREAK))));
-            }
 
-            if (killstreak >= 10 && killstreak % 5 == 0) {
-                Bukkit.broadcastMessage("§3§lKILLSTREAK §b" + user.getPlayer().getName() + " §eestá em uma killstreak de §b" + (Integer)user.getStat(UserStats.KILLSTREAK));
+                if (killstreak <= 5) {
+                    user.getPlayer().playSound(user.getPlayer(), Sound.ENTITY_CAT_AMBIENT, 15.0F, 1.5F);
+                }
+
+                if (killstreak >= 6 && killstreak <= 8) {
+                    user.getPlayer().playSound(user.getPlayer(), Sound.ENTITY_ENDER_DRAGON_GROWL, 15.0F, 1.0F);
+                }
+
+                if (killstreak >= 10) {
+                    user.getPlayer().playSound(user.getPlayer(), Sound.ENTITY_WITHER_AMBIENT, 15.0F, 1.0F);
+                    Bukkit.broadcastMessage("§3§lKILLSTREAK §b" + user.getPlayer().getName() + " §eestá em uma killstreak de §b" + (Integer)user.getStat(UserStats.KILLSTREAK));
+                }
             }
         }
     }
