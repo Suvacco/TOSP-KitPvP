@@ -24,14 +24,14 @@ public class User {
 	UUID uuid;
 	String userName;
 
-	// Static values
+	// Initialized values
 	UserGuard userGuard = UserGuard.Protected;
 	UserRank userRank = UserRank.MEMBER;
 
-	// Modifiable integer stats
+	// Modifiable integers
 	Map<UserStats, Object> statsMap = new HashMap<>();
 
-	// Objects
+	// Player driven objects
 	BaseKit kit;
 	BaseWarp warp;
 
@@ -53,8 +53,6 @@ public class User {
 	public void load(Map<String, Object> values) {
 		this.setUserRank((String)values.get("rank"));
 
-		// The only way is using this for each, using a map.entry will cause in
-		// reading the name, _id and rank fields, which are not valid in the stats hash
 		for (UserStats userStats : UserStats.values()) {
 			if (userStats.isModifiable()) {
 				setStat(userStats, values.get(userStats.name().toLowerCase()));
