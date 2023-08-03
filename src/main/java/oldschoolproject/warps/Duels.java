@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import oldschoolproject.users.UserGuard;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,7 +21,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import oldschoolproject.Main;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.users.User.UserState;
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.listeners.BaseListener;
 import oldschoolproject.utils.warps.BaseWarp;
@@ -112,8 +112,8 @@ public class Duels extends BaseWarp implements BaseListener {
 					cantMove.remove(player);
 					clicked.sendMessage("§aGO!");
 					player.sendMessage("§aGO!");
-					playerUser.setState(UserState.Playing);
-					clickedUser.setState(UserState.Playing);
+					playerUser.setUserGuard(UserGuard.Playing);
+					clickedUser.setUserGuard(UserGuard.Playing);
 					this.cancel();
 				} else {
 				

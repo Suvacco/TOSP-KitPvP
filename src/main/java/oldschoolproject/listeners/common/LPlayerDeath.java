@@ -2,6 +2,7 @@ package oldschoolproject.listeners.common;
 
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
+import oldschoolproject.users.UserStats;
 import oldschoolproject.warps.Spawn;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,7 @@ public class LPlayerDeath implements BaseListener {
 		User user = UserManager.getUser(e.getEntity());
 
 		if (user.getWarp() instanceof Spawn) {
-			user.setDeaths(user.getDeaths() + 1);
+			user.setStat(UserStats.DEATHS, (Integer)user.getStat(UserStats.DEATHS) + 1);
 
 			user.getPlayer().sendMessage("§cVocê morreu");
 		}
@@ -26,7 +27,7 @@ public class LPlayerDeath implements BaseListener {
 
 			User killer = UserManager.getUser(e.getEntity().getKiller());
 
-			killer.setKills(killer.getKills() + 1);
+			user.setStat(UserStats.KILLS, (Integer)user.getStat(UserStats.KILLS) + 1);
 
 			killer.getPlayer().sendMessage("§aVocê matou o jogador " + user.getPlayer().getName());
 		}

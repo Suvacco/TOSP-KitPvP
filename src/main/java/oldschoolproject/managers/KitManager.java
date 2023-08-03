@@ -1,12 +1,12 @@
 package oldschoolproject.managers;
 
+import oldschoolproject.users.UserGuard;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import oldschoolproject.kits.PvP;
 import oldschoolproject.users.User;
-import oldschoolproject.users.User.UserState;
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.kits.BaseKit;
 import oldschoolproject.utils.kits.KitLoader;
@@ -61,7 +61,7 @@ public class KitManager {
 		
 		setupInventory(user);
 		
-		user.setState(UserState.Playing);
+		user.setUserGuard(UserGuard.Playing);
 		
 		p.sendMessage("§aVocê recebeu o kit: " + user.getKit().getName());
 	}

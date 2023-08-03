@@ -1,11 +1,11 @@
-package oldschoolproject.users.ranks;
+package oldschoolproject.users;
 
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
 
-public enum Rank {
+public enum UserRank {
 
     MEMBER
             (
@@ -43,7 +43,7 @@ public enum Rank {
     @Getter
     private List<String> permissions;
 
-    Rank(String tag, List<String> permissions) {
+    UserRank(String tag, List<String> permissions) {
         this.tag = tag;
         this.permissions = permissions;
     }

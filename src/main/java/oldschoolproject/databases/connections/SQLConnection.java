@@ -1,6 +1,6 @@
 package oldschoolproject.databases.connections;
 
-import oldschoolproject.databases.DataType;
+import oldschoolproject.users.UserStats;
 import oldschoolproject.databases.DatabaseConnection;
 import oldschoolproject.users.User;
 
@@ -27,7 +27,7 @@ public class SQLConnection implements DatabaseConnection {
     }
 
     @Override
-    public void updateUser(User user, DataType dataType, Object value) {
+    public void updateUser(User user, UserStats userStats, Object value) {
 
     }
 

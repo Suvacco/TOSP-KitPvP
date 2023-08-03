@@ -1,6 +1,6 @@
 package oldschoolproject.managers;
 
-import oldschoolproject.databases.DataType;
+import oldschoolproject.users.UserStats;
 import oldschoolproject.databases.DatabaseLoader;
 import oldschoolproject.users.User;
 
@@ -14,8 +14,8 @@ public class DatabaseManager {
         DatabaseLoader.getDatabaseConnection().saveUser(user);
     }
 
-    public static void updateUser(User user, DataType dataType, Object value) {
-        DatabaseLoader.getDatabaseConnection().updateUser(user, dataType, value);
+    public static void updateUser(User user, UserStats userStats, Object value) {
+        DatabaseLoader.getDatabaseConnection().updateUser(user, userStats, value);
     }
 
     public static User findUserByName(String name) {

@@ -29,7 +29,7 @@ public class LPlayerJoin implements BaseListener {
 		WarpManager.setWarp(user, WarpManager.findWarp("Spawn"));
 
 		// Set players tag on the server
-		TagManager.setPrefix(user, user.getRank().getTag());
+		TagManager.setPrefix(user, user.getUserRank().getTag());
 
 		player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 15F, 0F);
 

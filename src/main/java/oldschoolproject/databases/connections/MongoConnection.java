@@ -5,7 +5,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
-import oldschoolproject.databases.DataType;
+import oldschoolproject.users.UserStats;
 import oldschoolproject.databases.DatabaseConnection;
 import oldschoolproject.users.User;
 import org.apache.logging.log4j.Level;
@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.bson.Document;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class MongoConnection implements DatabaseConnection {
@@ -47,13 +49,7 @@ public class MongoConnection implements DatabaseConnection {
         Document foundPlayer = this.userCollection.find(playerDocument).first();
 
         if (foundPlayer != null) {
-            user.setRank((String) foundPlayer.get("rank"));
-            user.setKills((Integer) foundPlayer.get("kills"));
-            user.setDeaths((Integer) foundPlayer.get("deaths"));
-            user.setCoins((Integer) foundPlayer.get("coins"));
-            user.setDuelsCount((Integer) foundPlayer.get("duels_count"));
-            user.setDuelsWins((Integer) foundPlayer.get("duels_wins"));
-            user.setDuelsLosses((Integer) foundPlayer.get("duels_losses"));
+            user.load(foundPlayer);
         }
     }
 
@@ -61,15 +57,11 @@ public class MongoConnection implements DatabaseConnection {
     public void saveUser(User user) {
         String userId = user.getUuid().toString();
 
-        Document playerDocument = new Document("_id", userId)
-                .append("name", user.getPlayer().getName())
-                .append("rank", user.getRank())
-                .append("kills", user.getKills())
-                .append("deaths", user.getDeaths())
-                .append("coins", user.getCoins())
-                .append("duels_count", user.getDuelsCount())
-                .append("duels_wins", user.getDuelsWins())
-                .append("duels_losses", user.getDuelsLosses());
+        Document playerDocument = new Document("_id", userId).append("name", user.getPlayer().getName()).append("rank", user.getUserRank());
+
+        for (Map.Entry<UserStats, Object> entry : user.getStatsMap().entrySet()) {
+            playerDocument.append(entry.getKey().name().toLowerCase(), entry.getValue());
+        }
 
         this.userCollection.updateOne(
                 new Document("_id", userId),
@@ -78,10 +70,10 @@ public class MongoConnection implements DatabaseConnection {
     }
 
     @Override
-    public void updateUser(User user, DataType dataType, Object value) {
+    public void updateUser(User user, UserStats userStats, Object value) {
         this.userCollection.updateOne(
                 new Document("_id", user.getUuid().toString()),
-                new Document("$set", new Document(dataType.name().toLowerCase(), value)));
+                new Document("$set", new Document(userStats.name().toLowerCase(), value)));
     }
 
     @Override

@@ -1,12 +1,11 @@
 package oldschoolproject.commands;
 
-import oldschoolproject.databases.DataType;
-import oldschoolproject.databases.DatabaseLoader;
+import oldschoolproject.users.UserStats;
 import oldschoolproject.managers.DatabaseManager;
 import oldschoolproject.managers.TagManager;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.users.ranks.Rank;
+import oldschoolproject.users.UserRank;
 import oldschoolproject.utils.commands.BaseCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -31,7 +30,7 @@ public class CmdRank extends BaseCommand {
 
         if (args[0].equalsIgnoreCase("set")) {
             StringBuilder sb = new StringBuilder();
-            Arrays.stream(Rank.values()).forEach(rank -> sb.append(rank.name()).append(" : "));
+            Arrays.stream(UserRank.values()).forEach(userRank -> sb.append(userRank.name()).append(" : "));
 
             if (args.length == 1) {
                 player.sendMessage("§cErro: /rank set <player> <rank>");
@@ -61,15 +60,15 @@ public class CmdRank extends BaseCommand {
 
             // If player is offline
             if (onlinePlayer == null) {
-                DatabaseManager.updateUser(databasePlayer, DataType.RANK, Rank.valueOf(args[2].toUpperCase()));
+                DatabaseManager.updateUser(databasePlayer, UserStats.RANK, UserRank.valueOf(args[2].toUpperCase()));
                 return;
             }
 
             User onlineUser = UserManager.getUser(onlinePlayer);
 
-            onlineUser.setRank(args[2].toUpperCase());
+            onlineUser.setUserRank(args[2].toUpperCase());
 
-            TagManager.setPrefix(onlineUser, onlineUser.getRank().getTag());
+            TagManager.setPrefix(onlineUser, onlineUser.getUserRank().getTag());
             return;
         }
 

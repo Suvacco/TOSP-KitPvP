@@ -1,5 +1,6 @@
 package oldschoolproject.listeners.common;
 
+import oldschoolproject.users.UserGuard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,7 +10,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.users.User.UserState;
 import oldschoolproject.utils.listeners.BaseListener;
 
 public class LPlayerDamage implements BaseListener {
@@ -19,7 +19,7 @@ public class LPlayerDamage implements BaseListener {
 		User victim = UserManager.getUser((Player)e.getEntity());
 		User attacker = UserManager.getUser((Player)e.getDamager());
 		
-		if (victim.getState() == UserState.Playing && attacker.getState() == UserState.Playing) {
+		if (victim.getUserGuard() == UserGuard.Playing && attacker.getUserGuard() == UserGuard.Playing) {
 			return;
 		}
 		
@@ -44,7 +44,7 @@ public class LPlayerDamage implements BaseListener {
 			return;
 		}
 		
-		if (victim.getState() == UserState.Playing) {
+		if (victim.getUserGuard() == UserGuard.Playing) {
 			return;
 		}
 		
