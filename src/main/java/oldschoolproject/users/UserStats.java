@@ -5,7 +5,7 @@ public enum UserStats {
     KILLS(true),
     DEATHS(true),
     COINS(true),
-    KILLSTREAK(true),
+    KILLSTREAK(false),
     KILLSTREAK_RECORD(true),
     DUELS_COUNT(true),
     DUELS_WINS(true),
