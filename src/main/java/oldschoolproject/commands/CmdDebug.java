@@ -67,7 +67,7 @@ public class CmdDebug extends BaseCommand {
 		player.sendMessage("§aRank: §e" + targetedUser.getUserRank());
 		player.sendMessage("");
 
-		player.sendMessage("§b> Automatic Data:");
+		player.sendMessage("§b>Linear Data:");
 		for (UserStats stat : UserStats.values()) {
 			if (stat.isAutoManageable()) {
 				player.sendMessage("§b" + Character.toUpperCase(stat.name().toLowerCase().charAt(0)) + stat.name().toLowerCase().substring(1).replace("_", " ") + ": §e" + targetedUser.getStat(stat));

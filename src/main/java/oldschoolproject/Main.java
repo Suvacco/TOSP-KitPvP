@@ -4,6 +4,8 @@ import oldschoolproject.databases.DatabaseLoader;
 import oldschoolproject.managers.DatabaseManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import oldschoolproject.managers.UserManager;
@@ -39,19 +41,22 @@ public class Main extends JavaPlugin {
 		registerPlayers();
 	}
 
+	@Override
+	public void onDisable() {
+		unregisterPlayers();
+	}
+
 	// Debug Methods (Temporary)
+
+	public void unregisterPlayers() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			Bukkit.getPluginManager().callEvent(new PlayerQuitEvent(player, ""));
+		}
+	}
 
 	public void registerPlayers() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			User user = new User(player.getUniqueId(), player.getName());
-
-			UserManager.registerUser(user);
-
-			WarpManager.setWarp(user, WarpManager.findWarp("Spawn"));
-
-			player.damage(20D);
-
-			user.reset();
+			Bukkit.getPluginManager().callEvent(new PlayerJoinEvent(player, ""));
 		}
 	}
 }
