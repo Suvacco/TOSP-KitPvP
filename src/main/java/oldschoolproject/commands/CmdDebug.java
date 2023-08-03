@@ -56,16 +56,20 @@ public class CmdDebug extends BaseCommand {
 		player.sendMessage("");
 
 		if (targetedPlayer != null) {
+			player.sendMessage("§c> Session Data:");
 			player.sendMessage("§cKit: §e" + (targetedUser.hasKit() ? targetedUser.getKit().getName() : "Nenhum"));
 			player.sendMessage("§cWarp: §e" + targetedUser.getWarp().getName());
 			player.sendMessage("§cGuard: §e" + targetedUser.getUserGuard().toString());
+			player.sendMessage("§cKillstreak: §e" + targetedUser.getStat(UserStats.KILLSTREAK));
 			player.sendMessage("");
 		}
 
-		player.sendMessage("§bRank: §e" + targetedUser.getUserRank());
+		player.sendMessage("§aRank: §e" + targetedUser.getUserRank());
+		player.sendMessage("");
 
+		player.sendMessage("§b> Automatic Data:");
 		for (UserStats stat : UserStats.values()) {
-			if (stat.isModifiable()) {
+			if (stat.isAutoManageable()) {
 				player.sendMessage("§b" + Character.toUpperCase(stat.name().toLowerCase().charAt(0)) + stat.name().toLowerCase().substring(1).replace("_", " ") + ": §e" + targetedUser.getStat(stat));
 			}
 		}

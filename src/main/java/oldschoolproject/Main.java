@@ -50,6 +50,8 @@ public class Main extends JavaPlugin {
 			WarpManager.setWarp(user, WarpManager.findWarp("Spawn"));
 
 			player.damage(20D);
+
+			user.reset();
 		}
 	}
 }

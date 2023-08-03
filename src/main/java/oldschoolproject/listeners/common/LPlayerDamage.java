@@ -12,21 +12,20 @@ import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.listeners.BaseListener;
 
+import java.util.Arrays;
+
 public class LPlayerDamage implements BaseListener {
 	
 	@EventHandler
 	public void playerDamageByEntity(EntityDamageByEntityEvent e) {
 		User victim = UserManager.getUser((Player)e.getEntity());
 		User attacker = UserManager.getUser((Player)e.getDamager());
-		
-		if (victim.getUserGuard() == UserGuard.Playing && attacker.getUserGuard() == UserGuard.Playing) {
+
+		if (victim.getUserGuard() == UserGuard.Playing && attacker.getUserGuard() == UserGuard.Playing
+				&& victim.getWarp().equals(attacker.getWarp())) {
 			return;
 		}
-		
-		if (victim.getWarp().equals(attacker.getWarp())) {
-			return;
-		}
-		
+
 		e.setCancelled(true);
 	}
 
@@ -40,7 +39,11 @@ public class LPlayerDamage implements BaseListener {
 
 			victim.reset();
 
-			Bukkit.getServer().getPluginManager().callEvent(new PlayerDeathEvent(victim.getPlayer(), null, 0, null));
+			Bukkit.getServer().getPluginManager().callEvent(new PlayerDeathEvent(
+					victim.getPlayer(),
+					Arrays.asList(victim.getPlayer().getInventory().getContents()),
+					0,
+					null));
 			return;
 		}
 		

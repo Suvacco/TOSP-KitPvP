@@ -43,8 +43,10 @@ public class User {
 	}
 
 	public void resetStats() {
+		setStat(UserStats.KILLSTREAK, 0);
+
 		for (UserStats userStats : UserStats.values()) {
-			if (userStats.isModifiable()) {
+			if (userStats.isAutoManageable()) {
 				setStat(userStats, 0);
 			}
 		}
@@ -54,7 +56,7 @@ public class User {
 		this.setUserRank((String)values.get("rank"));
 
 		for (UserStats userStats : UserStats.values()) {
-			if (userStats.isModifiable()) {
+			if (userStats.isAutoManageable()) {
 				setStat(userStats, values.get(userStats.name().toLowerCase()));
 			}
 		}
@@ -90,6 +92,7 @@ public class User {
 		player.getInventory().clear();
 		player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
 
+		this.protect();
 		this.resetKit();
 		this.teleportToWarp();
 		this.setWarpItems();
@@ -105,6 +108,10 @@ public class User {
 		}
 
 		this.kit = null;
+	}
+
+	public void protect() {
+		this.setUserGuard(UserGuard.Protected);
 	}
 
 	public Player getPlayer() {

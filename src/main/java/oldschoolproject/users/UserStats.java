@@ -11,13 +11,13 @@ public enum UserStats {
     DUELS_WINS(true),
     DUELS_LOSSES(true);
 
-    boolean modifiable;
+    boolean autoManageable;
 
-    UserStats(boolean modifiable) {
-        this.modifiable = modifiable;
+    UserStats(boolean autoManageable) {
+        this.autoManageable = autoManageable;
     }
 
-    public boolean isModifiable() {
-        return this.modifiable;
+    public boolean isAutoManageable() {
+        return this.autoManageable;
     }
 }
