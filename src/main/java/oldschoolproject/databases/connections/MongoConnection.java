@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.bson.Document;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -79,6 +78,15 @@ public class MongoConnection implements DatabaseConnection {
     @Override
     public User findUserByName(String name) {
         Document document = this.userCollection.find(new Document("name", name)).first();
-        return document == null ? null : new User(UUID.fromString((String)document.get("_id")), (String)document.get("name"));
+
+        if (document == null) {
+            return null;
+        }
+
+        User user = new User(UUID.fromString((String)document.get("_id")), (String)document.get("name"));
+
+        user.load(document);
+
+        return user;
     }
 }

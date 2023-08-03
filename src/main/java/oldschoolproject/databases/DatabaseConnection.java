@@ -13,7 +13,7 @@ public interface DatabaseConnection {
 
     public void updateUser(User user, UserStats userStats, Object value);
 
-//    public Object getUserData(User user, DataType dataType);
+//    public Object getUserData(User user, UserStats userStats);
 
     public User findUserByName(String name);
 
