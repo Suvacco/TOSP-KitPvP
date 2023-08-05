@@ -1,21 +1,20 @@
 package oldschoolproject;
 
 import oldschoolproject.databases.DatabaseLoader;
-import oldschoolproject.managers.DatabaseManager;
+import oldschoolproject.holograms.HologramLoader;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import oldschoolproject.managers.UserManager;
-import oldschoolproject.managers.WarpManager;
-import oldschoolproject.users.User;
 import oldschoolproject.utils.AutoReloader;
-import oldschoolproject.utils.commands.CommandLoader;
-import oldschoolproject.utils.kits.KitLoader;
-import oldschoolproject.utils.listeners.ListenerLoader;
-import oldschoolproject.utils.warps.WarpLoader;
+import oldschoolproject.commands.CommandLoader;
+import oldschoolproject.kits.KitLoader;
+import oldschoolproject.events.ListenerLoader;
+import oldschoolproject.warps.WarpLoader;
 
 public class Main extends JavaPlugin {
 
@@ -37,6 +36,8 @@ public class Main extends JavaPlugin {
 		new DatabaseLoader();
 
 		new AutoReloader();
+
+		new HologramLoader();
 
 		registerPlayers();
 	}

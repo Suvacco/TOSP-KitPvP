@@ -7,8 +7,8 @@ import org.bukkit.inventory.InventoryHolder;
 
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.utils.listeners.BaseListener;
-import oldschoolproject.utils.menus.BaseMenu;
+import oldschoolproject.events.BaseListener;
+import oldschoolproject.menus.BaseMenu;
 
 public class LInteract implements BaseListener {
 	

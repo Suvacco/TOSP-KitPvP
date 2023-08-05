@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import oldschoolproject.managers.KitManager;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.utils.listeners.BaseListener;
+import oldschoolproject.events.BaseListener;
 
 public class LMove implements BaseListener {
 	

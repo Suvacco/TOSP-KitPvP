@@ -3,8 +3,8 @@ package oldschoolproject.managers;
 import org.bukkit.entity.Player;
 
 import oldschoolproject.users.User;
-import oldschoolproject.utils.warps.BaseWarp;
-import oldschoolproject.utils.warps.WarpLoader;
+import oldschoolproject.warps.BaseWarp;
+import oldschoolproject.warps.WarpLoader;
 
 public class WarpManager {
 	

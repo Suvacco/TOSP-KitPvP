@@ -9,12 +9,11 @@ import org.bukkit.util.Vector;
 
 import lombok.Getter;
 import lombok.Setter;
-import oldschoolproject.utils.kits.BaseKit;
-import oldschoolproject.utils.warps.BaseWarp;
+import oldschoolproject.kits.BaseKit;
+import oldschoolproject.warps.BaseWarp;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter @Setter
@@ -40,26 +39,6 @@ public class User {
 		this.uuid = uuid;
 
 		this.resetStats();
-	}
-
-	public void resetStats() {
-		setStat(UserStats.KILLSTREAK, 0);
-
-		for (UserStats userStats : UserStats.values()) {
-			if (userStats.isAutoManageable()) {
-				setStat(userStats, 0);
-			}
-		}
-	}
-
-	public void load(Map<String, Object> values) {
-		this.setUserRank((String)values.get("rank"));
-
-		for (UserStats userStats : UserStats.values()) {
-			if (userStats.isAutoManageable()) {
-				setStat(userStats, values.get(userStats.name().toLowerCase()));
-			}
-		}
 	}
 
 	public void reset() {
@@ -92,26 +71,43 @@ public class User {
 		player.getInventory().clear();
 		player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
 
-		this.protect();
+		this.setUserGuard(UserGuard.Protected);
 		this.resetKit();
 		this.teleportToWarp();
 		this.setWarpItems();
 	}
 
 	public void resetKit() {
-		if (this.hasKit()) {
-			this.getKit().removeBossBar(this.getPlayer());
-
-			if (this.getKit().isOnCooldown()) {
-				this.getKit().cancelCooldown(this.getPlayer());
-			}
+		if (!this.hasKit()) {
+			return;
 		}
 
+		if (this.getKit().isOnCooldown()) {
+			this.getKit().cancelCooldown(this.getPlayer());
+		}
+
+		this.getKit().removeBossBar(this.getPlayer());
 		this.kit = null;
 	}
 
-	public void protect() {
-		this.setUserGuard(UserGuard.Protected);
+	public void resetStats() {
+		setStat(UserStats.KILLSTREAK, 0);
+
+		for (UserStats userStats : UserStats.values()) {
+			if (userStats.isAutoManageable()) {
+				setStat(userStats, 0);
+			}
+		}
+	}
+
+	public void loadStats(Map<String, Object> values) {
+		this.setUserRank((String)values.get("rank"));
+
+		for (UserStats userStats : UserStats.values()) {
+			if (userStats.isAutoManageable()) {
+				setStat(userStats, values.get(userStats.name().toLowerCase()));
+			}
+		}
 	}
 
 	public Player getPlayer() {

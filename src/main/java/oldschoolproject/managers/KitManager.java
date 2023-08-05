@@ -5,12 +5,12 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import oldschoolproject.kits.PvP;
+import oldschoolproject.kits.instances.PvP;
 import oldschoolproject.users.User;
 import oldschoolproject.utils.builders.ItemBuilder;
-import oldschoolproject.utils.kits.BaseKit;
-import oldschoolproject.utils.kits.KitLoader;
-import oldschoolproject.warps.Spawn;
+import oldschoolproject.kits.BaseKit;
+import oldschoolproject.kits.KitLoader;
+import oldschoolproject.warps.instances.Spawn;
 
 public class KitManager {
 	

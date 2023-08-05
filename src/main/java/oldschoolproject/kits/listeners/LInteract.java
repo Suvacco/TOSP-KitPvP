@@ -8,8 +8,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.utils.kits.BaseKit;
-import oldschoolproject.utils.listeners.BaseListener;
+import oldschoolproject.kits.BaseKit;
+import oldschoolproject.events.BaseListener;
 
 public class LInteract implements BaseListener {
 	
