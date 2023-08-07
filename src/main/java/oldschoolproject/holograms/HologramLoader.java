@@ -61,23 +61,15 @@ public class HologramLoader {
     }
 
     public static void deleteHologram(String id) {
-        FileConfiguration fileConfig = fileBuilder.getFileConfiguration();
-
         fileBuilder.set("holograms." + id, null);
-
-        fileBuilder.save();
     }
 
     public static void saveHologram(String id, Hologram hologram) {
-        FileConfiguration fileConfig = fileBuilder.getFileConfiguration();
-
         fileBuilder.set("holograms." + id + ".location.x", hologram.getLocation().getX());
         fileBuilder.set("holograms." + id + ".location.y", hologram.getLocation().getY());
         fileBuilder.set("holograms." + id + ".location.z", hologram.getLocation().getZ());
 
         fileBuilder.set("holograms." + id + ".content", hologram.getLines());
-
-        fileBuilder.save();
     }
 
     public static Map<String, Hologram> getHologramInstances() {

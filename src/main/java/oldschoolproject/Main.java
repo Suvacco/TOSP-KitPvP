@@ -14,6 +14,7 @@ import oldschoolproject.utils.AutoReloader;
 import oldschoolproject.commands.CommandLoader;
 import oldschoolproject.kits.KitLoader;
 import oldschoolproject.events.ListenerLoader;
+import oldschoolproject.feast.FeastLoader;
 import oldschoolproject.warps.WarpLoader;
 
 public class Main extends JavaPlugin {
@@ -38,6 +39,8 @@ public class Main extends JavaPlugin {
 		new AutoReloader();
 
 		new HologramLoader();
+		
+		new FeastLoader();
 
 		registerPlayers();
 	}
