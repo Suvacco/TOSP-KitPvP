@@ -2,39 +2,89 @@ package oldschoolproject.holograms;
 
 import oldschoolproject.Main;
 import oldschoolproject.holograms.instances.ServerHolograms;
+import oldschoolproject.utils.builders.FileBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
+import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.persistence.PersistentDataType;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HologramLoader {
 
-    final NamespacedKey hologramKey = new NamespacedKey(Main.getInstance(), getClass().getSimpleName());
+    private static Map<String, Hologram> hologramInstances = new HashMap<>();
+
+    private static FileBuilder fileBuilder = new FileBuilder("holograms.yml");
 
     public HologramLoader() {
+        unloadHolograms();
+        loadHolograms();
+    }
+
+    private void unloadHolograms() {
         for (ArmorStand armorStand : Bukkit.getWorld("world").getEntitiesByClass(ArmorStand.class)) {
-            if (armorStand.getPersistentDataContainer().has(hologramKey, PersistentDataType.STRING)) {
+            if (armorStand.getCustomName() != null) {
                 armorStand.remove();
             }
         }
-
-        loadHolograms();
     }
 
     private void loadHolograms() {
         int i = 0;
 
-        for (ServerHolograms hologram : ServerHolograms.values()) {
+        FileConfiguration fileConfig = fileBuilder.getFileConfiguration();
 
-            hologram.getInstance().spawn();
+        if (fileConfig.getConfigurationSection("holograms") != null) {
 
-            for (ArmorStand armorStand : hologram.getInstance().getArmorStands()) {
-                armorStand.getPersistentDataContainer().set(hologramKey, PersistentDataType.STRING, getClass().getSimpleName());
+            for (String key : fileConfig.getConfigurationSection("holograms").getKeys(false)) {
+
+                List<String> lines = fileConfig.getStringList("holograms." + key + ".content");
+
+                Location loc = new Location(Bukkit.getWorld("world"),
+                        (double) fileConfig.get("holograms." + key + ".location.x"),
+                        (double) fileConfig.get("holograms." + key + ".location.y"),
+                        (double) fileConfig.get("holograms." + key + ".location.z"));
+
+                Hologram holo = new Hologram(loc, lines);
+
+                holo.spawn();
+
+                hologramInstances.put(key, holo);
+
+                i++;
             }
-
-            i++;
         }
 
         Main.getInstance().getLogger().info("[HologramLoader] " + i + " hologram instances loaded");
+    }
+
+    public static void deleteHologram(String id) {
+        FileConfiguration fileConfig = fileBuilder.getFileConfiguration();
+
+        fileBuilder.set("holograms." + id, null);
+
+        fileBuilder.save();
+    }
+
+    public static void saveHologram(String id, Hologram hologram) {
+        FileConfiguration fileConfig = fileBuilder.getFileConfiguration();
+
+        fileBuilder.set("holograms." + id + ".location.x", hologram.getLocation().getX());
+        fileBuilder.set("holograms." + id + ".location.y", hologram.getLocation().getY());
+        fileBuilder.set("holograms." + id + ".location.z", hologram.getLocation().getZ());
+
+        fileBuilder.set("holograms." + id + ".content", hologram.getLines());
+
+        fileBuilder.save();
+    }
+
+    public static Map<String, Hologram> getHologramInstances() {
+        return hologramInstances;
+    }
+
+    public static FileBuilder getFileBuilder() {
+        return fileBuilder;
     }
 }

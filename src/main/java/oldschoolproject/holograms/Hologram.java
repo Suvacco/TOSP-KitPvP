@@ -1,5 +1,6 @@
 package oldschoolproject.holograms;
 
+import oldschoolproject.utils.builders.FileBuilder;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -7,12 +8,13 @@ import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Hologram {
 
     Location location;
-    List<String> lines;
     List<ArmorStand> armorStands;
+    final List<String> lines;
 
     public Hologram(Location location, List<String> lines) {
         this.location = location;
@@ -22,23 +24,34 @@ public class Hologram {
 
     public void spawn() {
         for (String line : lines) {
-            armorStands.add(spawnArmorStand(line));
+            addLine(line);
         }
-        fixHologramsPositions();
     }
 
-    public void destroy() {
-        for (Entity e : armorStands) {
-            e.remove();
+    public void setLine(int line, String text) {
+        if (getLine(line) != null) {
+            this.armorStands.get(line).setCustomName(text);
+        } else {
+            this.armorStands.set(line, spawnArmorStand(text));
         }
+
+        fixHologramsPositions();
     }
 
     public void addLine(String text) {
-        this.lines.add(text);
-
-        this.armorStands.add(spawnArmorStand(text));
+        armorStands.add(spawnArmorStand(text));
 
         fixHologramsPositions();
+    }
+
+    public void removeLine(int line) {
+        armorStands.remove(line).remove();
+
+        fixHologramsPositions();
+    }
+
+    public String getLine(int line) {
+        return this.armorStands.get(line).getCustomName();
     }
 
     private ArmorStand spawnArmorStand(String title) {
@@ -48,9 +61,16 @@ public class Hologram {
         armorStand.setCustomNameVisible(true);
         armorStand.setVisible(false);
         armorStand.setGravity(false);
+        armorStand.setInvulnerable(true);
         armorStand.setMarker(true);
 
         return armorStand;
+    }
+
+    public void destroy() {
+        for (Entity e : armorStands) {
+            e.remove();
+        }
     }
 
     public void fixHologramsPositions() {
@@ -59,7 +79,17 @@ public class Hologram {
         }
     }
 
-    public List<ArmorStand> getArmorStands() {
-        return this.armorStands;
+    public List<String> getLines() {
+        return armorStands.stream().map(ArmorStand::getCustomName).collect(Collectors.toList());
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void updateLocation(Location location) {
+        this.location = location;
+
+        fixHologramsPositions();
     }
 }

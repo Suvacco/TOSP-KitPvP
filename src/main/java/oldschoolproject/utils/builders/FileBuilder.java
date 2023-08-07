@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -13,16 +14,16 @@ import oldschoolproject.Main;
 
 public class FileBuilder {
 
-	String fileName;
-	File file;
-	FileConfiguration customFile;
+	private String fileName;
+	private File file;
+	private FileConfiguration customFile;
 	
 	public FileBuilder(String fileName) {
 		this.fileName = fileName;
 		setup();
 	}
 	
-	public void setup() {
+	private void setup() {
 		file = new File(Main.getInstance().getDataFolder(), fileName);
 		
 		if (!file.exists()) {
@@ -53,9 +54,13 @@ public class FileBuilder {
 		
 		customFile = YamlConfiguration.loadConfiguration(file);
 	}
-	
+
 	public <T> Object get(String path) {
 		return customFile.get(path);
+	}
+
+	public FileConfiguration getFileConfiguration() {
+		return this.customFile;
 	}
 	
 	public void set(String path, Object value) {
