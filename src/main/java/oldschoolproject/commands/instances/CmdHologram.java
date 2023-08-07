@@ -59,6 +59,8 @@ public class CmdHologram extends BaseCommand {
 	            sb.deleteCharAt(sb.length() - 1);
 	
 	            HologramManager.addLine(args[1], sb.toString());
+	            
+	            p.sendMessage("§aLinha \"" + sb.toString() + "\" adicionada com sucesso ao holograma \"" + args[1] + "\"");
 	            return;
 	        }
 	
@@ -69,6 +71,8 @@ public class CmdHologram extends BaseCommand {
 	            }
 	
 	            HologramManager.deleteHologram(args[1]);
+	            
+	            p.sendMessage("§aHolograma \"" + args[1] + "\" deletado com sucesso!");
 	            return;
 	        }
 	
@@ -87,6 +91,8 @@ public class CmdHologram extends BaseCommand {
 	            sb.deleteCharAt(sb.length() - 1);
 	
 	            HologramManager.setlineHologram(args[1], Integer.parseInt(args[2]), sb.toString());
+	            
+	            p.sendMessage("§aLinha \"" + sb.toString() + "\" [" + args[2] + "] setada com sucesso ao holograma \"" + args[1] + "\"");
 	            return;
 	        }
 	
@@ -97,6 +103,8 @@ public class CmdHologram extends BaseCommand {
 	            }
 	
 	            HologramManager.removeLine(args[1], Integer.parseInt(args[2]));
+	            
+	            p.sendMessage("§aLinha \"" + args[2] + "\" removida com sucesso do holograma \"" + args[1] + "\"");
 	            return;
 	        }
 	
@@ -107,6 +115,7 @@ public class CmdHologram extends BaseCommand {
 	            }
 	
 	            p.teleport(HologramManager.findHologram(args[1]).getLocation());
+	            p.sendMessage("§aTeleportado ao holograma \"" + args[1] + "\"");
 	            return;
 	        }
 	
@@ -117,11 +126,13 @@ public class CmdHologram extends BaseCommand {
 	            }
 	
 	            HologramManager.moveHologram(args[1], p.getLocation());
+	            
+	            p.sendMessage("§aLocalização do holograma \"" + args[1] + "\" atualizada com sucesso!");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("list")) {
-	            p.sendMessage("§bHologram list: " + HologramManager.getHologramList());
+	            p.sendMessage("§aLista IDs de Hologramas: " + HologramManager.getHologramList());
 	            return;
 	        }
         
