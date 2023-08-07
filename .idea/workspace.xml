@@ -9,15 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdHologram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/formatters/ChatFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/holograms/Hologram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/holograms/Hologram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/holograms/HologramLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/holograms/HologramLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/HologramManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/HologramManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/builders/FileBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/builders/FileBuilder.java" afterDir="false" />
-    </list>
+    <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,7 +133,7 @@
       <workItem from="1691209919333" duration="19000" />
       <workItem from="1691278500201" duration="2025000" />
       <workItem from="1691346485263" duration="5840000" />
-      <workItem from="1691362335877" duration="17028000" />
+      <workItem from="1691362335877" duration="17244000" />
     </task>
     <servers />
   </component>

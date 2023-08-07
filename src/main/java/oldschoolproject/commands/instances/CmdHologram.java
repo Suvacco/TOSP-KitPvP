@@ -76,7 +76,7 @@ public class CmdHologram extends BaseCommand {
 
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 4; i < args.length; i++) {
+            for (int i = 3; i < args.length; i++) {
                 sb.append(args[i]).append(" ");
             }
 
