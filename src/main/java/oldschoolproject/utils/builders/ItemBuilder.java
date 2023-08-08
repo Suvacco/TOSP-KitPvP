@@ -9,10 +9,16 @@ import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 /**
  * Easily create itemstacks, without messing your hands.
@@ -80,6 +86,17 @@ public ItemBuilder(Material m, int amount, byte durability){
      is.setItemMeta(im);
      return this;
    }
+
+   public ItemBuilder setPotionEffect(PotionEffectType potionEffectType, PotionType potionType, int time, int level, boolean overrideEffects) {
+       PotionMeta potionMeta = (PotionMeta)is.getItemMeta();
+       PotionData potionData = new PotionData(potionType);
+       potionMeta.addCustomEffect(new PotionEffect(potionEffectType, time, level), overrideEffects);
+       potionMeta.setBasePotionData(potionData);
+//       potionMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+       is.setItemMeta(potionMeta);
+       return this;
+   }
+
    /**
     * Add an unsafe enchantment.
     * @param ench The enchantment to add.

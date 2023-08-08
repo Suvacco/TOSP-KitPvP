@@ -11,30 +11,25 @@ import oldschoolproject.holograms.HologramLoader;
 public class FeastManager {
 
 	public static void createFeast(String id, Location location) throws FeastManagementException {
-		if (!FeastLoader.getFeastInstances().containsKey(id)) {
+		if (FeastLoader.getFeastInstances().containsKey(id)) {
 			throw new FeastManagementException(id, "create");
 		}
 		
 		Feast feast = new Feast(location);
-		
-		feast.spawn();
 		
 		FeastLoader.saveFeast(id, feast);
 	}
 
 	public static void deleteFeast(String id) throws FeastManagementException {
 		if (!FeastLoader.getFeastInstances().containsKey(id)) {
-			throw new FeastManagementException(id, "create");
+			throw new FeastManagementException(id, "delete");
 		}
 		
         Feast feast = FeastLoader.getFeastInstances().get(id);
 
-        feast.destroy();
-
         FeastLoader.getFeastInstances().remove(id);
 
         FeastLoader.deleteFeast(id);
-		
 	}
 
 }

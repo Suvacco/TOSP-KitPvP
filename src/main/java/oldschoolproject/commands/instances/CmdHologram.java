@@ -124,7 +124,7 @@ public class CmdHologram extends BaseCommand {
 	                p.sendMessage("§cErro: /holo movehere <id>");
 	                return;
 	            }
-	
+
 	            HologramManager.moveHologram(args[1], p.getLocation());
 	            
 	            p.sendMessage("§aLocalização do holograma \"" + args[1] + "\" atualizada com sucesso!");
@@ -137,9 +137,7 @@ public class CmdHologram extends BaseCommand {
 	        }
         
         } catch (HologramManagementException e) {
-        	
         	p.sendMessage("§cErro: " + e.getMessage());
-        	
         }
 
         p.sendMessage("§cErro: /holo [create : delete : setline : addline : removeline : goto : movehere : list]");

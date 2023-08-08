@@ -23,6 +23,12 @@ public class ChatFormatter {
         return str.toString();
     }
 
+    public static String formatSeconds(int seconds) {
+        int minutes = seconds / 60;
+        seconds %= 60;
+        return String.format("%d:%02d", minutes, seconds);
+    }
+
     public static String convertIntoStringWithNewLines(List<String> list) {
         StringBuilder str = new StringBuilder();
         for (String content : list) {

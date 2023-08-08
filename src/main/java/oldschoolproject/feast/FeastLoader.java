@@ -36,8 +36,6 @@ public class FeastLoader {
 
                 Feast feast = new Feast(loc);
 
-                feast.spawn();
-
                 feastInstances.put(key, feast);
 
                 i++;

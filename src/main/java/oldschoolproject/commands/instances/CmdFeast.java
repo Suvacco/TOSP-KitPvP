@@ -25,19 +25,19 @@ public class CmdFeast extends BaseCommand {
 		try {
 		
 			if (args[0].equalsIgnoreCase("set")) {
-				
-				if (args.length < 1) {
+
+				if (args.length < 2) {
 					p.sendMessage("§cErro: /feast set [id]");
 					return;
 				}
-				
+
 				FeastManager.createFeast(args[1], p.getLocation());
 				return;
 			}
 			
 			if (args[0].equalsIgnoreCase("delete")) {
 				
-				if (args.length < 1) {
+				if (args.length < 2) {
 					p.sendMessage("§cErro: /feast delete [id]");
 					return;
 				}

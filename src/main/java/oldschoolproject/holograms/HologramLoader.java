@@ -1,7 +1,6 @@
 package oldschoolproject.holograms;
 
 import oldschoolproject.Main;
-import oldschoolproject.holograms.instances.ServerHolograms;
 import oldschoolproject.utils.builders.FileBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
