@@ -17,6 +17,8 @@ public class LPlayerDeath implements BaseListener {
 	public void onDeath(PlayerDeathEvent e) {
 		User victim = UserManager.getUser(e.getEntity());
 
+		// Bug when killing with tnt and fire charge
+
 		if (victim.getWarp() instanceof Spawn) {
 
 			victim.setStat(UserStats.DEATHS, (Integer)victim.getStat(UserStats.DEATHS) + 1);

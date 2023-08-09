@@ -89,10 +89,8 @@ public ItemBuilder(Material m, int amount, byte durability){
 
    public ItemBuilder setPotionEffect(PotionEffectType potionEffectType, PotionType potionType, int time, int level, boolean overrideEffects) {
        PotionMeta potionMeta = (PotionMeta)is.getItemMeta();
-       PotionData potionData = new PotionData(potionType);
        potionMeta.addCustomEffect(new PotionEffect(potionEffectType, time, level), overrideEffects);
-       potionMeta.setBasePotionData(potionData);
-//       potionMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+       potionMeta.setColor(potionType.getEffectType().getColor());
        is.setItemMeta(potionMeta);
        return this;
    }

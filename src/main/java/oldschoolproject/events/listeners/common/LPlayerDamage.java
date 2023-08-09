@@ -2,6 +2,7 @@ package oldschoolproject.events.listeners.common;
 
 import oldschoolproject.users.UserGuard;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -11,6 +12,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.events.BaseListener;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
@@ -34,9 +36,19 @@ public class LPlayerDamage implements BaseListener {
 	@EventHandler
 	public void playerDamage(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player) {
+
 			User victim = UserManager.getUser((Player) e.getEntity());
 
+			if (victim.getUserGuard() == UserGuard.Protected) {
+				e.setCancelled(true);
+				return;
+			}
+
 			if (e.getFinalDamage() >= victim.getPlayer().getHealth()) {
+
+				if (victim.getPlayer().getInventory().getItemInOffHand().getType() == Material.TOTEM_OF_UNDYING) {
+					return;
+				}
 
 				e.setCancelled(true);
 
@@ -47,15 +59,7 @@ public class LPlayerDamage implements BaseListener {
 						Arrays.asList(victim.getPlayer().getInventory().getContents()),
 						0,
 						null));
-				return;
 			}
-
-			if (victim.getUserGuard() == UserGuard.Playing) {
-				return;
-			}
-
-			e.setCancelled(true);
 		}
 	}
-
 }
