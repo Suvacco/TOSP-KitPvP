@@ -48,11 +48,18 @@ public class LPlayerDeath implements BaseListener {
 
 					EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) victimPlayer.getLastDamageCause();
 
-					if (damageEvent.getDamager() instanceof TNTPrimed) {
+					if (damageEvent.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) {
 
-						TNTPrimed tntPrimed = (TNTPrimed) damageEvent.getDamager();
+						if (damageEvent.getDamager() instanceof TNTPrimed) {
 
-						killerPlayer = (Player) tntPrimed.getSource();
+							TNTPrimed tntPrimed = (TNTPrimed) damageEvent.getDamager();
+
+							killerPlayer = (Player) tntPrimed.getSource();
+
+						} else {
+
+							killerPlayer = (Player) damageEvent.getDamager();
+						}
 					}
 				}
 			}

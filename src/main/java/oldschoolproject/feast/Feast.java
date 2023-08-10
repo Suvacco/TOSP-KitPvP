@@ -25,6 +25,7 @@ public class Feast {
 	private static ItemStack[] defaultLoot = new ItemStack[] {
 			new ItemBuilder(Material.STONE_SWORD).setName("§eEspada de Pedra").toItemStack(),
 			new ItemBuilder(Material.FISHING_ROD).setName("§eVara de Pesca").toItemStack(),
+			new ItemBuilder(Material.FIRE_CHARGE).setName("§eBola de Fogo").toItemStack(),
 			new ItemBuilder(Material.IRON_SWORD).setName("§eEspada de Ferro").toItemStack(),
 			new ItemBuilder(Material.ENDER_PEARL).setName("§ePérola do Fim").toItemStack(),
 			new ItemBuilder(Material.LEATHER_HELMET).setName("§eCapacete de Couro").toItemStack(),
