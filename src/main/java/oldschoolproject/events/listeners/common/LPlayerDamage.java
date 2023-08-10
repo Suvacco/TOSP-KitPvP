@@ -24,8 +24,7 @@ public class LPlayerDamage implements BaseListener {
 			User victim = UserManager.getUser((Player) e.getEntity());
 			User attacker = UserManager.getUser((Player) e.getDamager());
 
-			if (victim.getUserGuard() == UserGuard.Playing && attacker.getUserGuard() == UserGuard.Playing
-					&& victim.getWarp().equals(attacker.getWarp())) {
+			if (victim.getUserGuard() == UserGuard.Playing && attacker.getUserGuard() == UserGuard.Playing && victim.getWarp().equals(attacker.getWarp())) {
 				return;
 			}
 
@@ -50,15 +49,17 @@ public class LPlayerDamage implements BaseListener {
 					return;
 				}
 
-				e.setCancelled(true);
-
-				victim.reset();
+				victim.getPlayer().setLastDamageCause(e);
 
 				Bukkit.getServer().getPluginManager().callEvent(new PlayerDeathEvent(
 						victim.getPlayer(),
 						Arrays.asList(victim.getPlayer().getInventory().getContents()),
 						0,
 						null));
+
+				victim.reset();
+
+				e.setCancelled(true);
 			}
 		}
 	}
