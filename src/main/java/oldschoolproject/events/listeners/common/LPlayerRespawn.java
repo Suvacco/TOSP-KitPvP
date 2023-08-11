@@ -14,7 +14,7 @@ public class LPlayerRespawn implements BaseListener {
 		User user = UserManager.getUser(e.getPlayer());
 		
 		e.setRespawnLocation(user.getWarp().getSpawnLocation());
-		
+
 		user.reset();
 	}
 

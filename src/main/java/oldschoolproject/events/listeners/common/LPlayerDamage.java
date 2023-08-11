@@ -43,24 +43,9 @@ public class LPlayerDamage implements BaseListener {
 				return;
 			}
 
-			if (e.getFinalDamage() >= victim.getPlayer().getHealth()) {
+			victim.getPlayer().setLastDamageCause(e);
 
-				if (victim.getPlayer().getInventory().getItemInOffHand().getType() == Material.TOTEM_OF_UNDYING) {
-					return;
-				}
-
-				victim.getPlayer().setLastDamageCause(e);
-
-				Bukkit.getServer().getPluginManager().callEvent(new PlayerDeathEvent(
-						victim.getPlayer(),
-						Arrays.asList(victim.getPlayer().getInventory().getContents()),
-						0,
-						null));
-
-				victim.reset();
-
-				e.setCancelled(true);
-			}
+			victim.reset();
 		}
 	}
 }

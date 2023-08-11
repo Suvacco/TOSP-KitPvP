@@ -8,7 +8,7 @@ public class LItemSpawn implements BaseListener {
 
     @EventHandler
     public void itemSpawn(ItemSpawnEvent e) {
-//        e.setCancelled(true);
-//        e.getEntity().remove();
+        e.setCancelled(true);
+        e.getEntity().remove();
     }
 }

@@ -58,13 +58,14 @@ public class LPlayerDeath implements BaseListener {
 
 						} else {
 
+							// Explosion damage
 							killerPlayer = (Player) damageEvent.getDamager();
 						}
 					}
 				}
 			}
 
-			if (killerPlayer != victimPlayer) {
+			if (killerPlayer != victimPlayer && killerPlayer != null) {
 
 				User killer = UserManager.getUser(killerPlayer);
 

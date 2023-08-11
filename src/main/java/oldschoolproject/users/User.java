@@ -44,8 +44,9 @@ public class User {
 	public void reset() {
 		Player player = this.getPlayer();
 
-		player.setVisualFire(false);
 		player.setVelocity(new Vector());
+		player.setFallDistance(0);
+		player.setVisualFire(false);
 		player.setTotalExperience(0);
 		player.setAbsorptionAmount(0);
 		player.setAllowFlight(false);
