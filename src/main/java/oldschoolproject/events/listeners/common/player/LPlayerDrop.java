@@ -1,4 +1,4 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -29,17 +29,10 @@ public class LPlayerDrop implements BaseListener {
 			return;
 		}
 		
-		if (!(e.getItemDrop().getItemStack().equals(user.getKit().getSkillItem()) ||
-				e.getItemDrop().getItemStack().getType().equals(Material.STONE_SWORD) ||
-				e.getItemDrop().getItemStack().getType().equals(Material.WOODEN_SWORD))) {
+		if (!(e.getItemDrop().getItemStack().equals(user.getKit().getSkillItem()))) {
 			return;
 		}
 		
 		e.setCancelled(true);
-	}
-	
-	@EventHandler
-	public void itemDropRemover(PlayerDropItemEvent e) {
-		e.getItemDrop().remove();
 	}
 }

@@ -56,7 +56,10 @@ public class MongoConnection implements DatabaseConnection {
     public void saveUser(User user) {
         String userId = user.getUuid().toString();
 
-        Document playerDocument = new Document("_id", userId).append("name", user.getPlayer().getName()).append("rank", user.getUserRank());
+        Document playerDocument = new Document("_id", userId)
+                .append("name", user.getPlayer().getName())
+                .append("rank", user.getUserRank())
+                .append("permissions", user.getPermissionAttachment().getPermissions().keySet());
 
         for (Map.Entry<UserStats, Object> entry : user.getStatsMap().entrySet()) {
             playerDocument.append(entry.getKey().name().toLowerCase(), entry.getValue());

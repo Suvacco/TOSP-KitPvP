@@ -1,4 +1,4 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import oldschoolproject.Main;
 import oldschoolproject.events.custom.PlayerKillstreakEvent;
@@ -78,5 +78,12 @@ public class LPlayerDeath implements BaseListener {
 
 			e.setDeathMessage(null);
 		}
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				victimPlayer.spigot().respawn();
+			}
+		}.runTask(Main.getInstance());
 	}
 }

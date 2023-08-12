@@ -1,4 +1,4 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import oldschoolproject.users.UserGuard;
 import org.bukkit.Bukkit;
@@ -44,8 +44,6 @@ public class LPlayerDamage implements BaseListener {
 			}
 
 			victim.getPlayer().setLastDamageCause(e);
-
-			victim.reset();
 		}
 	}
 }

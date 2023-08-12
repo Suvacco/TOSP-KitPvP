@@ -1,4 +1,4 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;

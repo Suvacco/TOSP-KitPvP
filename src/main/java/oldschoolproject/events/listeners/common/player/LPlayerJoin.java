@@ -1,4 +1,4 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import oldschoolproject.managers.DatabaseManager;
 import oldschoolproject.managers.TagManager;
@@ -18,7 +18,7 @@ public class LPlayerJoin implements BaseListener {
 	public void join(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 
-		User user = new User(player.getUniqueId(), player.getName());
+		User user = new User(player);
 
 		UserManager.registerUser(user);
 

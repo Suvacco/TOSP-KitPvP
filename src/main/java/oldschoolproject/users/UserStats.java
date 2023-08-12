@@ -2,6 +2,7 @@ package oldschoolproject.users;
 
 public enum UserStats {
     RANK(false),
+    PERMISSION(false),
     KILLS(true),
     DEATHS(true),
     COINS(true),

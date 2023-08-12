@@ -1,10 +1,15 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import oldschoolproject.events.BaseListener;
+import oldschoolproject.managers.KitManager;
+import oldschoolproject.managers.UserManager;
+import oldschoolproject.users.User;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -23,14 +28,25 @@ public class LPlayerLaunch implements BaseListener {
         Player player = event.getPlayer();
         Block blockUnderPlayer = player.getLocation().getBlock().getRelative(0, -1, 0);
 
-        if (blockUnderPlayer.getType() != Material.AIR && blockUnderPlayer.getType() != Material.PUMPKIN && blockUnderPlayer.getType() != Material.SPONGE && fallProtectionList.contains(player)) {
+        if (blockUnderPlayer.getType() != Material.AIR &&
+                blockUnderPlayer.getType() != Material.PUMPKIN &&
+                blockUnderPlayer.getType() != Material.MAGENTA_GLAZED_TERRACOTTA &&
+            fallProtectionList.contains(player)) {
             fallProtectionList.remove(player);
         }
 
-        if (blockUnderPlayer.getType() == Material.SPONGE || blockUnderPlayer.getType() == Material.PUMPKIN) {
+        if (blockUnderPlayer.getType() == Material.MAGENTA_GLAZED_TERRACOTTA || blockUnderPlayer.getType() == Material.PUMPKIN) {
 
-            if (blockUnderPlayer.getType() == Material.SPONGE) {
-                player.setVelocity(player.getEyeLocation().getDirection().multiply(2).add(new Vector(0, 1, 0)));
+            if (blockUnderPlayer.getType() == Material.MAGENTA_GLAZED_TERRACOTTA) {
+
+                if (blockUnderPlayer.getBlockData() instanceof Directional) {
+
+                    Directional directional = (Directional) blockUnderPlayer.getBlockData();
+
+                    player.setVelocity(directional.getFacing().getDirection().multiply(-2).add(new Vector(0, 1, 0)));
+
+                    KitManager.giveKit(UserManager.getUser(player));
+                }
             }
 
             if (blockUnderPlayer.getType() == Material.PUMPKIN) {

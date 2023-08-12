@@ -1,4 +1,4 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import oldschoolproject.events.BaseListener;
 import oldschoolproject.managers.UserManager;

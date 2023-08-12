@@ -1,4 +1,4 @@
-package oldschoolproject.events.listeners.common;
+package oldschoolproject.events.listeners.common.player;
 
 import oldschoolproject.managers.DatabaseManager;
 import org.bukkit.event.EventHandler;

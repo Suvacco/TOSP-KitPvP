@@ -1,10 +1,12 @@
 package oldschoolproject.users;
 
+import oldschoolproject.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.WeatherType;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.util.Vector;
 
 import lombok.Getter;
@@ -12,14 +14,13 @@ import lombok.Setter;
 import oldschoolproject.kits.BaseKit;
 import oldschoolproject.warps.BaseWarp;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Getter @Setter
 public class User {
 
 	// Key properties
+	Player player;
 	UUID uuid;
 	String userName;
 
@@ -34,6 +35,17 @@ public class User {
 	BaseKit kit;
 	BaseWarp warp;
 
+	// Permissions
+	PermissionAttachment permissionAttachment;
+
+	public User(Player player) {
+		this.player = player;
+		this.uuid = player.getUniqueId();
+		this.userName = player.getName();
+
+		this.resetStats();
+	}
+
 	public User(UUID uuid, String userName) {
 		this.userName = userName;
 		this.uuid = uuid;
@@ -42,35 +54,33 @@ public class User {
 	}
 
 	public void reset() {
-		Player player = this.getPlayer();
-
-		player.setVelocity(new Vector());
-		player.setFallDistance(0);
-		player.setVisualFire(false);
-		player.setTotalExperience(0);
-		player.setAbsorptionAmount(0);
-		player.setAllowFlight(false);
-		player.setArrowsInBody(0);
-		player.setExhaustion(0);
-		player.setExp(0);
-		player.setFireTicks(0);
-		player.setFlying(false);
-		player.setFoodLevel(20);
-		player.setFreezeTicks(0);
-		player.setGameMode(GameMode.SURVIVAL);
-		player.setGliding(false);
-		player.setGravity(true);
-		player.setHealth(20D);
-		player.setInvisible(false);
-		player.setInvulnerable(false);
-		player.setLeashHolder(null);
-		player.setLevel(0);
-		player.setNoDamageTicks(0);
-		player.setPlayerWeather(WeatherType.CLEAR);
-		player.setSaturation(10F);
-		player.getInventory().setArmorContents(null);
-		player.getInventory().clear();
-		player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
+		this.player.setVelocity(new Vector());
+		this.player.setFallDistance(0);
+		this.player.setVisualFire(false);
+		this.player.setTotalExperience(0);
+		this.player.setAbsorptionAmount(0);
+		this.player.setAllowFlight(false);
+		this.player.setArrowsInBody(0);
+		this.player.setExhaustion(0);
+		this.player.setExp(0);
+		this.player.setFireTicks(0);
+		this.player.setFlying(false);
+		this.player.setFoodLevel(20);
+		this.player.setFreezeTicks(0);
+		this.player.setGameMode(GameMode.SURVIVAL);
+		this.player.setGliding(false);
+		this.player.setGravity(true);
+		this.player.setHealth(20D);
+		this.player.setInvisible(false);
+		this.player.setInvulnerable(false);
+		this.player.setLeashHolder(null);
+		this.player.setLevel(0);
+		this.player.setNoDamageTicks(0);
+		this.player.setPlayerWeather(WeatherType.CLEAR);
+		this.player.setSaturation(10F);
+		this.player.getInventory().setArmorContents(null);
+		this.player.getInventory().clear();
+		this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
 
 		this.setUserGuard(UserGuard.Protected);
 		this.resetKit();
@@ -92,6 +102,10 @@ public class User {
 	}
 
 	public void resetStats() {
+		if (getPlayer() != null) {
+			this.permissionAttachment = getPlayer().addAttachment(Main.getInstance());
+		}
+
 		setStat(UserStats.KILLSTREAK, 0);
 
 		for (UserStats userStats : UserStats.values()) {
@@ -101,8 +115,18 @@ public class User {
 		}
 	}
 
+	public void loadPermissions(ArrayList<String> permissions) {
+		if (getPlayer() != null) {
+			for (String permission : permissions) {
+				this.permissionAttachment.setPermission(permission, true);
+			}
+		}
+	}
+
 	public void loadStats(Map<String, Object> values) {
-		this.setUserRank((String)values.get("rank"));
+		this.setUserRank((String) values.get("rank"));
+
+		this.loadPermissions((ArrayList<String>) values.get("permissions"));
 
 		for (UserStats userStats : UserStats.values()) {
 			if (userStats.isAutoManageable()) {
@@ -112,7 +136,7 @@ public class User {
 	}
 
 	public Player getPlayer() {
-		return Bukkit.getPlayer(this.uuid);
+		return this.player;
 	}
 
 	public void setWarpItems() {
