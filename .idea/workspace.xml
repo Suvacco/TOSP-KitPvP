@@ -10,25 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdPermission.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LMotd.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdPermission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdRank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdRank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LExtra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPrevent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LItemSpawn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerDamage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerDamage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerDeath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerDeath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerDrop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerDrop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerIgniteExplosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerIgnite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerInteract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerInteract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerJoin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerLaunch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerLaunch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerQuit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerQuit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LPlayerRespawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerRespawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/listeners/LMove.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerLaunch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerLaunch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/instances/KitSelectorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/instances/KitSelectorMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/UserStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/UserStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/UserRank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/UserRank.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,25 +47,25 @@
     <option name="showMembers" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15370595&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2226311&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15370595",
+    "project.structure.side.proportion": "0.2226311",
+    "settings.editor.selected.configurable": "inlay.hints",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DESKTOP\Documents\Projects\Applications\Java\TOSP-KitPvP\src\main\resources" />
@@ -162,7 +151,9 @@
       <workItem from="1691704271208" duration="12507000" />
       <workItem from="1691733118330" duration="289000" />
       <workItem from="1691775314277" duration="256000" />
-      <workItem from="1691775605804" duration="21535000" />
+      <workItem from="1691775605804" duration="21614000" />
+      <workItem from="1691892028545" duration="601000" />
+      <workItem from="1691948181060" duration="9804000" />
     </task>
     <servers />
   </component>

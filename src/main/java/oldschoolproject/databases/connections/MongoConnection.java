@@ -15,7 +15,9 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.bson.Document;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class MongoConnection implements DatabaseConnection {
 
@@ -56,10 +58,17 @@ public class MongoConnection implements DatabaseConnection {
     public void saveUser(User user) {
         String userId = user.getUuid().toString();
 
+        Set<String> userPermissions = user.getPermissionAttachment()
+                .getPermissions()
+                .keySet()
+                .stream()
+                .filter(permission -> permission.startsWith("perm."))
+                .collect(Collectors.toSet());
+
         Document playerDocument = new Document("_id", userId)
                 .append("name", user.getPlayer().getName())
                 .append("rank", user.getUserRank())
-                .append("permissions", user.getPermissionAttachment().getPermissions().keySet());
+                .append("permissions", userPermissions);
 
         for (Map.Entry<UserStats, Object> entry : user.getStatsMap().entrySet()) {
             playerDocument.append(entry.getKey().name().toLowerCase(), entry.getValue());

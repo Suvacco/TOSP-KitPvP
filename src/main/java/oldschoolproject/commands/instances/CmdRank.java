@@ -66,7 +66,11 @@ public class CmdRank extends BaseCommand {
 
             User onlineUser = UserManager.getUser(onlinePlayer);
 
+            // wtf
             onlineUser.setUserRank(args[2].toUpperCase());
+
+            onlineUser.refreshRankPermissions();
+            //
 
             TagManager.setPrefix(onlineUser, onlineUser.getUserRank().getTag());
             return;

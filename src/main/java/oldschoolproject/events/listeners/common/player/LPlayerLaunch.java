@@ -31,6 +31,7 @@ public class LPlayerLaunch implements BaseListener {
         if (blockUnderPlayer.getType() != Material.AIR &&
                 blockUnderPlayer.getType() != Material.PUMPKIN &&
                 blockUnderPlayer.getType() != Material.MAGENTA_GLAZED_TERRACOTTA &&
+                !blockUnderPlayer.getType().name().contains("CARPET") &&
             fallProtectionList.contains(player)) {
             fallProtectionList.remove(player);
         }

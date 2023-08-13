@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 public class CmdPermission extends BaseCommand {
 
     public CmdPermission() {
-        super("permission");
+        super("perm");
     }
 
     @Override
@@ -29,6 +29,17 @@ public class CmdPermission extends BaseCommand {
 
             player.sendMessage("§aPermissão adicionada");
 
+            return;
+        }
+
+        if (args[0].equalsIgnoreCase("has")) {
+
+            if (player.hasPermission(args[1])) {
+                player.sendMessage("§atem permissao " + args[1]);
+                return;
+            }
+
+            player.sendMessage("§cnao tem");
             return;
         }
 

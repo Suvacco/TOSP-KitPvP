@@ -15,8 +15,11 @@ import oldschoolproject.menus.PaginatedMenu;
 
 public class KitSelectorMenu extends PaginatedMenu {
 
+	User holder;
+
 	public KitSelectorMenu(User holder) {
 		super(holder, 54, "Selecione seu kit:", 0, 8);
+		this.holder = holder;
 	}
 	
 	@Override
@@ -72,16 +75,21 @@ public class KitSelectorMenu extends PaginatedMenu {
 			}
 			
 			if (allKits[index] != null) {
-			
-				ItemStack item = allKits[index].getMenuItem();
-				
-				ItemMeta meta = item.getItemMeta();
-				
-				meta.setDisplayName("§6" + allKits[index].getName());
-				
-				item.setItemMeta(meta);
-			
-				this.inventory.addItem(item);
+
+					ItemStack item = allKits[index].getMenuItem();
+
+					ItemMeta meta = item.getItemMeta();
+
+					meta.setDisplayName("§6" + allKits[index].getName());
+
+					item.setItemMeta(meta);
+
+				if (this.holder.getPlayer().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) || this.holder.getPlayer().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
+
+					holder.getPlayer().sendMessage("tem perm: " + allKits[index].getName());
+
+					this.inventory.addItem(item);
+				}
 			}
 		}
 	}

@@ -102,8 +102,10 @@ public class User {
 	}
 
 	public void resetStats() {
-		if (getPlayer() != null) {
+		if (this.player != null) {
 			this.permissionAttachment = getPlayer().addAttachment(Main.getInstance());
+
+			this.loadRankPermissions();
 		}
 
 		setStat(UserStats.KILLSTREAK, 0);
@@ -115,18 +117,13 @@ public class User {
 		}
 	}
 
-	public void loadPermissions(ArrayList<String> permissions) {
-		if (getPlayer() != null) {
-			for (String permission : permissions) {
-				this.permissionAttachment.setPermission(permission, true);
-			}
-		}
-	}
-
 	public void loadStats(Map<String, Object> values) {
 		this.setUserRank((String) values.get("rank"));
 
-		this.loadPermissions((ArrayList<String>) values.get("permissions"));
+		// refactor!!
+		if (this.permissionAttachment != null) {
+			this.loadUserPermissions((ArrayList<String>) values.get("permissions"));
+		}
 
 		for (UserStats userStats : UserStats.values()) {
 			if (userStats.isAutoManageable()) {
@@ -161,6 +158,30 @@ public class User {
 
 	public Object getStat(UserStats stat) {
 		return this.statsMap.get(stat);
+	}
+
+	public void loadUserPermissions(List<String> permissions) {
+		for (String permission : permissions) {
+			this.permissionAttachment.setPermission(permission, true);
+		}
+	}
+
+	public void loadRankPermissions() {
+		for (String permission : this.getUserRank().getPermissions()) {
+			this.permissionAttachment.setPermission(permission, true);
+		}
+	}
+
+	public void refreshRankPermissions() {
+		// Overhead
+
+		for (String permission : this.permissionAttachment.getPermissions().keySet()) {
+			if (permission.startsWith("rank.")) {
+				this.permissionAttachment.unsetPermission(permission);
+			}
+		}
+
+		this.loadRankPermissions();
 	}
 
 	public void setUserRank(String userRank) {
