@@ -24,6 +24,7 @@ public class Avatar extends BaseKit {
 	public Avatar() {
 		super(
 				"Avatar",
+				20,
 				new ItemBuilder(Material.BEACON).toItemStack(),
 				5
 				);

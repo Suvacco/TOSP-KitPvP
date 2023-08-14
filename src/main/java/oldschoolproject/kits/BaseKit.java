@@ -31,23 +31,28 @@ public abstract class BaseKit {
 	
 	@Getter
 	Integer cooldownSeconds;
+
+	@Getter
+	Integer shopPrice;
 	
 	BukkitTask cooldownTask;
 
 	BossBar bossBar = Bukkit.getServer().createBossBar("", BarColor.RED, BarStyle.SOLID);
 
-	public BaseKit(String name, ItemStack skillItem, Integer cooldownSeconds) {
+	public BaseKit(String name, Integer shopPrice, ItemStack skillItem, Integer cooldownSeconds) {
 		this.name = name;
 		this.skillItem = skillItem;
 		this.menuItem = skillItem;
 		this.cooldownSeconds = cooldownSeconds;
+		this.shopPrice = shopPrice;
 	}
 	
-	public BaseKit(String name, ItemStack skillItem, ItemStack menuItem, Integer cooldownSeconds) {
+	public BaseKit(String name, Integer shopPrice, ItemStack skillItem, ItemStack menuItem, Integer cooldownSeconds) {
 		this.name = name;
 		this.skillItem = skillItem;
 		this.menuItem = menuItem;
 		this.cooldownSeconds = cooldownSeconds;
+		this.shopPrice = shopPrice;
 	}
 	
 	public abstract boolean activateSkill(PlayerInteractEvent e);

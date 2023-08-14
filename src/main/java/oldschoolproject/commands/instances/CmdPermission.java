@@ -21,13 +21,22 @@ public class CmdPermission extends BaseCommand {
             return;
         }
 
-        if (args[0].equalsIgnoreCase("add")) {
+        User user = UserManager.getUser(player);
 
-            User user = UserManager.getUser(player);
+        if (args[0].equalsIgnoreCase("add")) {
 
             user.getPermissionAttachment().setPermission(args[1], true);
 
             player.sendMessage("§aPermissão adicionada");
+
+            return;
+        }
+
+        if (args[0].equalsIgnoreCase("remove")) {
+
+            user.getPermissionAttachment().unsetPermission(args[1]);
+
+            player.sendMessage("§aPermissão removida");
 
             return;
         }
@@ -46,8 +55,6 @@ public class CmdPermission extends BaseCommand {
         if (args[0].equalsIgnoreCase("see")) {
 
             player.sendMessage("§aSuas permissões: ");
-
-            User user = UserManager.getUser(player);
 
             for (String s : user.getPermissionAttachment().getPermissions().keySet()) {
                 player.sendMessage(s);

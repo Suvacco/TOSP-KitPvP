@@ -9,7 +9,7 @@ import oldschoolproject.utils.builders.ItemBuilder;
 public class Archer extends BaseKit {
 
 	public Archer() {
-		super("Archer", new ItemBuilder(Material.BOW).toItemStack(), null);
+		super("Archer", 5, new ItemBuilder(Material.BOW).toItemStack(), null);
 	}
 
 	@Override

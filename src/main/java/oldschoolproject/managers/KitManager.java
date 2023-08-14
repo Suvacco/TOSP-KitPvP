@@ -1,6 +1,7 @@
 package oldschoolproject.managers;
 
 import oldschoolproject.users.UserGuard;
+import oldschoolproject.users.UserStats;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -96,4 +97,29 @@ public class KitManager {
 		}
 	}
 
+    public static void buyKit(User user, String kitName) {
+		Player p = user.getPlayer();
+
+		if (!kitExists(kitName)) {
+			p.sendMessage("§cErro: Kit inexistente: " + kitName);
+			return;
+		}
+
+		if (user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase()) ||
+				user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase())) {
+			p.sendMessage("§cErro: Você já possui esse kit");
+			return;
+		}
+
+		BaseKit kit = findKit(kitName);
+
+		if ((Integer)user.getStat(UserStats.COINS) < kit.getShopPrice()) {
+			p.sendMessage("§cErro: Coins insuficientes");
+			return;
+		}
+
+		p.sendMessage("§aKit \"" + kit.getName() + "\" comprado!");
+		user.getPermissionAttachment().setPermission("perm.kit." + kit.getName().toLowerCase(), true);
+		user.setStat(UserStats.COINS, (Integer)user.getStat(UserStats.COINS) - kit.getShopPrice());
+	}
 }

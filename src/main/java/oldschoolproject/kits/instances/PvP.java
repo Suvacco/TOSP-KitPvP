@@ -9,7 +9,7 @@ import oldschoolproject.utils.builders.ItemBuilder;
 public class PvP extends BaseKit {
 
 	public PvP() {
-		super("PvP", null, new ItemBuilder(Material.STONE_SWORD).toItemStack(), null);
+		super("PvP", 0, null, new ItemBuilder(Material.STONE_SWORD).toItemStack(), null);
 	}
 
 	@Override

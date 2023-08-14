@@ -3,6 +3,7 @@ package oldschoolproject.warps.instances;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import oldschoolproject.managers.UserManager;
@@ -33,6 +34,25 @@ public class Spawn extends BaseWarp implements BaseListener {
 		
 		player.getInventory().setItem(6, new ItemBuilder(Material.NETHER_STAR).setName("§bWarps").toItemStack());
 	}
+
+	@EventHandler
+	public void inventoryClick(InventoryClickEvent e) {
+		User user = UserManager.getUser((Player) e.getWhoClicked());
+
+		if (!(user.getWarp() instanceof Spawn)) {
+			return;
+		}
+
+		if (!user.isProtected()) {
+			return;
+		}
+
+		if (e.getCurrentItem() == null) {
+			return;
+		}
+
+		e.setCancelled(true);
+	}
 	
 	@EventHandler
 	public void spawnInteract(PlayerInteractEvent e) {
@@ -52,6 +72,11 @@ public class Spawn extends BaseWarp implements BaseListener {
 		
 		if (e.getItem().getType().equals(Material.CHEST)) {
 			e.getPlayer().performCommand("kitinv");
+			return;
+		}
+
+		if (e.getItem().getType().equals(Material.EMERALD)) {
+			e.getPlayer().performCommand("shopinv");
 			return;
 		}
 		

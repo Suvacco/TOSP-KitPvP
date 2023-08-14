@@ -71,7 +71,11 @@ public class LPlayerDeath implements BaseListener {
 
 				killer.setStat(UserStats.KILLS, (Integer) killer.getStat(UserStats.KILLS) + 1);
 
+				killer.setStat(UserStats.COINS, (Integer) killer.getStat(UserStats.COINS) + 3);
+
 				killer.getPlayer().sendMessage("§aVocê matou o jogador " + victim.getPlayer().getName());
+
+				killer.getPlayer().sendMessage("§6+3 Coins");
 
 				Bukkit.getPluginManager().callEvent(new PlayerKillstreakEvent(killer, PlayerKillstreakEvent.StreakAction.GAIN));
 			}

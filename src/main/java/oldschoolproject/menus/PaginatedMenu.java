@@ -3,8 +3,10 @@ package oldschoolproject.menus;
 import java.util.Arrays;
 import java.util.Objects;
 
+import oldschoolproject.kits.KitLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import oldschoolproject.users.User;
@@ -47,7 +49,32 @@ public abstract class PaginatedMenu extends BaseMenu {
 		this.inventory.setItem(previousPageSlot, previousPageBtn);
 		this.inventory.setItem(nextPageSlot, nextPageBtn);
 	}
-	
+
+	@Override
+	public void handleInteraction(InventoryClickEvent e) {
+		e.setCancelled(true);
+
+		if (e.getCurrentItem().equals(nextPageBtn)) {
+			if (!((index + 1) >= KitLoader.getKitInstances().size())) {
+				page++;
+				this.open();
+			}
+			return;
+		}
+
+		if (e.getCurrentItem().equals(previousPageBtn)) {
+			if (page != 0) {
+				page--;
+				this.open();
+			}
+			return;
+		}
+
+		this.handleItemClick(e);
+	}
+
+	public abstract void handleItemClick(InventoryClickEvent e);
+
 	public int getMaxItemsPerPage() {
 		return maxItemsPerPage;
 	}

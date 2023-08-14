@@ -3,6 +3,7 @@ package oldschoolproject.menus.instances;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -30,24 +31,8 @@ public class KitSelectorMenu extends PaginatedMenu {
 	}
 
 	@Override
-	public void handleInteraction(InventoryClickEvent e) {
+	public void handleItemClick(InventoryClickEvent e) {
 		e.setCancelled(true);
-		
-		if (e.getCurrentItem().equals(nextPageBtn)) {
-			if (!((index + 1) >= KitLoader.getKitInstances().size())) {
-				page++;
-				this.open();
-			}
-			return;
-		}
-		
-		if (e.getCurrentItem().equals(previousPageBtn)) {
-			if (page != 0) {
-				page--;
-				this.open();
-			}
-			return;
-		}
 		
 		if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
 			return;
@@ -76,17 +61,18 @@ public class KitSelectorMenu extends PaginatedMenu {
 			
 			if (allKits[index] != null) {
 
+				if (this.holder.getPlayer().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) ||
+						this.holder.getPlayer().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
+
 					ItemStack item = allKits[index].getMenuItem();
 
 					ItemMeta meta = item.getItemMeta();
 
+					meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
 					meta.setDisplayName("§6" + allKits[index].getName());
 
 					item.setItemMeta(meta);
-
-				if (this.holder.getPlayer().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) || this.holder.getPlayer().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
-
-					holder.getPlayer().sendMessage("tem perm: " + allKits[index].getName());
 
 					this.inventory.addItem(item);
 				}

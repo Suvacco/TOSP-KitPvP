@@ -10,14 +10,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdBuy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdKill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdShopInv.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/instances/ShopConfirmMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/instances/ShopMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdPermission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdRank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/commands/instances/CmdRank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/databases/connections/MongoConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerLaunch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerLaunch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerDeath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerDeath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/player/LPlayerJoin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/BaseKit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/BaseKit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/Archer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/Archer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/Avatar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/Avatar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/Kangaroo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/Kangaroo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/PvP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/kits/instances/PvP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/KitManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/KitManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/PaginatedMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/PaginatedMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/instances/KitSelectorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/menus/instances/KitSelectorMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/UserRank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/UserRank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/warps/instances/Spawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/warps/instances/Spawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +46,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2T5Z39G1jKwFYXj5b62CgxrYN18" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -47,25 +60,25 @@
     <option name="showMembers" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15370595",
-    "project.structure.side.proportion": "0.2226311",
-    "settings.editor.selected.configurable": "inlay.hints",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/DESKTOP/Documents/Game Servers/servers/2/serverfiles/plugins&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15370595&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2226311&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DESKTOP\Documents\Projects\Applications\Java\TOSP-KitPvP\src\main\resources" />
@@ -153,12 +166,17 @@
       <workItem from="1691775314277" duration="256000" />
       <workItem from="1691775605804" duration="21614000" />
       <workItem from="1691892028545" duration="601000" />
-      <workItem from="1691948181060" duration="9804000" />
+      <workItem from="1691948181060" duration="10550000" />
+      <workItem from="1691976507809" duration="7326000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.spigotmc:spigot-api" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -9,7 +9,7 @@ import oldschoolproject.utils.builders.ItemBuilder;
 public class Kangaroo extends BaseKit {
 
 	public Kangaroo() {
-		super("Kangaroo", new ItemBuilder(Material.FIREWORK_ROCKET).toItemStack(), 2);
+		super("Kangaroo", 15, new ItemBuilder(Material.FIREWORK_ROCKET).toItemStack(), 2);
 	}
 
 	@Override
