@@ -1,5 +1,6 @@
 package oldschoolproject.menus.instances;
 
+import oldschoolproject.exceptions.OperationFailException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -40,9 +41,13 @@ public class WarpsMenu extends BaseMenu {
 		e.setCancelled(true);
 		
 		User user = UserManager.getUser((Player)e.getWhoClicked());
-		
-		WarpManager.changeWarp(user, e.getCurrentItem().getItemMeta().getDisplayName().substring(2));
-		
+
+		try {
+			WarpManager.changeWarp(user, e.getCurrentItem().getItemMeta().getDisplayName().substring(2));
+		} catch (OperationFailException ex) {
+			user.getPlayer().sendMessage(ex.getMessage());
+		}
+
 		user.getPlayer().closeInventory();
 	}
 

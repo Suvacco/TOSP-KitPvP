@@ -1,6 +1,7 @@
 package oldschoolproject.commands.instances;
 
 import oldschoolproject.commands.BaseCommand;
+import oldschoolproject.exceptions.OperationFailException;
 import oldschoolproject.users.UserStats;
 import oldschoolproject.managers.DatabaseManager;
 import oldschoolproject.managers.TagManager;
@@ -16,66 +17,34 @@ import java.util.Arrays;
 public class CmdRank extends BaseCommand {
 
     public CmdRank() {
-        super("rank");
+        super("rank", true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        Player player = (Player)sender;
-
         if (args.length == 0) {
-            player.sendMessage("§cErro: /rank [set]");
+            sender.sendMessage("§cError: /rank [set]");
             return;
         }
 
         if (args[0].equalsIgnoreCase("set")) {
             StringBuilder sb = new StringBuilder();
+
             Arrays.stream(UserRank.values()).forEach(userRank -> sb.append(userRank.name()).append(" : "));
 
-            if (args.length == 1) {
-                player.sendMessage("§cErro: /rank set <player> <rank>");
+            if (args.length < 2) {
+                sender.sendMessage("§cError: /rank set <player> [" + sb.substring(0, sb.length() - 3) + "]");
                 return;
             }
 
-            if (args.length == 2) {
-                player.sendMessage("§cErro: /rank set " + args[1] + " [" + sb.substring(0, sb.length() - 3) + "]");
-                return;
+            try {
+
+                UserManager.setRank(args[1], args[2]);
+                sender.sendMessage("§aPlayer \"" + args[1] + "\" was successfully updated to \"" + args[2].toUpperCase() + "\"");
+
+            } catch (OperationFailException e) {
+                sender.sendMessage(e.getMessage());
             }
-
-            Player onlinePlayer = Bukkit.getPlayer(args[1]);
-
-            User databasePlayer = DatabaseManager.findUserByName(args[1]);
-
-            if (databasePlayer == null && onlinePlayer == null) {
-                player.sendMessage("§cErro: Player não encontrado no banco de dados");
-                return;
-            }
-
-            if (!sb.toString().contains(args[2].toUpperCase())) {
-                player.sendMessage("§cErro: Rank inválido");
-                return;
-            }
-
-            player.sendMessage("§aRank do jogador " + args[1] + " §aatualizado para: " + args[2].toUpperCase());
-
-            // If player is offline
-            if (onlinePlayer == null) {
-                DatabaseManager.updateUser(databasePlayer, UserStats.RANK, UserRank.valueOf(args[2].toUpperCase()));
-                return;
-            }
-
-            User onlineUser = UserManager.getUser(onlinePlayer);
-
-            // wtf
-            onlineUser.setUserRank(args[2].toUpperCase());
-
-            onlineUser.refreshRankPermissions();
-            //
-
-            TagManager.setPrefix(onlineUser, onlineUser.getUserRank().getTag());
-            return;
         }
-
-        player.sendMessage("§cErro: /rank [set]");
     }
 }

@@ -10,7 +10,7 @@ import oldschoolproject.users.User;
 public class CmdSetLocation extends BaseCommand {
 
 	public CmdSetLocation() {
-		super("setloc");
+		super("setloc", true);
 	}
 
 	@Override
@@ -18,18 +18,17 @@ public class CmdSetLocation extends BaseCommand {
 		Player player = (Player)sender;
 		
 		if (args.length == 0) {
-			player.sendMessage("§cErro: /setloc [locname]");
+			player.sendMessage("§cError: /setloc [locname]");
 			return;
 		}
 		
 		User user = UserManager.getUser((Player)sender);
 		
 		user.getWarp().setLocation(args[0], player.getLocation());
-		
-		player.sendMessage("§aWarp: " + user.getWarp().getName());
-		player.sendMessage("§aLocalização: " + args[0]);
-	}
-	
-	
 
+		player.sendMessage("");
+		player.sendMessage("§aCustom location set successfully!");
+		player.sendMessage("§bCurrent Warp Affected: §e" + user.getWarp().getName());
+		player.sendMessage("§bLocation Name Saved: §e" + args[0]);
+	}
 }

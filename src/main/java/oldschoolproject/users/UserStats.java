@@ -1,24 +1,24 @@
 package oldschoolproject.users;
 
 public enum UserStats {
-    RANK(false),
-    PERMISSION(false),
-    KILLS(true),
-    DEATHS(true),
-    COINS(true),
+    RANK(true),
+    PERMISSIONS(true),
     KILLSTREAK(false),
-    KILLSTREAK_RECORD(true),
-    DUELS_COUNT(true),
-    DUELS_WINS(true),
-    DUELS_LOSSES(true);
+    KILLS(false),
+    DEATHS(false),
+    COINS(false),
+    KILLSTREAK_RECORD(false),
+    DUELS_COUNT(false),
+    DUELS_WINS(false),
+    DUELS_LOSSES(false);
 
-    boolean autoManageable;
+    boolean controllable;
 
-    UserStats(boolean autoManageable) {
-        this.autoManageable = autoManageable;
+    UserStats(boolean controllable) {
+        this.controllable = controllable;
     }
 
-    public boolean isAutoManageable() {
-        return this.autoManageable;
+    public boolean isNotControllable() {
+        return !this.controllable;
     }
 }

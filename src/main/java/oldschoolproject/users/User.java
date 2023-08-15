@@ -19,38 +19,38 @@ import java.util.*;
 @Getter @Setter
 public class User {
 
-	// Key properties
+
 	Player player;
+
 	UUID uuid;
 	String userName;
 
-	// Initialized values
-	UserGuard userGuard = UserGuard.Protected;
-	UserRank userRank = UserRank.MEMBER;
 
-	// Modifiable integers
+	UserGuard userGuard;
+	UserRank userRank;
+
+	PermissionAttachment permissionAttachment;
+
 	Map<UserStats, Object> statsMap = new HashMap<>();
 
-	// Player driven objects
 	BaseKit kit;
 	BaseWarp warp;
 
-	// Permissions
-	PermissionAttachment permissionAttachment;
-
+	// Player online
 	public User(Player player) {
 		this.player = player;
 		this.uuid = player.getUniqueId();
 		this.userName = player.getName();
 
-		this.resetStats();
+		this.buildUser();
 	}
 
+	// Player offline
 	public User(UUID uuid, String userName) {
 		this.userName = userName;
 		this.uuid = uuid;
 
-		this.resetStats();
+		this.buildUser();
 	}
 
 	public void reset() {
@@ -101,35 +101,32 @@ public class User {
 		this.kit = null;
 	}
 
-	public void resetStats() {
+	public void buildUser() {
+		this.setUserRank(UserRank.MEMBER);
+		this.userGuard = UserGuard.Protected;
+
 		if (this.player != null) {
-			this.permissionAttachment = getPlayer().addAttachment(Main.getInstance());
-
-			this.loadRankPermissions();
+			this.permissionAttachment = player.addAttachment(Main.getInstance());
+			// Rank permissions
+			this.loadPermissionAttachment(this.getUserRank().getPermissions());
 		}
 
-		setStat(UserStats.KILLSTREAK, 0);
+//		setStat(UserStats.KILLSTREAK, 0);
 
-		for (UserStats userStats : UserStats.values()) {
-			if (userStats.isAutoManageable()) {
-				setStat(userStats, 0);
-			}
-		}
+		Arrays.stream(UserStats.values()).forEach(stat -> { if (stat.isNotControllable()) { setStat(stat, 0); }});
 	}
 
-	public void loadStats(Map<String, Object> values) {
+	public void loadDatabaseDataIntoUser(Map<String, Object> values) {
 		this.setUserRank((String) values.get("rank"));
 
-		// refactor!!
-		if (this.permissionAttachment != null) {
-			this.loadUserPermissions((ArrayList<String>) values.get("permissions"));
+		if (this.player != null) {
+			// User permissions
+			this.loadPermissionAttachment((ArrayList<String>) values.get("permissions"));
+		} else {
+			this.setStat(UserStats.PERMISSIONS, values.get("permissions"));
 		}
 
-		for (UserStats userStats : UserStats.values()) {
-			if (userStats.isAutoManageable()) {
-				setStat(userStats, values.get(userStats.name().toLowerCase()));
-			}
-		}
+		Arrays.stream(UserStats.values()).forEach(stat -> { if (stat.isNotControllable()) { setStat(stat, values.get(stat.name().toLowerCase())); }});
 	}
 
 	public Player getPlayer() {
@@ -160,31 +157,28 @@ public class User {
 		return this.statsMap.get(stat);
 	}
 
-	public void loadUserPermissions(List<String> permissions) {
+	public void loadPermissionAttachment(List<String> permissions) {
 		for (String permission : permissions) {
-			this.permissionAttachment.setPermission(permission, true);
-		}
-	}
-
-	public void loadRankPermissions() {
-		for (String permission : this.getUserRank().getPermissions()) {
 			this.permissionAttachment.setPermission(permission, true);
 		}
 	}
 
 	public void refreshRankPermissions() {
 		// Overhead
-
 		for (String permission : this.permissionAttachment.getPermissions().keySet()) {
 			if (permission.startsWith("rank.")) {
 				this.permissionAttachment.unsetPermission(permission);
 			}
 		}
 
-		this.loadRankPermissions();
+		this.loadPermissionAttachment(this.getUserRank().getPermissions());
 	}
 
 	public void setUserRank(String userRank) {
 		this.userRank = UserRank.valueOf(userRank);
+	}
+
+	public void setUserRank(UserRank userRank) {
+		this.userRank = userRank;
 	}
 }

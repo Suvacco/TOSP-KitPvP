@@ -42,6 +42,8 @@ public class Main extends JavaPlugin {
 		
 		new FeastLoader();
 
+//		new ScoreboardLoader();
+
 		registerPlayers();
 	}
 

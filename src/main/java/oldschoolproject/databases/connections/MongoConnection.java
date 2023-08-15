@@ -50,7 +50,7 @@ public class MongoConnection implements DatabaseConnection {
         Document foundPlayer = this.userCollection.find(playerDocument).first();
 
         if (foundPlayer != null) {
-            user.loadStats(foundPlayer);
+            user.loadDatabaseDataIntoUser(foundPlayer);
         }
     }
 
@@ -97,7 +97,7 @@ public class MongoConnection implements DatabaseConnection {
 
         User user = new User(UUID.fromString((String)document.get("_id")), (String)document.get("name"));
 
-        user.loadStats(document);
+        user.loadDatabaseDataIntoUser(document);
 
         return user;
     }

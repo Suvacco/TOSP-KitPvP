@@ -1,35 +1,64 @@
 package oldschoolproject.managers;
 
+import oldschoolproject.exceptions.OperationFailException;
 import org.bukkit.Location;
 
-import oldschoolproject.exceptions.FeastManagementException;
 import oldschoolproject.feast.Feast;
 import oldschoolproject.feast.FeastLoader;
-import oldschoolproject.holograms.Hologram;
-import oldschoolproject.holograms.HologramLoader;
 
 public class FeastManager {
 
-	public static void createFeast(String id, Location location) throws FeastManagementException {
+	public static void createFeast(String id, Location location) throws OperationFailException {
 		if (FeastLoader.getFeastInstances().containsKey(id)) {
-			throw new FeastManagementException(id, "create");
+			throw new OperationFailException("A feast with the ID \"" + id + "\" already exists");
 		}
 		
 		Feast feast = new Feast(location);
+
+		FeastLoader.getFeastInstances().put(id, feast);
 		
 		FeastLoader.saveFeast(id, feast);
 	}
 
-	public static void deleteFeast(String id) throws FeastManagementException {
+	public static void deleteFeast(String id) throws OperationFailException {
 		if (!FeastLoader.getFeastInstances().containsKey(id)) {
-			throw new FeastManagementException(id, "delete");
+			throw new OperationFailException("Feast ID \"" + id + "\" not found");
 		}
+
+		findFeast(id).delete();
+
+		FeastLoader.getFeastInstances().remove(id);
 		
-        Feast feast = FeastLoader.getFeastInstances().get(id);
-
-        FeastLoader.getFeastInstances().remove(id);
-
         FeastLoader.deleteFeast(id);
 	}
 
+	public static String getFeastsList() {
+		StringBuilder sb = new StringBuilder();
+
+		FeastLoader.getFeastInstances().keySet().forEach(key -> { sb.append(key).append(", "); });
+
+		sb.delete(sb.length() - 2, sb.length());
+
+		return sb.toString();
+	}
+
+	public static Feast findFeast(String id) throws OperationFailException {
+		if (!FeastLoader.getFeastInstances().containsKey(id)) {
+			throw new OperationFailException("Feast ID \"" + id + "\" not found");
+		}
+
+		return FeastLoader.getFeastInstances().get(id);
+	}
+
+	public static void moveFeast(String id, Location location) throws OperationFailException {
+		if (!FeastLoader.getFeastInstances().containsKey(id)) {
+			throw new OperationFailException("Feast ID \"" + id + "\" not found");
+		}
+
+		Feast feast = FeastLoader.getFeastInstances().get(id);
+
+		feast.updateLocation(location);
+
+		FeastLoader.saveFeast(id, feast);
+	}
 }

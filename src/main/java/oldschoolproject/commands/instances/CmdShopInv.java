@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class CmdShopInv extends BaseCommand {
     public CmdShopInv() {
-        super("shopinv");
+        super("shopinv", false);
     }
 
     @Override

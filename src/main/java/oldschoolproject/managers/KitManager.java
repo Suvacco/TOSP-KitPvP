@@ -1,5 +1,6 @@
 package oldschoolproject.managers;
 
+import oldschoolproject.exceptions.OperationFailException;
 import oldschoolproject.users.UserGuard;
 import oldschoolproject.users.UserStats;
 import org.bukkit.Material;
@@ -16,27 +17,28 @@ import oldschoolproject.warps.instances.Spawn;
 public class KitManager {
 	
 	// Direct command
-	public static void setKit(User user, String kitName) {
+	public static void setKit(User user, String kitName) throws OperationFailException {
 		Player p = user.getPlayer();
 		
 		if (!kitExists(kitName)) {
-			p.sendMessage("§cErro: Kit inexistente: " + kitName); 
-			return;
+			throw new OperationFailException("Kit \"" + kitName + "\" not found");
 		}
 		
 		if (!(user.getWarp() instanceof Spawn)) {
-			p.sendMessage("§cErro: Não é possivel selecionar um kit fora do spawn");
-			return;
+			throw new OperationFailException("It isn't allowed to select a kit outside of the spawn area");
 		}
 		
 		if (!user.isProtected()) {
-			p.sendMessage("§cErro: Você já recebeu um kit");
-			return;
+			throw new OperationFailException("Kit already received");
+		}
+
+		if (!user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase()) || !user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase())) {
+			throw new OperationFailException("You don't have permission to use this kit");
 		}
 		
 		user.setKit(findKit(kitName).createInstance());
 		
-		p.sendMessage("§eKit selecionado: " + kitName.substring(0, 1).toUpperCase() + kitName.substring(1).toLowerCase());
+		p.sendMessage("§eYou selected the kit: " + kitName.substring(0, 1).toUpperCase() + kitName.substring(1).toLowerCase());
 	}
 	
 	// Steping on sponge
@@ -97,29 +99,26 @@ public class KitManager {
 		}
 	}
 
-    public static void buyKit(User user, String kitName) {
+    public static void buyKit(User user, String kitName) throws OperationFailException {
 		Player p = user.getPlayer();
 
 		if (!kitExists(kitName)) {
-			p.sendMessage("§cErro: Kit inexistente: " + kitName);
-			return;
+			throw new OperationFailException("Kit inexistente: " + kitName);
 		}
 
-		if (user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase()) ||
-				user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase())) {
-			p.sendMessage("§cErro: Você já possui esse kit");
-			return;
+		if (user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase()) || user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase())) {
+			throw new OperationFailException("Já possui o kit");
 		}
 
 		BaseKit kit = findKit(kitName);
 
 		if ((Integer)user.getStat(UserStats.COINS) < kit.getShopPrice()) {
-			p.sendMessage("§cErro: Coins insuficientes");
-			return;
+			throw new OperationFailException("Coins insuficientes");
 		}
 
-		p.sendMessage("§aKit \"" + kit.getName() + "\" comprado!");
 		user.getPermissionAttachment().setPermission("perm.kit." + kit.getName().toLowerCase(), true);
 		user.setStat(UserStats.COINS, (Integer)user.getStat(UserStats.COINS) - kit.getShopPrice());
+
+		p.sendMessage("§aKit \"" + kit.getName() + "\" comprado!");
 	}
 }

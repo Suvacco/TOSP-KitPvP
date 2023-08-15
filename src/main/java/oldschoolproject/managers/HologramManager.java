@@ -1,6 +1,6 @@
 package oldschoolproject.managers;
 
-import oldschoolproject.exceptions.HologramManagementException;
+import oldschoolproject.exceptions.OperationFailException;
 import oldschoolproject.holograms.Hologram;
 import oldschoolproject.holograms.HologramLoader;
 import oldschoolproject.utils.formatters.ChatFormatter;
@@ -10,9 +10,9 @@ import java.util.Collections;
 
 public class HologramManager {
 
-    public static void setlineHologram(String id, int line, String text) throws HologramManagementException {
+    public static void setlineHologram(String id, int line, String text) throws OperationFailException {
         if (!HologramLoader.getHologramInstances().containsKey(id)) {
-            throw new HologramManagementException("ID não encontrado", id);
+            throw new OperationFailException("Hologram ID \"" + id + "\" not found");
         }
 
         Hologram hologram = HologramLoader.getHologramInstances().get(id);
@@ -22,9 +22,9 @@ public class HologramManager {
         HologramLoader.saveHologram(id, hologram);
     }
 
-    public static void createHologram(String id, String firstLine, Location location) throws HologramManagementException {
+    public static void createHologram(String id, String firstLine, Location location) throws OperationFailException {
         if (HologramLoader.getHologramInstances().containsKey(id)) {
-            throw new HologramManagementException("ID não registrado", id);
+            throw new OperationFailException("A hologram with the ID \"" + id + "\" already exists");
         }
 
         Hologram holo = new Hologram(location, Collections.singletonList(ChatFormatter.format(firstLine)));
@@ -36,9 +36,9 @@ public class HologramManager {
         HologramLoader.saveHologram(id, holo);
     }
 
-    public static void deleteHologram(String id) throws HologramManagementException {
+    public static void deleteHologram(String id) throws OperationFailException {
         if (!HologramLoader.getHologramInstances().containsKey(id)) {
-            throw new HologramManagementException("ID não encontrado", id);
+            throw new OperationFailException("Hologram ID \"" + id + "\" not found");
         }
 
         Hologram hologram = HologramLoader.getHologramInstances().get(id);
@@ -50,9 +50,9 @@ public class HologramManager {
         HologramLoader.deleteHologram(id);
     }
 
-    public static void addLine(String id, String line) throws HologramManagementException {
+    public static void addLine(String id, String line) throws OperationFailException {
         if (!HologramLoader.getHologramInstances().containsKey(id)) {
-            throw new HologramManagementException("ID não encontrado", id);
+            throw new OperationFailException("Hologram ID \"" + id + "\" not found");
         }
 
         Hologram hologram = HologramLoader.getHologramInstances().get(id);
@@ -62,9 +62,9 @@ public class HologramManager {
         HologramLoader.saveHologram(id, hologram);
     }
 
-    public static void removeLine(String id, int line) throws HologramManagementException {
+    public static void removeLine(String id, int line) throws OperationFailException {
         if (!HologramLoader.getHologramInstances().containsKey(id)) {
-            throw new HologramManagementException("ID não encontrado", id);
+            throw new OperationFailException("Hologram ID \"" + id + "\" not found");
         }
 
         Hologram hologram = HologramLoader.getHologramInstances().get(id);
@@ -74,17 +74,17 @@ public class HologramManager {
         HologramLoader.saveHologram(id, hologram);
     }
 
-    public static Hologram findHologram(String id) throws HologramManagementException {
+    public static Hologram findHologram(String id) throws OperationFailException {
         if (!HologramLoader.getHologramInstances().containsKey(id)) {
-            throw new HologramManagementException("ID não encontrado", id);
+            throw new OperationFailException("Hologram ID \"" + id + "\" not found");
         }
 
         return HologramLoader.getHologramInstances().get(id);
     }
 
-    public static void moveHologram(String id, Location location) throws HologramManagementException {
+    public static void moveHologram(String id, Location location) throws OperationFailException {
         if (!HologramLoader.getHologramInstances().containsKey(id)) {
-            throw new HologramManagementException("ID não encontrado", id);
+            throw new OperationFailException("Hologram ID \"" + id + "\" not found");
         }
 
         Hologram hologram = HologramLoader.getHologramInstances().get(id);

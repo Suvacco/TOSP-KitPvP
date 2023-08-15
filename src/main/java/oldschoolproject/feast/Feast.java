@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public class Feast {
 
@@ -54,10 +55,10 @@ public class Feast {
 
 	private Location location;
 
-	private int secondsToSpawn;
+	private int secondsToSpawn, secondsToDespawn;
 
-	private int secondsToDespawn;
-	
+	private BukkitTask feastTask;
+
 	public Feast(Location location) {
 		this.location = location;
 
@@ -67,7 +68,15 @@ public class Feast {
 
 		this.destroy();
 
-		beginSpawnCountdown();
+		this.beginSpawnCountdown();
+	}
+
+	public void delete() {
+		this.destroy();
+
+		this.hologram.destroy();
+
+		this.feastTask.cancel();
 	}
 
 	private Location[] getChestLocs() {
@@ -129,7 +138,7 @@ public class Feast {
 			}
 		});
 
-		hologram.setLine(1, "§bBaús spawnados!");
+		this.hologram.setLine(1, "§bBaús spawnados!");
 
 		beginDespawnCountdown();
 	}
@@ -155,7 +164,7 @@ public class Feast {
 	public void beginDespawnCountdown() {
 		this.secondsToDespawn = SECONDS_TO_DESPAWN;
 
-		new BukkitRunnable() {
+		this.feastTask = new BukkitRunnable() {
 			@Override
 			public void run() {
 				hologram.setLine(1, "§c" + ChatFormatter.formatSeconds(secondsToDespawn));
@@ -174,10 +183,10 @@ public class Feast {
 	public void beginSpawnCountdown() {
 		this.secondsToSpawn = SECONDS_TO_SPAWN;
 
-		new BukkitRunnable() {
+		this.feastTask = new BukkitRunnable() {
 			@Override
 			public void run() {
-				hologram.setLine(1, "§a" + ChatFormatter.formatSeconds(secondsToSpawn));
+				Feast.this.hologram.setLine(1, "§a" + ChatFormatter.formatSeconds(secondsToSpawn));
 
 				if (secondsToSpawn < 1) {
 					spawn();
@@ -192,11 +201,23 @@ public class Feast {
 	public void beginCooldown() {
 		hologram.setLine(1, "§eEm cooldown...");
 
-		new BukkitRunnable() {
+		this.feastTask = new BukkitRunnable() {
 			@Override
 			public void run() {
 				beginSpawnCountdown();
 			}
 		}.runTaskLater(Main.getInstance(), 20 * SECONDS_TO_COOLDOWN);
 	}
+
+    public void updateLocation(Location location) {
+		this.destroy();
+
+		this.feastTask.cancel();
+
+		this.location = location;
+
+		this.beginSpawnCountdown();
+
+		this.hologram.updateLocation(location.clone().add(0, 1, 0));
+    }
 }

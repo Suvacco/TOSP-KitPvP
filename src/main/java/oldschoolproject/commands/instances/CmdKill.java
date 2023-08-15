@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class CmdKill extends BaseCommand {
     public CmdKill() {
-        super("kill");
+        super("kill", false);
     }
 
     @Override
@@ -22,11 +22,11 @@ public class CmdKill extends BaseCommand {
         Player victim = Bukkit.getPlayer(args[0]);
 
         if (victim == null) {
-            player.sendMessage("§cErro: Player inexistente");
+            sender.sendMessage("§cError: Player not found");
             return;
         }
 
         victim.setHealth(0);
-        player.sendMessage("§aPlayer assassinado!");
+        sender.sendMessage("§aPlayer \"" + args[0] + "\" murdered!");
     }
 }

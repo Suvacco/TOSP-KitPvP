@@ -10,7 +10,7 @@ import oldschoolproject.menus.instances.WarpsMenu;
 public class CmdWarpSelector extends BaseCommand {
 
 	public CmdWarpSelector() {
-		super("warpinv");
+		super("warpinv", false);
 	}
 
 	@Override
@@ -19,7 +19,4 @@ public class CmdWarpSelector extends BaseCommand {
 		
 		new WarpsMenu(UserManager.getUser(p)).open();
 	}
-	
-	
-
 }

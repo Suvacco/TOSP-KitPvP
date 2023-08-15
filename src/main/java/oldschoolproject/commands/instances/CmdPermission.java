@@ -1,64 +1,94 @@
 package oldschoolproject.commands.instances;
 
 import oldschoolproject.commands.BaseCommand;
+import oldschoolproject.exceptions.OperationFailException;
 import oldschoolproject.managers.UserManager;
-import oldschoolproject.users.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class CmdPermission extends BaseCommand {
 
+    // develop this
+
     public CmdPermission() {
-        super("perm");
+        super("perm", true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        Player player = (Player)sender;
-
         if (args.length == 0) {
-            player.sendMessage("§cErro: /permission [add : see] <perm>");
+            sender.sendMessage("§cError: /perm [add : remove : has : see]");
             return;
         }
 
-        User user = UserManager.getUser(player);
+        try {
 
-        if (args[0].equalsIgnoreCase("add")) {
+            if (args[0].equalsIgnoreCase("add")) {
 
-            user.getPermissionAttachment().setPermission(args[1], true);
+                if (args.length < 3) {
+                    sender.sendMessage("§cError: /perm add <player> <permission>");
+                    return;
+                }
 
-            player.sendMessage("§aPermissão adicionada");
-
-            return;
-        }
-
-        if (args[0].equalsIgnoreCase("remove")) {
-
-            user.getPermissionAttachment().unsetPermission(args[1]);
-
-            player.sendMessage("§aPermissão removida");
-
-            return;
-        }
-
-        if (args[0].equalsIgnoreCase("has")) {
-
-            if (player.hasPermission(args[1])) {
-                player.sendMessage("§atem permissao " + args[1]);
+                UserManager.addPermission(args[1], args[2]);
+                sender.sendMessage("§aPermission \"" + args[2] + "\" added successfully to the player \"" + args[1] + "\"");
                 return;
             }
 
-            player.sendMessage("§cnao tem");
+            if (args[0].equalsIgnoreCase("remove")) {
+
+                if (args.length < 3) {
+                    sender.sendMessage("§cError: /perm remove <player> <permission>");
+                    return;
+                }
+
+                UserManager.removePermission(args[1], args[2]);
+                sender.sendMessage("§aPermission \"" + args[2] + "\" removed successfully from the player \"" + args[1] + "\"");
+                return;
+            }
+
+            if (args[0].equalsIgnoreCase("has")) {
+
+                if (args.length < 3) {
+                    sender.sendMessage("§cError: /perm has <player> <permission>");
+                    return;
+                }
+
+                boolean hasPermission = UserManager.hasPermission(args[1], args[2]);
+
+                if (!hasPermission) {
+                    sender.sendMessage("§cThe player \"" + args[1] + "\" doesn't have the permission \"" + args[2] + "\"");
+                    return;
+                }
+
+                sender.sendMessage("§aThe player \"" + args[1] + "\" has the permission \"" + args[2] + "\"");
+                return;
+            }
+
+            if (args[0].equalsIgnoreCase("see")) {
+
+                if (args.length < 2) {
+                    sender.sendMessage("§cError: /perm see <player>");
+                    return;
+                }
+
+                List<String> permissions = UserManager.getPermissions(args[1]);
+
+                sender.sendMessage("§aThese are the permissions of the player \"" + args[1] + "\":");
+
+                for (String permission : permissions) {
+                    sender.sendMessage("§6- §e" + permission);
+                }
+
+                return;
+            }
+        } catch (OperationFailException e) {
+            sender.sendMessage(e.getMessage());
             return;
         }
 
-        if (args[0].equalsIgnoreCase("see")) {
-
-            player.sendMessage("§aSuas permissões: ");
-
-            for (String s : user.getPermissionAttachment().getPermissions().keySet()) {
-                player.sendMessage(s);
-            }
-        }
+        sender.sendMessage("§cError: /perm [add : remove : has : see]");
     }
 }

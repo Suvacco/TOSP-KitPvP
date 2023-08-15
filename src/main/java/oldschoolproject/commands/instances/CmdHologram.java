@@ -1,8 +1,8 @@
 package oldschoolproject.commands.instances;
 
 import oldschoolproject.commands.BaseCommand;
-import oldschoolproject.exceptions.HologramManagementException;
-import oldschoolproject.holograms.HologramLoader;
+import oldschoolproject.exceptions.OperationFailException;
+import oldschoolproject.managers.FeastManager;
 import oldschoolproject.managers.HologramManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class CmdHologram extends BaseCommand {
 
 	public CmdHologram() {
-		super("holo");
+		super("holo", true);
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class CmdHologram extends BaseCommand {
         Player p = (Player)sender;
 
         if (args.length == 0) {
-            p.sendMessage("§cErro: /holo [create : delete : setline : addline : removeline : goto : movehere : list]");
+            p.sendMessage("§cError: /holo [create : delete : setline : addline : removeline : goto : movehere : list]");
             return;
         }
         
@@ -26,7 +26,7 @@ public class CmdHologram extends BaseCommand {
         
 	        if (args[0].equalsIgnoreCase("create")) {
 	            if (args.length < 3) {
-	                p.sendMessage("§cErro: /holo create <id> <firstline>");
+	                p.sendMessage("§cError: /holo create <id> <line-text>");
 	                return;
 	            }
 	
@@ -37,16 +37,15 @@ public class CmdHologram extends BaseCommand {
 	            }
 	
 	            sb.deleteCharAt(sb.length() - 1);
-	
+
 	            HologramManager.createHologram(args[1], sb.toString(), p.getLocation());
-	            
-	            p.sendMessage("§aHolograma \"" + args[1] + "\" criado com sucesso!");
+	            p.sendMessage("§aHologram \"" + args[1] + "\" created successfully!");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("addline")) {
 	            if (args.length < 3) {
-	                p.sendMessage("§cErro: /holo addline <id> <line>");
+	                p.sendMessage("§cError: /holo addline <id> <line-text>");
 	                return;
 	            }
 	
@@ -59,26 +58,24 @@ public class CmdHologram extends BaseCommand {
 	            sb.deleteCharAt(sb.length() - 1);
 	
 	            HologramManager.addLine(args[1], sb.toString());
-	            
-	            p.sendMessage("§aLinha \"" + sb.toString() + "\" adicionada com sucesso ao holograma \"" + args[1] + "\"");
+	            p.sendMessage("§aLine \"" + sb.toString() + "\" successfully added to the hologram \"" + args[1] + "\"");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("delete")) {
 	            if (args.length < 2) {
-	                p.sendMessage("§cErro: /holo delete <id>");
+	                p.sendMessage("§cError: /holo delete <id>");
 	                return;
 	            }
 	
 	            HologramManager.deleteHologram(args[1]);
-	            
-	            p.sendMessage("§aHolograma \"" + args[1] + "\" deletado com sucesso!");
+	            p.sendMessage("§aHologram \"" + args[1] + "\" deleted successfully!");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("setline")) {
 	            if (args.length < 4) {
-	                p.sendMessage("§cErro: /holo setline <id> <line> <text>");
+	                p.sendMessage("§cError: /holo setline <id> <line-number> <line-text>");
 	                return;
 	            }
 	
@@ -89,57 +86,61 @@ public class CmdHologram extends BaseCommand {
 	            }
 	
 	            sb.deleteCharAt(sb.length() - 1);
-	
+
 	            HologramManager.setlineHologram(args[1], Integer.parseInt(args[2]), sb.toString());
-	            
-	            p.sendMessage("§aLinha \"" + sb.toString() + "\" [" + args[2] + "] setada com sucesso ao holograma \"" + args[1] + "\"");
+	            p.sendMessage("§aLine text \"" + sb.toString() + "\" set successfully to line number [" + args[2] + "] to the hologram \"" + args[1] + "\"");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("removeline")) {
 	            if (args.length < 3) {
-	                p.sendMessage("§cErro: /holo removeline <id> <line>");
+	                p.sendMessage("§cError: /holo removeline <id> <line>");
 	                return;
 	            }
 	
 	            HologramManager.removeLine(args[1], Integer.parseInt(args[2]));
-	            
-	            p.sendMessage("§aLinha \"" + args[2] + "\" removida com sucesso do holograma \"" + args[1] + "\"");
+	            p.sendMessage("§aLine number \"" + args[2] + "\" successfully removed from the hologram \"" + args[1] + "\"");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("goto")) {
 	            if (args.length < 2) {
-	                p.sendMessage("§cErro: /holo goto <id>");
+	                p.sendMessage("§cError: /holo goto <id>");
 	                return;
 	            }
 	
 	            p.teleport(HologramManager.findHologram(args[1]).getLocation());
-	            p.sendMessage("§aTeleportado ao holograma \"" + args[1] + "\"");
+				p.sendMessage("§aTeleported to hologram \"" + args[1] + "\" successfully!");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("movehere")) {
 	            if (args.length < 2) {
-	                p.sendMessage("§cErro: /holo movehere <id>");
+	                p.sendMessage("§cError: /holo movehere <id>");
 	                return;
 	            }
 
 	            HologramManager.moveHologram(args[1], p.getLocation());
-	            
-	            p.sendMessage("§aLocalização do holograma \"" + args[1] + "\" atualizada com sucesso!");
+				p.sendMessage("§aHologram \"" + args[1] + "\" location updated successfully!");
 	            return;
 	        }
 	
 	        if (args[0].equalsIgnoreCase("list")) {
-	            p.sendMessage("§aLista IDs de Hologramas: " + HologramManager.getHologramList());
+				p.sendMessage("§aHologram ID List: " + FeastManager.getFeastsList());
 	            return;
 	        }
         
-        } catch (HologramManagementException e) {
-        	p.sendMessage("§cErro: " + e.getMessage());
-        }
+        } catch (OperationFailException e) {
+        	p.sendMessage(e.getMessage());
+			return;
+        } catch (NumberFormatException e) {
+			p.sendMessage("§cError: Invalid number format");
+			return;
+		} catch (IndexOutOfBoundsException e) {
+			p.sendMessage("§cError: Invalid line");
+			return;
+		}
 
-        p.sendMessage("§cErro: /holo [create : delete : setline : addline : removeline : goto : movehere : list]");
+        p.sendMessage("§cError: /holo [create : delete : setline : addline : removeline : goto : movehere : list]");
     }
 }

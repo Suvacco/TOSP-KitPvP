@@ -1,6 +1,7 @@
 package oldschoolproject.events.listeners.common.player;
 
 import oldschoolproject.events.BaseListener;
+import oldschoolproject.managers.ChatManager;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 import oldschoolproject.users.UserRank;
@@ -15,6 +16,12 @@ public class LPlayerChat implements BaseListener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
+
+        if (!ChatManager.isEnabled() && !e.getPlayer().isOp()) {
+            e.setCancelled(true);
+            p.sendMessage("§cChatting is disabled");
+            return;
+        }
 
         User user = UserManager.getUser(e.getPlayer());
 

@@ -1,63 +1,57 @@
 package oldschoolproject.commands.instances;
 
 import oldschoolproject.commands.BaseCommand;
+import oldschoolproject.exceptions.OperationFailException;
+import oldschoolproject.managers.ChatManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import oldschoolproject.events.BaseListener;
 
-public class CmdChat extends BaseCommand implements BaseListener {
+public class CmdChat extends BaseCommand {
 	
-	private static boolean chatStatus = true;
-
 	public CmdChat() {
-		super("chat");
+		super("chat", true);
 	}
 
 	@Override
 	public void onCommand(CommandSender sender, String[] args) {
 		if (args.length == 0) {
-			sender.sendMessage("§cErro: /chat [Stop : Resume : Clear]");
+			sender.sendMessage("§cError: /chat [disable : enable : wipe]");
 			return;
 		}
-		
-		if (args[0].equalsIgnoreCase("stop")) {
-			if (!chatStatus) {
-				sender.sendMessage("§cErro: O chat já foi desativado");
+
+		if (args[0].equalsIgnoreCase("disable")) {
+			if (!ChatManager.isEnabled()) {
+				sender.sendMessage("§cError: Chat is already disabled");
 				return;
 			}
-			
-			sender.sendMessage("§aChat desativado!");
-			chatStatus = false;
+
+			ChatManager.chatEnabled(false);
+			sender.sendMessage("§aChat disabled!");
 			return;
 		}
-		
-		if (args[0].equalsIgnoreCase("resume")) {
-			if (chatStatus) {
-				sender.sendMessage("§cErro: O chat já foi ativado");
+
+		if (args[0].equalsIgnoreCase("enable")) {
+			if (ChatManager.isEnabled()) {
+				sender.sendMessage("§cError: Chat is already enabled");
 				return;
 			}
-			
-			sender.sendMessage("§aChat ativado!");
-			chatStatus = true;
+
+			ChatManager.chatEnabled(true);
+			sender.sendMessage("§aChat enabled!");
 			return;
 		}
-		
-		if (args[0].equalsIgnoreCase("clear")) {
-			for (int i = 0; i < 100; i++) {
-				Bukkit.broadcastMessage("");
-			}
-			sender.sendMessage("§aChat limpo!");
+
+		if (args[0].equalsIgnoreCase("wipe")) {
+			ChatManager.wipeChat();
+			sender.sendMessage("§aChat wiped!");
+			return;
 		}
-	}
-	
-	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e) {
-		if (!chatStatus && !e.getPlayer().isOp()) {
-			e.setCancelled(true);
-			e.getPlayer().sendMessage("§cO chat foi desativado");
-		}
+
+		sender.sendMessage("§cError: /chat [disable : enable : wipe]");
 	}
 }

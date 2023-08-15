@@ -10,7 +10,7 @@ import oldschoolproject.menus.instances.KitSelectorMenu;
 public class CmdKitSelector extends BaseCommand {
 
 	public CmdKitSelector() {
-		super("kitinv");
+		super("kitinv", false);
 	}
 
 	@Override
@@ -19,5 +19,4 @@ public class CmdKitSelector extends BaseCommand {
 		
 		new KitSelectorMenu(UserManager.getUser(p)).open();
 	}
-
 }
