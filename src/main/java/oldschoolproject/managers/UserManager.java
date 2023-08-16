@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import oldschoolproject.users.User;
 
+@SuppressWarnings("unchecked")
 public class UserManager {
 	
 	private static Map<Player, User> userMap = new HashMap<>();
@@ -27,76 +28,66 @@ public class UserManager {
 	}
 
 	public static void addPermission(String playerName, String permission) throws OperationFailException {
+		if (hasPermission(playerName, permission)) {
+			throw new OperationFailException("The player \"" + playerName + "\" already has the permission \"" + permission + "\"");
+		}
+
 		Player target = Bukkit.getPlayer(playerName);
 
+		// Server
 		if (target != null) {
-
-			if (target.hasPermission(permission)) {
-				throw new OperationFailException("The player \"" + playerName + "\" already has the permission \"" + permission + "\"");
-			}
-
-			getUser(target).getPermissionAttachment().setPermission(permission, true);
+			getUser(target).addPermission(permission);
 			return;
 		}
 
 		User user = DatabaseManager.findUserByName(playerName);
 
+		// Database
 		if (user != null) {
 			List<String> perm = (ArrayList<String>)user.getStat(UserStats.PERMISSIONS);
-
-			if (perm.contains(permission)) {
-				throw new OperationFailException("The player \"" + playerName + "\" already has the permission \"" + permission + "\"");
-			}
 
 			perm.add(permission);
 
 			DatabaseManager.updateUser(user, UserStats.PERMISSIONS, perm);
-			return;
 		}
-
-		throw new OperationFailException("Player \"" + playerName + "\" not found neither in the server or the database");
 	}
 
 	public static void removePermission(String playerName, String permission) throws OperationFailException {
+		if (!hasPermission(playerName, permission)) {
+			throw new OperationFailException("The player \"" + playerName + "\" doesn't have the permission \"" + permission + "\"");
+		}
+
 		Player target = Bukkit.getPlayer(playerName);
 
+		// Server
 		if (target != null) {
-
-			if (!target.hasPermission(permission)) {
-				throw new OperationFailException("The player \"" + playerName + "\" doesn't have the permission \"" + permission + "\"");
-			}
-
-			getUser(target).getPermissionAttachment().unsetPermission(permission);
+			getUser(target).removePermission(permission);
 			return;
 		}
 
 		User user = DatabaseManager.findUserByName(playerName);
 
+		// Database
 		if (user != null) {
-			List<String> perms = (ArrayList<String>)user.getStat(UserStats.PERMISSIONS);
-
-			if (!perms.contains(permission)) {
-				throw new OperationFailException("The player \"" + playerName + "\" doesn't have the permission \"" + permission + "\"");
-			}
+			List<String> perms = (List<String>) user.getStat(UserStats.PERMISSIONS);
 
 			perms.remove(permission);
 
 			DatabaseManager.updateUser(user, UserStats.PERMISSIONS, perms);
-			return;
 		}
-
-		throw new OperationFailException("Player \"" + playerName + "\" not found neither in the server or the database");
 	}
 
 	public static boolean hasPermission(String playerName, String permission) throws OperationFailException {
 		Player target = Bukkit.getPlayer(playerName);
 
+		// Server
 		if (target != null) {
 			return target.hasPermission(permission);
 		}
 
 		User user = DatabaseManager.findUserByName(playerName);
 
+		// Database
 		if (user != null) {
 			List<String> perms = (ArrayList<String>)user.getStat(UserStats.PERMISSIONS);
 
@@ -118,7 +109,7 @@ public class UserManager {
 		User user = DatabaseManager.findUserByName(playerName);
 
 		if (user != null) {
-			List<String> perms = (ArrayList)user.getStat(UserStats.PERMISSIONS);
+			List<String> perms = (ArrayList<String>)user.getStat(UserStats.PERMISSIONS);
 
 			perms.addAll(user.getUserRank().getPermissions());
 
@@ -154,47 +145,55 @@ public class UserManager {
 		throw new OperationFailException("Player \"" + playerName + "\" not found neither in the server or the database");
 	}
 
-	public static void printUser(Player viewer, String userName) throws OperationFailException {
+	public static void viewUserDetails(Player viewer, String userName) throws OperationFailException {
 		Player target = Bukkit.getPlayer(userName);
+
+		if (target != null) {
+			User user = UserManager.getUser(target);
+
+			viewer.sendMessage("");
+			viewer.sendMessage("§7The player you're viewing is currently §aonline");
+
+			printUserDetails(viewer, user);
+
+			return;
+		}
 
 		User dbUser = DatabaseManager.findUserByName(userName);
 
-		if (dbUser == null && target == null) {
-			throw new OperationFailException("Player \"" + userName + "\" not found neither in the server or the database");
+		if (dbUser != null) {
+
+			viewer.sendMessage("");
+			viewer.sendMessage("§7The player you're viewing is currently §coffline");
+
+			printUserDetails(viewer, dbUser);
+
+			return;
 		}
 
-		User sessionUser = getUser(target);
+		throw new OperationFailException("Player \"" + userName + "\" not found neither in the server or the database");
+	}
+
+	private static void printUserDetails(Player viewer, User user) {
+		viewer.sendMessage("");
 
 		viewer.sendMessage("");
-		viewer.sendMessage("§7Viewing the user: §a" + userName);
-
-		if (target != null) {
-
-			viewer.sendMessage("");
-			viewer.sendMessage("§c§lSESSION DATA >");
-			viewer.sendMessage("§cRank: §e" + sessionUser.getUserRank().name().toUpperCase());
-			viewer.sendMessage("§cKit: §e" + (sessionUser.hasKit() ? sessionUser.getKit().getName() : "None"));
-			viewer.sendMessage("§cWarp: §e" + sessionUser.getWarp().getName());
-			viewer.sendMessage("§cGuard: §e" + sessionUser.getUserGuard().toString());
-			viewer.sendMessage("§cKillstreak: §e" + sessionUser.getStat(UserStats.KILLSTREAK));
+		viewer.sendMessage("§6§lUSER DATA >");
+		viewer.sendMessage("");
+		if (user.getPlayer() != null) {
+			viewer.sendMessage("§6(Session Data)");
+			viewer.sendMessage("§eKit: §7" + (user.hasKit() ? user.getKit().getName() : "None"));
+			viewer.sendMessage("§eWarp: §7" + user.getWarp().getName());
+			viewer.sendMessage("§eGuard: §7" + user.getUserGuard().toString());
+			viewer.sendMessage("§eKillstreak: §7" + user.getStat(UserStats.KILLSTREAK));
 			viewer.sendMessage("");
 		}
-
-		if (dbUser != null) {
-			viewer.sendMessage("");
-			viewer.sendMessage("§b§lDB DATA >");
-			viewer.sendMessage("§bRank: §e" + dbUser.getUserRank().name().toUpperCase());
-			viewer.sendMessage("");
-
-			viewer.sendMessage("§a§lSTATS >");
-		}
+		viewer.sendMessage("§eRank: §7" + user.getUserRank().name().toUpperCase());
 
 		for (UserStats stat : UserStats.values()) {
 			if (stat.isNotControllable()) {
-				viewer.sendMessage("§a" + Character.toUpperCase(stat.name().toLowerCase().charAt(0)) + stat.name().toLowerCase().substring(1).replace("_", " ") + ":" +
-						" §c" + (target == null ? "-" : sessionUser.getStat(stat) + " §b" + (dbUser == null ? "-" : dbUser.getStat(stat))));
+				viewer.sendMessage("§e" + Character.toUpperCase(stat.name().toLowerCase().charAt(0)) + stat.name().toLowerCase().substring(1).replace("_", " ") + ": §7" + user.getStat(stat));
 			}
 		}
-		viewer.sendMessage("");
 	}
 }

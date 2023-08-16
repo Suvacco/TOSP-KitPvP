@@ -21,13 +21,13 @@ public class LPlayerKillstreak implements BaseListener {
             int killstreak = (Integer)e.getUser().getStat(UserStats.KILLSTREAK);
 
             if (killstreak >= 8) {
-                Bukkit.broadcastMessage("§4§lEXECUTADO §c" + user.getPlayer().getName() + "§e perdeu uma killstreak de §c" + killstreak);
+                Bukkit.broadcastMessage("§4§lEXECUTED §c" + user.getPlayer().getName() + "§e lost a killstreak of §c" + killstreak);
             }
 
             if (killstreak > (Integer)e.getUser().getStat(UserStats.KILLSTREAK_RECORD)) {
                 user.setStat(UserStats.KILLSTREAK_RECORD, killstreak);
-                user.getPlayer().sendMessage("§a§lNOVO RECORDE! §7Você atingiu um novo recorde de killstreak: §a" + killstreak);
-                user.getPlayer().playSound(user.getPlayer(), Sound.ENTITY_PLAYER_LEVELUP, 15.0F, 1.0F);
+                user.getPlayer().sendMessage("§a§lNEW RECORD! §7You broke a new record of killstreak: §a" + killstreak);
+                user.getPlayer().playSound(user.getPlayer(), Sound.ITEM_GOAT_HORN_SOUND_1, 15.0F, 1.0F);
             }
 
             user.setStat(UserStats.KILLSTREAK, 0);
@@ -49,7 +49,7 @@ public class LPlayerKillstreak implements BaseListener {
 
                 if (killstreak >= 10) {
                     user.getPlayer().playSound(user.getPlayer(), Sound.ENTITY_WITHER_AMBIENT, 15.0F, 1.0F);
-                    Bukkit.broadcastMessage("§3§lKILLSTREAK §b" + user.getPlayer().getName() + " §eestá em uma killstreak de §b" + (Integer)user.getStat(UserStats.KILLSTREAK));
+                    Bukkit.broadcastMessage("§3§lKILLSTREAK §b" + user.getPlayer().getName() + " §eis on a killstreak of §b" + (Integer)user.getStat(UserStats.KILLSTREAK));
                 }
             }
         }
@@ -60,16 +60,16 @@ public class LPlayerKillstreak implements BaseListener {
             case 3:
                 return "§a§lKILLING SPREE";
             case 4:
-                return "§b§lENFURECIDO";
+                return "§b§lRAMPAGE";
             case 5:
-                return "§e§lIMPLACAVEL";
+                return "§e§lUNSTOPPABLE";
             case 6:
-                return "§c§l! DOMINANDO !";
+                return "§c§l⚔ DOMINATING ⚔";
             case 7:
-                return "§4§l!! INVENCIVEL !!";
+                return "§4§l★ GODLIKE ★";
             case 8:
-                return "§6§l!!! LENDARIO !!!";
+                return "§6§l♕ LEGENDARY ♕";
         }
-        return "§0§l-= MULTIKILL =-";
+        return "§0§l☠ MULTIKILL ☠";
     }
 }

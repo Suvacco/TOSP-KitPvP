@@ -1,12 +1,12 @@
 package oldschoolproject.users;
 
 import oldschoolproject.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.WeatherType;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.util.Vector;
 
 import lombok.Getter;
@@ -19,12 +19,10 @@ import java.util.*;
 @Getter @Setter
 public class User {
 
-
 	Player player;
 
 	UUID uuid;
 	String userName;
-
 
 	UserGuard userGuard;
 	UserRank userRank;
@@ -115,7 +113,7 @@ public class User {
 
 		Arrays.stream(UserStats.values()).forEach(stat -> { if (stat.isNotControllable()) { setStat(stat, 0); }});
 	}
-
+	@SuppressWarnings("unchecked")
 	public void loadDatabaseDataIntoUser(Map<String, Object> values) {
 		this.setUserRank((String) values.get("rank"));
 
@@ -159,19 +157,36 @@ public class User {
 
 	public void loadPermissionAttachment(List<String> permissions) {
 		for (String permission : permissions) {
-			this.permissionAttachment.setPermission(permission, true);
+			addPermission(permission);
 		}
 	}
 
 	public void refreshRankPermissions() {
-		// Overhead
-		for (String permission : this.permissionAttachment.getPermissions().keySet()) {
-			if (permission.startsWith("rank.")) {
-				this.permissionAttachment.unsetPermission(permission);
-			}
+		for (String permission : this.getUserRank().getPermissions()) {
+			removePermission(permission);
 		}
 
 		this.loadPermissionAttachment(this.getUserRank().getPermissions());
+	}
+
+	public void addPermission(String permission) {
+		getPermissionAttachment().setPermission(permission, true);
+
+		for (PermissionAttachmentInfo paInfo : getPlayer().getEffectivePermissions()) {
+			if (paInfo.getAttachment() != null && paInfo.getAttachment().getPlugin().equals(Main.getInstance())) {
+				paInfo.getAttachment().setPermission(permission, true);
+			}
+		}
+	}
+
+	public void removePermission(String permission) {
+		getPermissionAttachment().unsetPermission(permission);
+
+		for (PermissionAttachmentInfo paInfo : getPlayer().getEffectivePermissions()) {
+			if (paInfo.getAttachment() != null && paInfo.getAttachment().getPlugin().equals(Main.getInstance())) {
+				paInfo.getAttachment().unsetPermission(permission);
+			}
+		}
 	}
 
 	public void setUserRank(String userRank) {

@@ -8,7 +8,7 @@ public class LMotd implements BaseListener {
 
     @EventHandler
     public void motd(ServerListPingEvent e) {
-        e.setMotd("§6§lTHE §e§lOLD SCHOOL §6§lPROJECT §7- §aKitPvP\n"
-                + "§bServidor ligado e funcionando!");
+        e.setMotd("§9§lTHE §e§lOLD SCHOOL §9§lPROJECT §7- §aKitPvP\n"
+                + "§6§lGitHub: §egithub.com/Suvacco/TOSP-KitPvP");
     }
 }

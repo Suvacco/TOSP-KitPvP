@@ -38,9 +38,6 @@ public class CmdWarp extends BaseCommand {
 
 		} catch (OperationFailException e) {
 			p.sendMessage(e.getMessage());
-			return;
 		}
-
-		p.sendMessage("§cError: /warp [" + warpsMessage + "]");
 	}
 }

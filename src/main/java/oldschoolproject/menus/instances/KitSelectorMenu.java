@@ -61,8 +61,7 @@ public class KitSelectorMenu extends PaginatedMenu {
 			
 			if (allKits[index] != null) {
 
-				if (this.holder.getPlayer().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) ||
-						this.holder.getPlayer().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
+				if (this.holder.getPlayer().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) || this.holder.getPlayer().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
 
 					ItemStack item = allKits[index].getMenuItem();
 

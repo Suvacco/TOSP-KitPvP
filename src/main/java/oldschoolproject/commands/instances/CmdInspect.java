@@ -27,7 +27,7 @@ public class CmdInspect extends BaseCommand {
 		}
 
 		try {
-			UserManager.printUser(player, args[0]);
+			UserManager.viewUserDetails(player, args[0]);
 		} catch (OperationFailException e) {
 			player.sendMessage(e.getMessage());
 		}

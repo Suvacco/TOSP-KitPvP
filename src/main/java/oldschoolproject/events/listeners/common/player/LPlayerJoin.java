@@ -36,8 +36,8 @@ public class LPlayerJoin implements BaseListener {
 		player.setPlayerListHeaderFooter(
 				"\n §9§lTHE §e§lOLD SCHOOL §9§lPROJECT \n \n §7- §a§lKITPVP §7- \n",
 				"\n §6§lGitHub \n §egithub.com/Suvacco/TOSP-KitPvP \n");
-		
-		player.sendTitle("§9§lTHE §e§lOLD SCHOOL §9§lPROJECT", "§aBem-vindo " + player.getName() + "!", 1, 20 * 2, 10);
+
+		player.sendTitle("§9§lTHE §e§lOLD SCHOOL §9§lPROJECT", "§aWelcome " + player.getName() + "!", 1, 20 * 2, 10);
 
 		e.setJoinMessage(null);
 	}

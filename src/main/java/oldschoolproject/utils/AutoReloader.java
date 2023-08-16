@@ -35,7 +35,8 @@ public class AutoReloader {
 						if (time < file.lastModified()) {
 
 							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "rl");
-							Bukkit.getServer().broadcastMessage("§aPlugin recarregado");
+							Bukkit.getServer().broadcastMessage("§aPlugin reloaded");
+
 							this.timeSinceLastChanged.remove(fileName);
 							this.timeSinceLastChanged.put(fileName, file.lastModified());
 						}

@@ -23,32 +23,37 @@ public class Feast {
 	private static final int SECONDS_TO_DESPAWN = 5; // 10
 	private static final int SECONDS_TO_COOLDOWN = 5; // 600
 
+	// §a
+	// §b
+	// §d
+	// §6
+
 	private static ItemStack[] defaultLoot = new ItemStack[] {
-			new ItemBuilder(Material.STONE_SWORD).setName("§eEspada de Pedra").toItemStack(),
-			new ItemBuilder(Material.FISHING_ROD).setName("§eVara de Pesca").toItemStack(),
-			new ItemBuilder(Material.FIRE_CHARGE).setName("§eBola de Fogo").toItemStack(),
-			new ItemBuilder(Material.IRON_SWORD).setName("§eEspada de Ferro").toItemStack(),
-			new ItemBuilder(Material.ENDER_PEARL).setName("§ePérola do Fim").toItemStack(),
-			new ItemBuilder(Material.LEATHER_HELMET).setName("§eCapacete de Couro").toItemStack(),
-			new ItemBuilder(Material.LEATHER_CHESTPLATE).setName("§ePeitoral de Couro").toItemStack(),
-			new ItemBuilder(Material.LEATHER_LEGGINGS).setName("§eCalça de Couro").toItemStack(),
-			new ItemBuilder(Material.LEATHER_BOOTS).setName("§eBotas de Couro").toItemStack(),
-			new ItemBuilder(Material.CHAINMAIL_HELMET).setName("§eCapacete de Malha").toItemStack(),
-			new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).setName("§ePeitoral de Malha").toItemStack(),
-			new ItemBuilder(Material.CHAINMAIL_LEGGINGS).setName("§eCalça de Malha").toItemStack(),
-			new ItemBuilder(Material.CHAINMAIL_BOOTS).setName("§eBotas de Malha").toItemStack(),
-			new ItemBuilder(Material.IRON_CHESTPLATE).setName("§ePeitoral de Ferro").toItemStack(),
-			new ItemBuilder(Material.TURTLE_HELMET).setName("§eCasco de Tartaruga").toItemStack(),
-			new ItemBuilder(Material.TOTEM_OF_UNDYING).setName("§eTotem da Imortalidade").toItemStack(),
-			new ItemBuilder(Material.TNT).setName("§eTNT").toItemStack(),
-			new ItemBuilder(Material.SNOWBALL, 4).setName("§eBola de Neve").toItemStack(),
-			new ItemBuilder(Material.GOLDEN_APPLE).setName("§eMaçã Dourada").toItemStack(),
-			new ItemBuilder(Material.POTION).setName("§ePoção de Velocidade").setPotionEffect(PotionEffectType.SPEED, PotionType.SPEED, 30 * 20, 2, false).toItemStack(),
-			new ItemBuilder(Material.POTION).setName("§ePoção de Resistencia ao Fogo").setPotionEffect(PotionEffectType.FIRE_RESISTANCE, PotionType.FIRE_RESISTANCE, 30 * 20, 1, false).toItemStack(),
-			new ItemBuilder(Material.POTION).setName("§ePoção de Regeneração").setPotionEffect(PotionEffectType.REGENERATION, PotionType.REGEN, 30 * 20, 2, false).toItemStack(),
-			new ItemBuilder(Material.SPLASH_POTION).setName("§ePoção de Lentidão").setPotionEffect(PotionEffectType.SLOW, PotionType.SLOWNESS, 30 * 20, 4, false).toItemStack(),
-			new ItemBuilder(Material.SPLASH_POTION).setName("§ePoção de Cura").setPotionEffect(PotionEffectType.HEAL, PotionType.INSTANT_HEAL, 30 * 20, 2, false).toItemStack(),
-			new ItemBuilder(Material.SPLASH_POTION).setName("§ePoção de Dano").setPotionEffect(PotionEffectType.HARM, PotionType.INSTANT_DAMAGE, 30 * 20, 2, false).toItemStack(),
+			new ItemBuilder(Material.STONE_SWORD).setName("§bStone Sword").toItemStack(),
+			new ItemBuilder(Material.FISHING_ROD).setName("§aFishing Rod").toItemStack(),
+			new ItemBuilder(Material.FIRE_CHARGE).setName("§5Fireball").toItemStack(),
+			new ItemBuilder(Material.IRON_SWORD).setName("§6Iron Sword").toItemStack(),
+			new ItemBuilder(Material.ENDER_PEARL).setName("§bEnder Pearl").toItemStack(),
+			new ItemBuilder(Material.LEATHER_HELMET).setName("§aLeather Helmet").toItemStack(),
+			new ItemBuilder(Material.LEATHER_CHESTPLATE).setName("§aLeather Chestplate").toItemStack(),
+			new ItemBuilder(Material.LEATHER_LEGGINGS).setName("§aLeather Leggins").toItemStack(),
+			new ItemBuilder(Material.LEATHER_BOOTS).setName("§aLeather Boots").toItemStack(),
+			new ItemBuilder(Material.CHAINMAIL_HELMET).setName("§bChainmail Helmet").toItemStack(),
+			new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).setName("§bChainmail Chestplate").toItemStack(),
+			new ItemBuilder(Material.CHAINMAIL_LEGGINGS).setName("§bChainmail Leggins").toItemStack(),
+			new ItemBuilder(Material.CHAINMAIL_BOOTS).setName("§bChainmail Boots").toItemStack(),
+			new ItemBuilder(Material.IRON_CHESTPLATE).setName("§dIron Chestplate").toItemStack(),
+			new ItemBuilder(Material.TURTLE_HELMET).setName("§aTurtle Helmet").toItemStack(),
+			new ItemBuilder(Material.TOTEM_OF_UNDYING).setName("§6Totem of Undying").toItemStack(),
+			new ItemBuilder(Material.TNT).setName("§dTNT").toItemStack(),
+			new ItemBuilder(Material.SNOWBALL, 4).setName("§aSnowball").toItemStack(),
+			new ItemBuilder(Material.GOLDEN_APPLE).setName("§dGolden Apple").toItemStack(),
+			new ItemBuilder(Material.POTION).setName("§dSprint Potion").setPotionEffect(PotionEffectType.SPEED, PotionType.SPEED, 30 * 20, 2, false).toItemStack(),
+			new ItemBuilder(Material.POTION).setName("§dFire Resistance Potion").setPotionEffect(PotionEffectType.FIRE_RESISTANCE, PotionType.FIRE_RESISTANCE, 30 * 20, 1, false).toItemStack(),
+			new ItemBuilder(Material.POTION).setName("§dRegeneration Potion").setPotionEffect(PotionEffectType.REGENERATION, PotionType.REGEN, 30 * 20, 2, false).toItemStack(),
+			new ItemBuilder(Material.SPLASH_POTION).setName("§dSlowness Potion").setPotionEffect(PotionEffectType.SLOW, PotionType.SLOWNESS, 30 * 20, 4, false).toItemStack(),
+			new ItemBuilder(Material.SPLASH_POTION).setName("§dHeal Potion").setPotionEffect(PotionEffectType.HEAL, PotionType.INSTANT_HEAL, 30 * 20, 2, false).toItemStack(),
+			new ItemBuilder(Material.SPLASH_POTION).setName("§dDamage Potion").setPotionEffect(PotionEffectType.HARM, PotionType.INSTANT_DAMAGE, 30 * 20, 2, false).toItemStack(),
 	};
 
 	private Hologram hologram;
@@ -138,7 +143,7 @@ public class Feast {
 			}
 		});
 
-		this.hologram.setLine(1, "§bBaús spawnados!");
+		this.hologram.setLine(1, "§bChests spawned!");
 
 		beginDespawnCountdown();
 	}
@@ -199,7 +204,7 @@ public class Feast {
 	}
 
 	public void beginCooldown() {
-		hologram.setLine(1, "§eEm cooldown...");
+		hologram.setLine(1, "§eIn cooldown...");
 
 		this.feastTask = new BukkitRunnable() {
 			@Override

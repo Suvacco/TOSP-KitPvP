@@ -39,7 +39,7 @@ public class CmdRank extends BaseCommand {
 
             try {
 
-                UserManager.setRank(args[1], args[2]);
+                UserManager.setRank(args[1], args[2].toUpperCase());
                 sender.sendMessage("§aPlayer \"" + args[1] + "\" was successfully updated to \"" + args[2].toUpperCase() + "\"");
 
             } catch (OperationFailException e) {

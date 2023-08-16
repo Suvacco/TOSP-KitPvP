@@ -3,7 +3,11 @@ package oldschoolproject.managers;
 import oldschoolproject.exceptions.OperationFailException;
 import oldschoolproject.users.UserGuard;
 import oldschoolproject.users.UserStats;
+import oldschoolproject.utils.builders.FireworkBuilder;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -25,14 +29,14 @@ public class KitManager {
 		}
 		
 		if (!(user.getWarp() instanceof Spawn)) {
-			throw new OperationFailException("It isn't allowed to select a kit outside of the spawn area");
+			throw new OperationFailException("It isn't allowed to select a kit outside of the spawn warp");
 		}
 		
 		if (!user.isProtected()) {
 			throw new OperationFailException("Kit already received");
 		}
 
-		if (!user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase()) || !user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase())) {
+		if (!user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase()) && !user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase())) {
 			throw new OperationFailException("You don't have permission to use this kit");
 		}
 		
@@ -103,22 +107,24 @@ public class KitManager {
 		Player p = user.getPlayer();
 
 		if (!kitExists(kitName)) {
-			throw new OperationFailException("Kit inexistente: " + kitName);
+			throw new OperationFailException("Kit \"" + kitName + "\" not found");
 		}
 
 		if (user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase()) || user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase())) {
-			throw new OperationFailException("Já possui o kit");
+			throw new OperationFailException("You already have this kit");
 		}
 
 		BaseKit kit = findKit(kitName);
 
 		if ((Integer)user.getStat(UserStats.COINS) < kit.getShopPrice()) {
-			throw new OperationFailException("Coins insuficientes");
+			p.playSound(p, Sound.ENTITY_VILLAGER_NO, 15.0F, 1.0F);
+			throw new OperationFailException("Insuficient coins");
 		}
 
-		user.getPermissionAttachment().setPermission("perm.kit." + kit.getName().toLowerCase(), true);
+		user.addPermission("perm.kit." + kit.getName().toLowerCase());
 		user.setStat(UserStats.COINS, (Integer)user.getStat(UserStats.COINS) - kit.getShopPrice());
 
-		p.sendMessage("§aKit \"" + kit.getName() + "\" comprado!");
+		p.playSound(p, Sound.ENTITY_VILLAGER_CELEBRATE, 15.0F, 1.0F);
+		new FireworkBuilder(p.getLocation(), Color.LIME).setType(FireworkEffect.Type.BALL).setExplosionSeconds(0);
 	}
 }

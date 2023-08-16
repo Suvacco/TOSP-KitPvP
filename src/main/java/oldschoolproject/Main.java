@@ -2,6 +2,8 @@ package oldschoolproject;
 
 import oldschoolproject.databases.DatabaseLoader;
 import oldschoolproject.holograms.HologramLoader;
+import oldschoolproject.managers.DatabaseManager;
+import oldschoolproject.managers.UserManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -47,19 +49,7 @@ public class Main extends JavaPlugin {
 		registerPlayers();
 	}
 
-	@Override
-	public void onDisable() {
-		unregisterPlayers();
-	}
-
 	// Debug Methods (Temporary)
-
-	public void unregisterPlayers() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			Bukkit.getPluginManager().callEvent(new PlayerQuitEvent(player, ""));
-		}
-	}
-
 	public void registerPlayers() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			Bukkit.getPluginManager().callEvent(new PlayerJoinEvent(player, ""));

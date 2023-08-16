@@ -17,17 +17,18 @@ public class LPlayerChat implements BaseListener {
     public void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
 
+        User user = UserManager.getUser(e.getPlayer());
+
         if (!ChatManager.isEnabled() && !e.getPlayer().isOp()) {
             e.setCancelled(true);
             p.sendMessage("§cChatting is disabled");
             return;
         }
 
-        User user = UserManager.getUser(e.getPlayer());
-
-        String rank = user.getUserRank().getTag();
+        String rankTag = user.getUserRank().getTag();
 
         e.setMessage(ChatFormatter.format(e.getMessage()));
-        e.setFormat(rank + ChatColor.getByChar(ChatColor.getLastColors(rank).substring(1)) + p.getName() + " §e§l» " + (user.getUserRank() == UserRank.MEMBER ? "§7" : "§f") + e.getMessage());
+
+        e.setFormat(rankTag + ChatColor.getByChar(ChatColor.getLastColors(rankTag).substring(1)) + p.getName() + " §6§l» " + (user.getUserRank() == UserRank.MEMBER ? "§7" : "§f") + e.getMessage());
     }
 }
