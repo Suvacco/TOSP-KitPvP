@@ -34,7 +34,7 @@ public class ShopMenu extends PaginatedMenu {
             this.getInventory().setItem(i, new ItemBuilder(Material.GLASS_PANE).toItemStack());
         }
 
-        this.getInventory().setItem(49, new ItemBuilder(Material.EMERALD).setName("§7Suas Coins: §a" + this.holder.getStat(UserStats.COINS)).toItemStack());
+        this.getInventory().setItem(49, new ItemBuilder(Material.EMERALD).setName("§7Your Coins: §a" + this.holder.getStat(UserStats.COINS)).toItemStack());
     }
 
     @Override
@@ -58,8 +58,8 @@ public class ShopMenu extends PaginatedMenu {
 
             if (allKits[index] != null) {
 
-                if (!this.holder.getPlayer().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) &&
-                        !this.holder.getPlayer().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
+                if (!this.holder.getPermissionStorage().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) &&
+                        !this.holder.getPermissionsStorage().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
 
                     ItemStack item = allKits[index].getMenuItem().clone();
 
@@ -67,7 +67,7 @@ public class ShopMenu extends PaginatedMenu {
 
                     meta.setDisplayName("§a" + allKits[index].getName());
 
-                    meta.setLore(Arrays.asList("", "§7Preço: §a" + allKits[index].getShopPrice(), "", "§a§lCOMPRAR"));
+                    meta.setLore(Arrays.asList("", "§7Price: §a" + allKits[index].getShopPrice(), "", "§a§lCLICK TO BUY"));
 
                     item.setItemMeta(meta);
 

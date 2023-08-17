@@ -34,7 +34,7 @@ public abstract class BaseWarp {
 		
 		if (loc == null) {
 			player.teleport(getSpawnLocation());
-			player.sendMessage("§cLocalização ainda não setada");
+			player.sendMessage("§cLocation not yet set");
 			return;
 		}
 		

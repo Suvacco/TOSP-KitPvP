@@ -126,7 +126,7 @@ public class CmdHologram extends BaseCommand {
 	        }
 	
 	        if (args[0].equalsIgnoreCase("list")) {
-				p.sendMessage("§aHologram ID List: " + FeastManager.getFeastsList());
+				p.sendMessage("§aHologram ID List: " + HologramManager.getHologramList());
 	            return;
 	        }
         

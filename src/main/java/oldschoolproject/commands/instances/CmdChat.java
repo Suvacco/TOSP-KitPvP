@@ -25,6 +25,7 @@ public class CmdChat extends BaseCommand {
 		}
 
 		if (args[0].equalsIgnoreCase("disable")) {
+
 			if (!ChatManager.isEnabled()) {
 				sender.sendMessage("§cError: Chat is already disabled");
 				return;
@@ -36,6 +37,7 @@ public class CmdChat extends BaseCommand {
 		}
 
 		if (args[0].equalsIgnoreCase("enable")) {
+
 			if (ChatManager.isEnabled()) {
 				sender.sendMessage("§cError: Chat is already enabled");
 				return;

@@ -1,6 +1,7 @@
 package oldschoolproject.warps.instances;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -69,6 +70,8 @@ public class Spawn extends BaseWarp implements BaseListener {
 		if (e.getItem() == null) {
 			return;
 		}
+
+		e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_DISPENSER_FAIL, 1.0F, 1.0F);
 		
 		if (e.getItem().getType().equals(Material.CHEST)) {
 			e.getPlayer().performCommand("kitinv");
@@ -82,7 +85,6 @@ public class Spawn extends BaseWarp implements BaseListener {
 		
 		if (e.getItem().getType().equals(Material.NETHER_STAR)) {
 			e.getPlayer().performCommand("warpinv");
-			return;
 		}
 	}
 	

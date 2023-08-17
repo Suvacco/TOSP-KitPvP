@@ -1,20 +1,13 @@
 package oldschoolproject.commands.instances;
 
-import net.md_5.bungee.api.ChatMessageType;
-import oldschoolproject.Main;
 import oldschoolproject.commands.BaseCommand;
 import oldschoolproject.exceptions.OperationFailException;
 import oldschoolproject.kits.KitLoader;
 import oldschoolproject.managers.KitManager;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
-import oldschoolproject.utils.builders.FireworkBuilder;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 
 public class CmdBuy extends BaseCommand {
 
@@ -30,12 +23,17 @@ public class CmdBuy extends BaseCommand {
         StringBuilder sb = new StringBuilder();
 
         KitLoader.getKitInstances().forEach(kit -> {
-            if (!user.getPlayer().hasPermission("rank.kit." + kit.getName().toLowerCase()) && !user.getPlayer().hasPermission("perm.kit." + kit.getName().toLowerCase())) {
+            if (!user.getPermissionStorage().hasPermission("rank.kit." + kit.getName().toLowerCase()) && !user.getPermissionStorage().hasPermission("perm.kit." + kit.getName().toLowerCase())) {
                 sb.append(kit.getName()).append(", ");
             }
         });
 
-        String message = "[" + (sb.toString().length() > 0 ? sb.toString().substring(0, sb.toString().length() - 2) : "") + "]";
+        if (sb.length() == 0) {
+            p.sendMessage("§cYou already have all the kits");
+            return;
+        }
+
+        String message = "[" + sb.toString().substring(0, sb.toString().length() - 2) + "]";
 
         if (args.length == 0) {
             p.sendMessage("§cError: /buy " + message);

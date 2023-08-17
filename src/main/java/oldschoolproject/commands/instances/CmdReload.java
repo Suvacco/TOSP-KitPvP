@@ -19,6 +19,8 @@ public class CmdReload extends BaseCommand {
             DatabaseManager.saveUser(UserManager.getUser(player));
         }
 
+        sender.sendMessage("§aPlayers saved");
+
         Bukkit.reload();
     }
 }

@@ -36,13 +36,14 @@ public class KitManager {
 			throw new OperationFailException("Kit already received");
 		}
 
-		if (!user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase()) && !user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase())) {
+		if (!user.getPermissionsStorage().hasPermission("perm.kit." + kitName.toLowerCase()) && !user.getPermissionStorage().hasPermission("rank.kit." + kitName.toLowerCase())) {
 			throw new OperationFailException("You don't have permission to use this kit");
 		}
 		
 		user.setKit(findKit(kitName).createInstance());
-		
+
 		p.sendMessage("§eYou selected the kit: " + kitName.substring(0, 1).toUpperCase() + kitName.substring(1).toLowerCase());
+		p.playSound(p, Sound.BLOCK_NOTE_BLOCK_HAT, 1.0F, 1.0F);
 	}
 	
 	// Steping on sponge
@@ -63,14 +64,15 @@ public class KitManager {
 		// this doesn't matter for the upper guard conditions
 		if (!user.hasKit()) {
 			user.setKit(new PvP());
-			p.sendMessage("§eKit PvP selecionado automaticamente");
+			p.sendMessage("§eKit PvP selected automatically");
 		}
 		
 		setupInventory(user);
 		
 		user.setUserGuard(UserGuard.Playing);
 		
-		p.sendMessage("§aVocê recebeu o kit: " + user.getKit().getName());
+		p.sendMessage("§aYou received the kit: " + user.getKit().getName());
+		p.sendTitle("§6§l" + user.getKit().getName().toUpperCase(), "§fYou've lost your spawn protection!", 0, 45, 20);
 	}
 	
 	public static BaseKit findKit(String kitName) {
@@ -87,9 +89,9 @@ public class KitManager {
 		inv.clear();
 		
 		inv.setItem(0, user.getKit() instanceof PvP ?
-				new ItemBuilder(Material.STONE_SWORD).setName("§aEspada").toItemStack() 
+				new ItemBuilder(Material.STONE_SWORD).setName("§aSword").toItemStack()
 				: 
-				new ItemBuilder(Material.WOODEN_SWORD).setName("§aEspada").toItemStack()
+				new ItemBuilder(Material.WOODEN_SWORD).setName("§aSword").toItemStack()
 		);
 		
 		inv.setItem(1, user.getKit().getSkillItem() == null ?
@@ -99,7 +101,7 @@ public class KitManager {
 		);
 		
 		for (int i = 0; i < inv.getSize(); i++) {
-			inv.addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Sopa").toItemStack());
+			inv.addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Soup").toItemStack());
 		}
 	}
 
@@ -110,7 +112,11 @@ public class KitManager {
 			throw new OperationFailException("Kit \"" + kitName + "\" not found");
 		}
 
-		if (user.getPlayer().hasPermission("rank.kit." + kitName.toLowerCase()) || user.getPlayer().hasPermission("perm.kit." + kitName.toLowerCase())) {
+		if (!user.isProtected()) {
+			throw new OperationFailException("You can't buy kits while playing");
+		}
+
+		if (user.getPermissionsStorage().hasPermission("rank.kit." + kitName.toLowerCase()) || user.getPermissionStorage().hasPermission("perm.kit." + kitName.toLowerCase())) {
 			throw new OperationFailException("You already have this kit");
 		}
 
@@ -121,10 +127,10 @@ public class KitManager {
 			throw new OperationFailException("Insuficient coins");
 		}
 
-		user.addPermission("perm.kit." + kit.getName().toLowerCase());
+		user.getPermissionStorage().addPermission("perm.kit." + kit.getName().toLowerCase());
 		user.setStat(UserStats.COINS, (Integer)user.getStat(UserStats.COINS) - kit.getShopPrice());
 
 		p.playSound(p, Sound.ENTITY_VILLAGER_CELEBRATE, 15.0F, 1.0F);
-		new FireworkBuilder(p.getLocation(), Color.LIME).setType(FireworkEffect.Type.BALL).setExplosionSeconds(0);
+		new FireworkBuilder(p.getLocation().clone().add(0, 1, 0), Color.LIME).setType(FireworkEffect.Type.BALL).detonate();
 	}
 }

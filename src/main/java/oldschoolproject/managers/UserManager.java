@@ -36,7 +36,7 @@ public class UserManager {
 
 		// Server
 		if (target != null) {
-			getUser(target).addPermission(permission);
+			getUser(target).getPermissionStorage().addPermission(permission);
 			return;
 		}
 
@@ -61,7 +61,7 @@ public class UserManager {
 
 		// Server
 		if (target != null) {
-			getUser(target).removePermission(permission);
+			getUser(target).getPermissionStorage().removePermission(permission);
 			return;
 		}
 
@@ -82,7 +82,7 @@ public class UserManager {
 
 		// Server
 		if (target != null) {
-			return target.hasPermission(permission);
+			return getUser(target).getPermissionStorage().hasPermission(permission);
 		}
 
 		User user = DatabaseManager.findUserByName(playerName);
@@ -103,7 +103,7 @@ public class UserManager {
 		Player target = Bukkit.getPlayer(playerName);
 
 		if (target != null) {
-			return new ArrayList<String>(getUser(target).getPermissionAttachment().getPermissions().keySet());
+			return getUser(target).getPermissionsStorage().getPermissions();
 		}
 
 		User user = DatabaseManager.findUserByName(playerName);
@@ -139,6 +139,28 @@ public class UserManager {
 
 		if (user != null) {
 			DatabaseManager.updateUser(user, UserStats.RANK, UserRank.valueOf(rankName));
+			return;
+		}
+
+		throw new OperationFailException("Player \"" + playerName + "\" not found neither in the server or the database");
+	}
+
+	public static void setStat(String playerName, String stat, String value) throws OperationFailException {
+		Player target = Bukkit.getPlayer(playerName);
+
+		if (Arrays.stream(UserStats.values()).filter(UserStats::isServerControlled).noneMatch(userRank -> userRank.name().equalsIgnoreCase(stat))) {
+			throw new OperationFailException("Invalid user stat");
+		}
+
+		if (target != null) {
+			getUser(target).setStat(UserStats.valueOf(stat), Integer.valueOf(value));
+			return;
+		}
+
+		User user = DatabaseManager.findUserByName(playerName);
+
+		if (user != null) {
+			DatabaseManager.updateUser(user, UserStats.valueOf(stat), Integer.valueOf(value));
 			return;
 		}
 
@@ -191,7 +213,7 @@ public class UserManager {
 		viewer.sendMessage("§eRank: §7" + user.getUserRank().name().toUpperCase());
 
 		for (UserStats stat : UserStats.values()) {
-			if (stat.isNotControllable()) {
+			if (stat.isServerControlled()) {
 				viewer.sendMessage("§e" + Character.toUpperCase(stat.name().toLowerCase().charAt(0)) + stat.name().toLowerCase().substring(1).replace("_", " ") + ": §7" + user.getStat(stat));
 			}
 		}

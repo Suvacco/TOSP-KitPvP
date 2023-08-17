@@ -1,6 +1,7 @@
 package oldschoolproject.managers;
 
 import oldschoolproject.exceptions.OperationFailException;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import oldschoolproject.users.User;
@@ -37,6 +38,9 @@ public class WarpManager {
 		user.getWarp().removePlayer(user.getPlayer());
 		
 		setWarp(user, destination);
+
+		p.playSound(p, Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 1.0F, 1.0F);
+		p.sendTitle("§b§l" + user.getWarp().getName().toUpperCase(), "§fYou've been teleported to a warp!", 0, 45, 20);
 	}
 	
 	public static BaseWarp findWarp(String warpName) {

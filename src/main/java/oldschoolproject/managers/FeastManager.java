@@ -8,12 +8,12 @@ import oldschoolproject.feast.FeastLoader;
 
 public class FeastManager {
 
-	public static void createFeast(String id, Location location) throws OperationFailException {
+	public static void createFeast(String id, Location location, String secondsToSpawn, String secondsToDespawn, String secondsInCooldown) throws OperationFailException {
 		if (FeastLoader.getFeastInstances().containsKey(id)) {
 			throw new OperationFailException("A feast with the ID \"" + id + "\" already exists");
 		}
 		
-		Feast feast = new Feast(location);
+		Feast feast = new Feast(id, location, Integer.parseInt(secondsToSpawn), Integer.parseInt(secondsToDespawn), Integer.parseInt(secondsInCooldown));
 
 		FeastLoader.getFeastInstances().put(id, feast);
 		
@@ -60,5 +60,35 @@ public class FeastManager {
 		feast.updateLocation(location);
 
 		FeastLoader.saveFeast(id, feast);
+	}
+
+	public static void editFeast(String id, String field, String value) throws OperationFailException {
+		if (!FeastLoader.getFeastInstances().containsKey(id)) {
+			throw new OperationFailException("Feast ID \"" + id + "\" not found");
+		}
+
+		Feast feast = FeastLoader.getFeastInstances().get(id);
+
+		int fieldValue = Integer.parseInt(value);
+
+		switch (field) {
+			case "spawn":
+				feast.setSecondsToSpawn(fieldValue);
+				break;
+
+			case "despawn":
+				feast.setSecondsToDespawn(fieldValue);
+				break;
+
+			case "cooldown":
+				feast.setSecondsInCooldown(fieldValue);
+				break;
+			default:
+				throw new OperationFailException("Field not found");
+		}
+
+		FeastLoader.saveFeast(id, feast);
+
+		feast.updateFeast();
 	}
 }

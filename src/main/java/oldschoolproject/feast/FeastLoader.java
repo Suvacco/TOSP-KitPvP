@@ -34,7 +34,11 @@ public class FeastLoader {
                         (double) fileConfig.get("feasts." + key + ".location.y"),
                         (double) fileConfig.get("feasts." + key + ".location.z"));
 
-                Feast feast = new Feast(loc);
+                int secondsToSpawn = (int) fileConfig.get("feasts." + key + ".timers.secondsToSpawn");
+                int secondsToDespawn = (int) fileConfig.get("feasts." + key + ".timers.secondsToDespawn");
+                int secondsInCooldown = (int) fileConfig.get("feasts." + key + ".timers.secondsInCooldown");
+
+                Feast feast = new Feast(key, loc, secondsToSpawn, secondsToDespawn, secondsInCooldown);
 
                 feastInstances.put(key, feast);
 
@@ -57,6 +61,9 @@ public class FeastLoader {
         fileBuilder.set("feasts." + id + ".location.x", feast.getLocation().getX());
         fileBuilder.set("feasts." + id + ".location.y", feast.getLocation().getY());
         fileBuilder.set("feasts." + id + ".location.z", feast.getLocation().getZ());
+        fileBuilder.set("feasts." + id + ".timers.secondsToSpawn", feast.getSecondsToSpawn());
+        fileBuilder.set("feasts." + id + ".timers.secondsToDespawn", feast.getSecondsToDespawn());
+        fileBuilder.set("feasts." + id + ".timers.secondsInCooldown", feast.getSecondsInCooldown());
 
         fileBuilder.save();
 	}

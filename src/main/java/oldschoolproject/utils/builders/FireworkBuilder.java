@@ -37,8 +37,8 @@ public class FireworkBuilder {
         return updateFireworkMeta();
     }
 
-    public FireworkBuilder setExplosionSeconds(int seconds) {
-        this.fireworkMeta.setPower(seconds * 2);
+    public FireworkBuilder setExplosionSeconds(int power) {
+        this.fireworkMeta.setPower(power);
         return updateFireworkMeta();
     }
 

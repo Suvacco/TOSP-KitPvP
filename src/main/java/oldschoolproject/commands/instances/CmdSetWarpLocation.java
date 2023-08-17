@@ -7,10 +7,10 @@ import org.bukkit.entity.Player;
 import oldschoolproject.managers.UserManager;
 import oldschoolproject.users.User;
 
-public class CmdSetLocation extends BaseCommand {
+public class CmdSetWarpLocation extends BaseCommand {
 
-	public CmdSetLocation() {
-		super("setloc", true);
+	public CmdSetWarpLocation() {
+		super("setwarploc", true);
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class CmdSetLocation extends BaseCommand {
 		Player player = (Player)sender;
 		
 		if (args.length == 0) {
-			player.sendMessage("§cError: /setloc [locname]");
+			player.sendMessage("§cError: /setwarploc [locname]");
 			return;
 		}
 		
@@ -27,7 +27,7 @@ public class CmdSetLocation extends BaseCommand {
 		user.getWarp().setLocation(args[0], player.getLocation());
 
 		player.sendMessage("");
-		player.sendMessage("§aCustom location set successfully!");
+		player.sendMessage("§aCustom warp location set successfully!");
 		player.sendMessage("§bCurrent Warp Affected: §e" + user.getWarp().getName());
 		player.sendMessage("§bLocation Name Saved: §e" + args[0]);
 	}

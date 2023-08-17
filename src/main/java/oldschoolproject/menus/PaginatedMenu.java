@@ -19,8 +19,8 @@ public abstract class PaginatedMenu extends BaseMenu {
 	protected int maxItemsPerPage;
 	protected int previousPageSlot, nextPageSlot;
 	
-	protected ItemStack nextPageBtn = new ItemBuilder(Material.LIME_CARPET).setName("§aProxima Página").toItemStack();
-	protected ItemStack previousPageBtn = new ItemBuilder(Material.RED_CARPET).setName("§cPágina Anterior").toItemStack();
+	protected ItemStack nextPageBtn = new ItemBuilder(Material.LIME_CARPET).setName("§aNext Page").toItemStack();
+	protected ItemStack previousPageBtn = new ItemBuilder(Material.RED_CARPET).setName("§cPrevious Page").toItemStack();
 
 	public PaginatedMenu(User holder, Integer slots, String title, Integer previousPageSlot, Integer nextPageSlot) {
 		super(holder, slots, title);

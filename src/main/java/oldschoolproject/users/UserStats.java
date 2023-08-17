@@ -1,24 +1,24 @@
 package oldschoolproject.users;
 
 public enum UserStats {
-    RANK(true),
-    PERMISSIONS(true),
-    KILLSTREAK(false),
-    KILLS(false),
-    DEATHS(false),
-    COINS(false),
-    KILLSTREAK_RECORD(false),
-    DUELS_COUNT(false),
-    DUELS_WINS(false),
-    DUELS_LOSSES(false);
+    RANK(false),
+    PERMISSIONS(false),
+    KILLSTREAK(true),
+    KILLS(true),
+    DEATHS(true),
+    COINS(true),
+    KILLSTREAK_RECORD(true),
+    DUELS_COUNT(true),
+    DUELS_WINS(true),
+    DUELS_LOSSES(true);
 
-    boolean controllable;
+    boolean serverControled;
 
-    UserStats(boolean controllable) {
-        this.controllable = controllable;
+    UserStats(boolean serverControled) {
+        this.serverControled = serverControled;
     }
 
-    public boolean isNotControllable() {
-        return !this.controllable;
+    public boolean isServerControlled() {
+        return serverControled;
     }
 }

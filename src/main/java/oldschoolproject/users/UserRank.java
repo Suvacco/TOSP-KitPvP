@@ -2,8 +2,7 @@ package oldschoolproject.users;
 
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -18,55 +17,55 @@ public enum UserRank {
             (
                     "§a§lVIP ",
                     Arrays.asList("rank.kit.avatar", "rank.kit.kangaroo"),
-                    Arrays.asList(MEMBER)
+                    MEMBER
             ),
     MVP
             (
                     "§9§lMVP ",
                     Arrays.asList("rank.kit.kangaroo"),
-                    Arrays.asList(MEMBER, VIP)
+                    VIP
             ),
     PRO
             (
                     "§6§lPRO ",
                     Arrays.asList("rank.kit.avatar"),
-                    Arrays.asList(MEMBER, VIP, MVP)
+                    MVP
             ),
     MOD
             (
                     "§d§lMOD ",
                     Arrays.asList("rank.cmd.admin"),
-                    Arrays.asList(MEMBER, VIP, MVP, PRO)
+                    PRO
             ),
     ADMIN
             (
                     "§c§lADMIN ",
                     Arrays.asList("rank.op"),
-                    Arrays.asList(MEMBER, VIP, MVP, PRO, MOD)
+                    MOD
             );
 
     private String tag;
     private List<String> permissions;
-    private List<UserRank> inheritedRanks;
 
     UserRank(String tag, List<String> permissions) {
         this.tag = tag;
         this.permissions = permissions;
     }
 
-    UserRank(String tag, List<String> permissions, List<UserRank> inheritedRanks) {
+    UserRank(String tag, List<String> permissions, UserRank... ranks) {
         this.tag = tag;
-        this.inheritedRanks = inheritedRanks;
-        this.permissions = combinePermissions(inheritedRanks, permissions);
+        this.permissions = combinePermissions(permissions, ranks);
     }
 
-    private static List<String> combinePermissions(List<UserRank> ranks, List<String> additionalPermissions) {
-        List<String> combinedPermissions = ranks.stream()
-                .flatMap(rank -> rank.getPermissions().stream())
-                .distinct()
-                .collect(Collectors.toList());
+    private static List<String> combinePermissions(List<String> additionalPermissions, UserRank... ranks) {
+        Set<String> combinedPermissions = new HashSet<>();
+
+        for (UserRank rank : ranks) {
+            combinedPermissions.addAll(rank.getPermissions());
+        }
 
         combinedPermissions.addAll(additionalPermissions);
-        return combinedPermissions;
+
+        return new ArrayList<>(combinedPermissions);
     }
 }

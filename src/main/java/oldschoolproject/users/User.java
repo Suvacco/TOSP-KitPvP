@@ -1,12 +1,10 @@
 package oldschoolproject.users;
 
-import oldschoolproject.Main;
-import org.bukkit.GameMode;
-import org.bukkit.WeatherType;
+import oldschoolproject.permissions.PermissionStorage;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import lombok.Getter;
@@ -27,7 +25,7 @@ public class User {
 	UserGuard userGuard;
 	UserRank userRank;
 
-	PermissionAttachment permissionAttachment;
+	PermissionStorage permissionsStorage = new PermissionStorage();
 
 	Map<UserStats, Object> statsMap = new HashMap<>();
 
@@ -101,30 +99,18 @@ public class User {
 
 	public void buildUser() {
 		this.setUserRank(UserRank.MEMBER);
+
 		this.userGuard = UserGuard.Protected;
 
-		if (this.player != null) {
-			this.permissionAttachment = player.addAttachment(Main.getInstance());
-			// Rank permissions
-			this.loadPermissionAttachment(this.getUserRank().getPermissions());
-		}
-
-//		setStat(UserStats.KILLSTREAK, 0);
-
-		Arrays.stream(UserStats.values()).forEach(stat -> { if (stat.isNotControllable()) { setStat(stat, 0); }});
+		Arrays.stream(UserStats.values()).forEach(stat -> { if (stat.isServerControlled()) { setStat(stat, 0); }});
 	}
 	@SuppressWarnings("unchecked")
 	public void loadDatabaseDataIntoUser(Map<String, Object> values) {
 		this.setUserRank((String) values.get("rank"));
 
-		if (this.player != null) {
-			// User permissions
-			this.loadPermissionAttachment((ArrayList<String>) values.get("permissions"));
-		} else {
-			this.setStat(UserStats.PERMISSIONS, values.get("permissions"));
-		}
+		this.permissionsStorage.addPermissions((List<String>) values.get("permissions"));
 
-		Arrays.stream(UserStats.values()).forEach(stat -> { if (stat.isNotControllable()) { setStat(stat, values.get(stat.name().toLowerCase())); }});
+		Arrays.stream(UserStats.values()).forEach(stat -> { if (stat.isServerControlled()) { setStat(stat, values.get(stat.name().toLowerCase())); }});
 	}
 
 	public Player getPlayer() {
@@ -155,45 +141,41 @@ public class User {
 		return this.statsMap.get(stat);
 	}
 
-	public void loadPermissionAttachment(List<String> permissions) {
-		for (String permission : permissions) {
-			addPermission(permission);
-		}
+	public PermissionStorage getPermissionStorage() {
+		return this.permissionsStorage;
 	}
 
 	public void refreshRankPermissions() {
-		for (String permission : this.getUserRank().getPermissions()) {
-			removePermission(permission);
-		}
+		this.permissionsStorage.getPermissions().removeIf(perm -> perm.startsWith("rank."));
 
-		this.loadPermissionAttachment(this.getUserRank().getPermissions());
-	}
-
-	public void addPermission(String permission) {
-		getPermissionAttachment().setPermission(permission, true);
-
-		for (PermissionAttachmentInfo paInfo : getPlayer().getEffectivePermissions()) {
-			if (paInfo.getAttachment() != null && paInfo.getAttachment().getPlugin().equals(Main.getInstance())) {
-				paInfo.getAttachment().setPermission(permission, true);
-			}
-		}
-	}
-
-	public void removePermission(String permission) {
-		getPermissionAttachment().unsetPermission(permission);
-
-		for (PermissionAttachmentInfo paInfo : getPlayer().getEffectivePermissions()) {
-			if (paInfo.getAttachment() != null && paInfo.getAttachment().getPlugin().equals(Main.getInstance())) {
-				paInfo.getAttachment().unsetPermission(permission);
-			}
-		}
+		this.permissionsStorage.addPermissions(this.getUserRank().getPermissions());
 	}
 
 	public void setUserRank(String userRank) {
 		this.userRank = UserRank.valueOf(userRank);
+
+		refreshRankPermissions();
 	}
 
 	public void setUserRank(UserRank userRank) {
 		this.userRank = userRank;
+
+		refreshRankPermissions();
+	}
+
+	public void dieEffect() {
+		int option = new Random().nextInt(3) + 1;
+
+		switch (option) {
+			case 1:
+				this.getPlayer().getWorld().playEffect(this.getPlayer().getLocation().clone().add(0, 1, 0), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
+				break;
+			case 2:
+				this.getPlayer().getWorld().spawnParticle(Particle.ITEM_CRACK, this.getPlayer().getLocation().clone().add(0, 1, 0), 50, new ItemStack(Material.REDSTONE_BLOCK));
+				break;
+			case 3:
+				this.getPlayer().getWorld().spawnParticle(Particle.BLOCK_CRACK, this.getPlayer().getLocation().clone().add(0, 1, 0), 50, Material.REDSTONE_BLOCK.createBlockData());
+				break;
+		}
 	}
 }

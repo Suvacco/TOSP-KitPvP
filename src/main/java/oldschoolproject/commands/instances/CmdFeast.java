@@ -18,7 +18,7 @@ public class CmdFeast extends BaseCommand {
 		Player p = (Player)sender;
 		
 		if (args.length == 0) {
-			p.sendMessage("§cError: /feast [create : delete : list : movehere : goto]");
+			p.sendMessage("§cError: /feast [create : edit : delete : list : movehere : goto]");
 			return;
 		}
 		
@@ -26,13 +26,25 @@ public class CmdFeast extends BaseCommand {
 		
 			if (args[0].equalsIgnoreCase("create")) {
 
-				if (args.length < 2) {
-					p.sendMessage("§cError: /feast create <id>");
+				if (args.length < 5) {
+					p.sendMessage("§cError: /feast create <id> <secondsToSpawn> <secondsToDespawn> <secondsInCooldown>");
 					return;
 				}
 
-				FeastManager.createFeast(args[1], p.getLocation());
+				FeastManager.createFeast(args[1], p.getLocation(), args[2], args[3], args[4]);
 				p.sendMessage("§aFeast \"" + args[1] + "\" created successfully!");
+				return;
+			}
+
+			if (args[0].equalsIgnoreCase("edit")) {
+
+				if (args.length < 4) {
+					p.sendMessage("§cError: /feast edit <id> [spawn : despawn : cooldown] <value>");
+					return;
+				}
+
+				FeastManager.editFeast(args[1], args[2], args[3]);
+				p.sendMessage("§aFeast \"" + args[1] + "\" field \"" + args[2] + "\" updated to \"" + args[3] + "\"");
 				return;
 			}
 			
@@ -79,6 +91,9 @@ public class CmdFeast extends BaseCommand {
 		
 		} catch (OperationFailException e) {
 			p.sendMessage(e.getMessage());
+			return;
+		} catch (NumberFormatException e) {
+			p.sendMessage("§cError: Invalid number format");
 			return;
 		}
 

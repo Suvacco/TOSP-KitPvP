@@ -29,7 +29,7 @@ public class Avatar extends BaseKit {
 				5
 				);
 	}
-	
+
 	@Override
 	public BaseKit createInstance() {
 		return new Avatar();

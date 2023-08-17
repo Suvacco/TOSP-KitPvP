@@ -17,9 +17,9 @@ public class ResoupMenu extends BaseMenu {
 	@Override
 	public void setDefaultItems() {
 		ItemStack[] pattern = {
-				new ItemBuilder(Material.BROWN_MUSHROOM, 64).setName("§eCogumelo Marrom").toItemStack(),
-				new ItemBuilder(Material.RED_MUSHROOM, 64).setName("§eCogumelo Vermelho").toItemStack(),
-				new ItemBuilder(Material.BOWL, 64).setName("§eTigela").toItemStack()
+				new ItemBuilder(Material.BROWN_MUSHROOM, 64).setName("§eBrown Mushroom").toItemStack(),
+				new ItemBuilder(Material.RED_MUSHROOM, 64).setName("§eRed Mushroom").toItemStack(),
+				new ItemBuilder(Material.BOWL, 64).setName("§eBowl").toItemStack()
 		};
 		
 		for (int slot = 0, index = 0; slot < this.getInventory().getSize(); slot++) {

@@ -19,7 +19,7 @@ public class KitSelectorMenu extends PaginatedMenu {
 	User holder;
 
 	public KitSelectorMenu(User holder) {
-		super(holder, 54, "Selecione seu kit:", 0, 8);
+		super(holder, 54, "Choose your kit:", 0, 8);
 		this.holder = holder;
 	}
 	
@@ -61,7 +61,7 @@ public class KitSelectorMenu extends PaginatedMenu {
 			
 			if (allKits[index] != null) {
 
-				if (this.holder.getPlayer().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) || this.holder.getPlayer().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
+				if (this.holder.getPermissionStorage().hasPermission("perm.kit." + allKits[index].getName().toLowerCase()) || this.holder.getPermissionsStorage().hasPermission("rank.kit." + allKits[index].getName().toLowerCase())) {
 
 					ItemStack item = allKits[index].getMenuItem();
 

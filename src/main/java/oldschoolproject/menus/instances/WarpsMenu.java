@@ -16,7 +16,7 @@ import oldschoolproject.warps.WarpLoader;
 public class WarpsMenu extends BaseMenu {
 	
 	public WarpsMenu(User holder) {
-		super(holder, 27, "Clique na warp que deseja ir:");
+		super(holder, 27, "Choose the warp to teleport:");
 	}
 
 	@Override

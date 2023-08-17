@@ -117,4 +117,5 @@ public abstract class BaseKit {
 	public boolean isOnCooldown() {
 		return cooldowned.containsKey(this);
 	}
+
 }

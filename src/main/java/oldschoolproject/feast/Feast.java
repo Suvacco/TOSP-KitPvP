@@ -3,13 +3,14 @@ package oldschoolproject.feast;
 import java.util.Arrays;
 import java.util.Random;
 
+import lombok.Getter;
+import lombok.Setter;
 import oldschoolproject.Main;
 import oldschoolproject.holograms.Hologram;
+import oldschoolproject.utils.builders.FireworkBuilder;
 import oldschoolproject.utils.builders.ItemBuilder;
 import oldschoolproject.utils.formatters.ChatFormatter;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -19,14 +20,16 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class Feast {
 
-	private static final int SECONDS_TO_SPAWN = 5; // 300
-	private static final int SECONDS_TO_DESPAWN = 5; // 10
-	private static final int SECONDS_TO_COOLDOWN = 5; // 600
+	private static final Integer[] BROADCAST_MESSAGE_ANCHORS = new Integer[] {120, 60, 30, 15, 10, 5, 4, 3, 2, 1};
 
-	// §a
-	// §b
-	// §d
-	// §6
+	@Getter @Setter
+	private int secondsToSpawn; // 120
+
+	@Getter @Setter
+	private int secondsToDespawn; // 15
+
+	@Getter @Setter
+	private int secondsInCooldown; // 300
 
 	private static ItemStack[] defaultLoot = new ItemStack[] {
 			new ItemBuilder(Material.STONE_SWORD).setName("§bStone Sword").toItemStack(),
@@ -60,14 +63,22 @@ public class Feast {
 
 	private Location location;
 
-	private int secondsToSpawn, secondsToDespawn;
-
 	private BukkitTask feastTask;
 
-	public Feast(Location location) {
+	private String id;
+
+	public Feast(String id, Location location, int secondsToSpawn, int secondsToDespawn, int secondsInCooldown) {
 		this.location = location;
 
-		this.hologram = new Hologram(this.location.clone().add(0, 1, 0), Arrays.asList("§6§lFEAST", "-"));
+		this.secondsToSpawn = secondsToSpawn;
+
+		this.secondsToDespawn = secondsToDespawn;
+
+		this.secondsInCooldown = secondsInCooldown;
+
+		this.id = id;
+
+		this.hologram = new Hologram(this.location.clone().add(0, 1, 0), Arrays.asList("§6§lFEAST §7- §d" + id, "-"));
 
 		this.hologram.spawn();
 
@@ -106,20 +117,20 @@ public class Feast {
 	// 0 - 26 slots in the inventory
 
 	public void spawn() {
+		new FireworkBuilder(this.location, Color.YELLOW, Color.ORANGE).setType(FireworkEffect.Type.STAR).setExplosionSeconds(3);
+
 		Arrays.stream(getChestLocs()).forEach(location -> {
 			location.getBlock().setType(Material.CHEST);
+
+			new FireworkBuilder(location, Color.PURPLE, Color.FUCHSIA).setType(FireworkEffect.Type.BALL).detonate();
 
 			if (location.getBlock().getState() instanceof Chest) {
 
 				Chest chest = (Chest)location.getBlock().getState();
 
-				// generate number of items
-				// generate for each number a slot
-				// place item in slot if slot isn't null
-
 				Random random = new Random();
 
-				int randomNumberOfItems = random.nextInt(3) + 3; // 3 - 5
+				int randomNumberOfItems = random.nextInt(3) + 3;
 
 				int i = 0;
 
@@ -151,6 +162,7 @@ public class Feast {
 	public void destroy() {
 		Arrays.stream(getChestLocs()).forEach(location -> {
 			location.getBlock().setType(Material.AIR);
+			location.getWorld().spawnParticle(Particle.CLOUD, location, 5);
 		});
 	}
 	
@@ -167,38 +179,46 @@ public class Feast {
 	}
 
 	public void beginDespawnCountdown() {
-		this.secondsToDespawn = SECONDS_TO_DESPAWN;
 
 		this.feastTask = new BukkitRunnable() {
+			int seconds = Feast.this.secondsToDespawn;
+
 			@Override
 			public void run() {
-				hologram.setLine(1, "§c" + ChatFormatter.formatSeconds(secondsToDespawn));
+				hologram.setLine(1, "§c" + ChatFormatter.formatSeconds(seconds));
 
-				if (secondsToDespawn < 1) {
+				if (seconds < 1) {
 					destroy();
 					beginCooldown();
 					cancel();
+					Bukkit.broadcastMessage("§6§lFEAST §7- §d(" + Feast.this.id + ") §cDespawned! §eNow entering cooldown...");
+					Feast.this.location.getWorld().playSound(Feast.this.location, Sound.ENTITY_CHICKEN_EGG, 1.0F, 1.0F);
 				}
 
-				secondsToDespawn--;
+				seconds--;
 			}
 		}.runTaskTimer(Main.getInstance(), 20 * 5, 20);
 	}
 
 	public void beginSpawnCountdown() {
-		this.secondsToSpawn = SECONDS_TO_SPAWN;
-
 		this.feastTask = new BukkitRunnable() {
+			int seconds = Feast.this.secondsToSpawn;
 			@Override
 			public void run() {
-				Feast.this.hologram.setLine(1, "§a" + ChatFormatter.formatSeconds(secondsToSpawn));
+				Feast.this.hologram.setLine(1, "§a" + ChatFormatter.formatSeconds(seconds));
 
-				if (secondsToSpawn < 1) {
-					spawn();
-					cancel();
+				if (Arrays.asList(BROADCAST_MESSAGE_ANCHORS).contains(seconds)) {
+					Bukkit.broadcastMessage("§6§lFEAST §7- §d(" + Feast.this.id + ") §bwill spawn in §a" + (seconds < 60 ? seconds + "s" : ChatFormatter.formatSeconds(seconds)));
 				}
 
-				secondsToSpawn--;
+				if (seconds < 1) {
+					spawn();
+					cancel();
+					Bukkit.broadcastMessage("§6§lFEAST §7- §d(" + Feast.this.id + ") §bspawned! §cDespawning in " + Feast.this.secondsToDespawn + "s");
+					Feast.this.location.getWorld().playSound(Feast.this.location, Sound.BLOCK_END_PORTAL_SPAWN, 1.2F, 1.0F);
+				}
+
+				seconds--;
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 20);
 	}
@@ -211,18 +231,32 @@ public class Feast {
 			public void run() {
 				beginSpawnCountdown();
 			}
-		}.runTaskLater(Main.getInstance(), 20 * SECONDS_TO_COOLDOWN);
+		}.runTaskLater(Main.getInstance(), 20L * this.secondsInCooldown);
 	}
 
     public void updateLocation(Location location) {
-		this.destroy();
 
-		this.feastTask.cancel();
+		deleteFeast();
 
 		this.location = location;
 
+		resetFeast();
+    }
+
+	private void deleteFeast() {
+		this.destroy();
+
+		this.feastTask.cancel();
+	}
+
+	private void resetFeast() {
 		this.beginSpawnCountdown();
 
 		this.hologram.updateLocation(location.clone().add(0, 1, 0));
-    }
+	}
+
+	public void updateFeast() {
+		deleteFeast();
+		resetFeast();
+	}
 }

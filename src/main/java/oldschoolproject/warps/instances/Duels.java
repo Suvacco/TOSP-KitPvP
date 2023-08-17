@@ -48,21 +48,21 @@ public class Duels extends BaseWarp implements BaseListener {
 
 	@Override
 	public void setDefaultItems(Player player) {
-		player.getInventory().setItem(1, new ItemBuilder(Material.BLAZE_ROD).setName("§eConvidar Jogador").toItemStack());
+		player.getInventory().setItem(1, new ItemBuilder(Material.BLAZE_ROD).setName("§eChallenge Player").toItemStack());
 		
-		player.getInventory().setItem(7, new ItemBuilder(Material.OAK_DOOR).setName("§cRetornar ao Spawn").toItemStack());
+		player.getInventory().setItem(7, new ItemBuilder(Material.OAK_DOOR).setName("§cReturn to Spawn").toItemStack());
 	}
 	
 	private void giveItems(Player player) {
 		player.getInventory().clear();
-		player.getInventory().setItem(0, new ItemBuilder(Material.DIAMOND_SWORD).setName("§bEspada").toItemStack());
-		player.getInventory().setChestplate(new ItemBuilder(Material.IRON_CHESTPLATE).setName("§bPeitoral").toItemStack());
-		player.getInventory().setHelmet(new ItemBuilder(Material.IRON_HELMET).setName("§bCapacete").toItemStack());
-		player.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS).setName("§bCalças").toItemStack());
-		player.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS).setName("§bBotas").toItemStack());
+		player.getInventory().setItem(0, new ItemBuilder(Material.DIAMOND_SWORD).setName("§bSword").toItemStack());
+		player.getInventory().setChestplate(new ItemBuilder(Material.IRON_CHESTPLATE).setName("§bChestplate").toItemStack());
+		player.getInventory().setHelmet(new ItemBuilder(Material.IRON_HELMET).setName("§bHelmet").toItemStack());
+		player.getInventory().setLeggings(new ItemBuilder(Material.IRON_LEGGINGS).setName("§bLeggins").toItemStack());
+		player.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS).setName("§bBoots").toItemStack());
 		
 		for (int i = 0; i < player.getInventory().getSize(); i++) {
-			player.getInventory().addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Sopa").toItemStack());
+			player.getInventory().addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Soup").toItemStack());
 		}
 	}
 	
@@ -94,8 +94,8 @@ public class Duels extends BaseWarp implements BaseListener {
 		player.showPlayer(Main.getInstance(), clicked);
 		clicked.showPlayer(Main.getInstance(), player);
 		
-		clicked.sendMessage("§6Partida começando em...");
-		player.sendMessage("§6Partida começando em...");
+		clicked.sendMessage("§6Match starting in...");
+		player.sendMessage("§6Match starting in...");
 		
 		giveItems(player);
 		giveItems(clicked);
@@ -110,8 +110,8 @@ public class Duels extends BaseWarp implements BaseListener {
 				if (i == 0) {
 					cantMove.remove(clicked);
 					cantMove.remove(player);
-					clicked.sendMessage("§aGO!");
-					player.sendMessage("§aGO!");
+					clicked.sendMessage("§aFIGHT!");
+					player.sendMessage("§aFIGHT!");
 					playerUser.setUserGuard(UserGuard.Playing);
 					clickedUser.setUserGuard(UserGuard.Playing);
 					this.cancel();
@@ -131,12 +131,12 @@ public class Duels extends BaseWarp implements BaseListener {
 				// If the match still exists
 				if (matchMap.containsKey(clicked)) {
 					if (i == 60) {
-						clicked.sendMessage("§cO tempo está acabando! Encerrem a batalha rápido!");
-						player.sendMessage("§cO tempo está acabando! Encerrem a batalha rápido!");
+						clicked.sendMessage("§cTime is running out! End the battle before it's too late!");
+						player.sendMessage("§cTime is running out! End the battle before it's too late!");
 					}
 					if (i == 1) {
-						clicked.sendMessage("§cO tempo acabou!");
-						player.sendMessage("§cO tempo acabou!");
+						clicked.sendMessage("§cTime's up!");
+						player.sendMessage("§cTime's up!");
 					}
 					if (i > 0) {
 						i--;
@@ -158,7 +158,7 @@ public class Duels extends BaseWarp implements BaseListener {
 		if (matchMap.containsKey(player)) {
 			User winner = UserManager.getUser(matchMap.get(player));
 			
-			winner.getPlayer().sendMessage("§aVocê ganhou!");
+			winner.getPlayer().sendMessage("§aYou won!");
 			
 			matchMap.remove(matchMap.get(player));
 			matchMap.remove(player);
@@ -175,8 +175,8 @@ public class Duels extends BaseWarp implements BaseListener {
 			
 			User winner = UserManager.getUser(matchMap.get(player));
 			
-			winner.getPlayer().sendMessage("§aVocê ganhou!");
-			player.sendMessage("§cVocê perdeu");
+			winner.getPlayer().sendMessage("§aYou won!");
+			player.sendMessage("§cYou lost");
 			
 			matchMap.remove(matchMap.get(player));
 			matchMap.remove(player);
@@ -213,9 +213,9 @@ public class Duels extends BaseWarp implements BaseListener {
 							return;
 						}
 					
-						player.sendMessage("§eVocê convidou §b" + clicked.getName() + " §epara um duelo");
+						player.sendMessage("§eYou challenged §b" + clicked.getName() + " §eto a duel");
 						
-						clicked.sendMessage("§b" + player.getName() + " §ete convidou para um duelo");
+						clicked.sendMessage("§b" + player.getName() + " §echallenged you to a duel");
 						
 						requestsMap.put(player, clicked);
 					}
@@ -242,7 +242,6 @@ public class Duels extends BaseWarp implements BaseListener {
 		
 		if (e.getItem().getType().equals(Material.OAK_DOOR)) {
 			e.getPlayer().performCommand("warp spawn");
-			return;
 		}
 	}
 }

@@ -15,6 +15,7 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -59,9 +60,9 @@ public class MongoConnection implements DatabaseConnection {
     public void saveUser(User user) {
         String userId = user.getUuid().toString();
 
-        Set<String> userPermissions = user.getPermissionAttachment().getPermissions().keySet().stream()
+        List<String> userPermissions = user.getPermissionsStorage().getPermissions().stream()
                 .filter(permission -> !permission.startsWith("rank."))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
         Document playerDocument = new Document("_id", userId)
                 .append("name", user.getPlayer().getName())

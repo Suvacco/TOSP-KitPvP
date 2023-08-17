@@ -36,6 +36,7 @@ public class LPlayerInteract implements BaseListener {
 				Sign sign = (Sign)e.getClickedBlock().getState();
 				if (sign.getLine(1).equals("§6§l[§e§lOLD SCHOOL§6§l]")) {
 					new ResoupMenu(UserManager.getUser(e.getPlayer())).open();
+					e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_CHEST_OPEN, 1.0F, 1.0F);
 					e.setCancelled(true);
 				}
 			}
@@ -57,7 +58,7 @@ public class LPlayerInteract implements BaseListener {
 			 s.setLine(3, "");
 			 s.update(true);
 			 
-			 e.getPlayer().sendMessage("§aPlaca de resoup criada!");
+			 e.getPlayer().sendMessage("§aResoup sign created!");
 			 e.setCancelled(true);
 		}
 	}

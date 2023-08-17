@@ -1,10 +1,13 @@
 package oldschoolproject.commands;
 
+import oldschoolproject.managers.UserManager;
+import oldschoolproject.permissions.PermissionStorage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import lombok.Getter;
+import org.bukkit.entity.Player;
 
 public abstract class BaseCommand implements CommandExecutor {
   
@@ -30,9 +33,12 @@ public abstract class BaseCommand implements CommandExecutor {
   public abstract void onCommand(CommandSender sender, String[] args);
 
   public boolean onCommand(CommandSender sender, Command command, String string, String[] args) {
-    if (this.permission && !sender.hasPermission("rank.cmd." + this.name) && !sender.hasPermission("perm.cmd." + this.name) && !sender.hasPermission("cmd.*")) {
-      sender.sendMessage("§cError: You don't have permission to use this command");
-      return true;
+    if (sender instanceof Player) {
+      PermissionStorage ps = UserManager.getUser((Player) sender).getPermissionStorage();
+      if (this.permission && !ps.hasPermission("rank.cmd." + this.name) && !ps.hasPermission("perm.cmd." + this.name) && !ps.hasPermission("cmd.*")) {
+        sender.sendMessage("§cError: You don't have permission to use this command");
+        return true;
+      }
     }
 
     onCommand(sender, args);

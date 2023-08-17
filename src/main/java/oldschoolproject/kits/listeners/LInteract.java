@@ -32,7 +32,7 @@ public class LInteract implements BaseListener {
 		
 		// Isn't on cooldown
 		if (kit.isOnCooldown()) {
-			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§cSeu kit está em cooldown!"));
+			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§cYour kit is in cooldown!"));
 			return;
 		}
 		

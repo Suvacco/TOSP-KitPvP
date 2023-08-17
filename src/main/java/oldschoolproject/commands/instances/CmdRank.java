@@ -17,34 +17,27 @@ import java.util.Arrays;
 public class CmdRank extends BaseCommand {
 
     public CmdRank() {
-        super("rank", true);
+        super("setrank", true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        if (args.length == 0) {
-            sender.sendMessage("§cError: /rank [set]");
+        StringBuilder sb = new StringBuilder();
+
+        Arrays.stream(UserRank.values()).forEach(userRank -> sb.append(userRank.name()).append(", "));
+
+        if (args.length < 2) {
+            sender.sendMessage("§cError: /setrank <player> [" + sb.substring(0, sb.length() - 2) + "]");
             return;
         }
 
-        if (args[0].equalsIgnoreCase("set")) {
-            StringBuilder sb = new StringBuilder();
+        try {
 
-            Arrays.stream(UserRank.values()).forEach(userRank -> sb.append(userRank.name()).append(" : "));
+            UserManager.setRank(args[0], args[1].toUpperCase());
+            sender.sendMessage("§aPlayer \"" + args[0] + "\" was successfully updated to \"" + args[1].toUpperCase() + "\"");
 
-            if (args.length < 2) {
-                sender.sendMessage("§cError: /rank set <player> [" + sb.substring(0, sb.length() - 3) + "]");
-                return;
-            }
-
-            try {
-
-                UserManager.setRank(args[1], args[2].toUpperCase());
-                sender.sendMessage("§aPlayer \"" + args[1] + "\" was successfully updated to \"" + args[2].toUpperCase() + "\"");
-
-            } catch (OperationFailException e) {
-                sender.sendMessage(e.getMessage());
-            }
+        } catch (OperationFailException e) {
+            sender.sendMessage(e.getMessage());
         }
     }
 }
