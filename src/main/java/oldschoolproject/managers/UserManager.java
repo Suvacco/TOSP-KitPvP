@@ -127,9 +127,7 @@ public class UserManager {
 		}
 
 		if (target != null) {
-			getUser(target).setUserRank(rankName);
-
-			getUser(target).refreshRankPermissions();
+			getUser(target).setUserRank(UserRank.valueOf(rankName));
 
 			TagManager.setPrefix(getUser(target), getUser(target).getUserRank().getTag());
 			return;

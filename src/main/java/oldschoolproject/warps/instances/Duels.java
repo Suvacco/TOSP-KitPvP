@@ -8,6 +8,7 @@ import java.util.Map;
 import oldschoolproject.users.UserGuard;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -65,40 +66,44 @@ public class Duels extends BaseWarp implements BaseListener {
 			player.getInventory().addItem(new ItemBuilder(Material.MUSHROOM_STEW).setName("§6Soup").toItemStack());
 		}
 	}
-	
+
+	private void preparePlayer(Player player) {
+		requestsMap.remove(player);
+
+		cantMove.add(player);
+
+		for (Player all : Bukkit.getOnlinePlayers()) {
+			player.hidePlayer(Main.getInstance(), all);
+		}
+
+		player.sendMessage("§6Match starting in...");
+
+		giveItems(player);
+	}
+
+	private void startMatchForPlayer(User user) {
+		cantMove.remove(user.getPlayer());
+
+		user.getPlayer().sendMessage("§aFIGHT!");
+
+		user.setUserGuard(UserGuard.Playing);
+	}
+
 	private void startMatch(Player player, Player clicked) {
 		// This exists cause' I'm creating a relationship between a Warp object and DuelsGame
 		// In order to have access to the Warp's locations file.
 		
 		this.teleportToLocation(player, "loc1");
 		this.teleportToLocation(clicked, "loc2");
-		
-		// Resets pendings requests
-		requestsMap.remove(clicked);
-		requestsMap.remove(player);
-		
-		// Add to match
+
+		preparePlayer(player);
+		preparePlayer(clicked);
+
 		matchMap.put(clicked, player);
 		matchMap.put(player, clicked);
 		
-		// Freeze
-		cantMove.add(clicked);
-		cantMove.add(player);
-		
-		// Hide all except who is against
-		for (Player all : Bukkit.getOnlinePlayers()) {
-			player.hidePlayer(Main.getInstance(), all);
-			clicked.hidePlayer(Main.getInstance(), all);
-		}
-		
 		player.showPlayer(Main.getInstance(), clicked);
 		clicked.showPlayer(Main.getInstance(), player);
-		
-		clicked.sendMessage("§6Match starting in...");
-		player.sendMessage("§6Match starting in...");
-		
-		giveItems(player);
-		giveItems(clicked);
 		
 		new BukkitRunnable() {
 			int i = 3;
@@ -108,12 +113,10 @@ public class Duels extends BaseWarp implements BaseListener {
 			
 			public void run() {
 				if (i == 0) {
-					cantMove.remove(clicked);
-					cantMove.remove(player);
-					clicked.sendMessage("§aFIGHT!");
-					player.sendMessage("§aFIGHT!");
-					playerUser.setUserGuard(UserGuard.Playing);
-					clickedUser.setUserGuard(UserGuard.Playing);
+
+					startMatchForPlayer(playerUser);
+					startMatchForPlayer(clickedUser);
+
 					this.cancel();
 				} else {
 				
@@ -214,9 +217,13 @@ public class Duels extends BaseWarp implements BaseListener {
 						}
 					
 						player.sendMessage("§eYou challenged §b" + clicked.getName() + " §eto a duel");
+
+						player.playSound(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1.0F, 1.0F);
 						
 						clicked.sendMessage("§b" + player.getName() + " §echallenged you to a duel");
-						
+
+						clicked.playSound(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1.0F, 1.0F);
+						 
 						requestsMap.put(player, clicked);
 					}
 				}

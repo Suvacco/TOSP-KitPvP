@@ -81,20 +81,18 @@ public class User {
 		this.setUserGuard(UserGuard.Protected);
 		this.resetKit();
 		this.teleportToWarp();
-		this.setWarpItems();
 	}
 
 	public void resetKit() {
-		if (!this.hasKit()) {
-			return;
-		}
+		if (hasKit()) {
 
-		if (this.getKit().isOnCooldown()) {
-			this.getKit().cancelCooldown(this.getPlayer());
-		}
+			if (this.getKit().isOnCooldown()) {
+				this.getKit().cancelCooldown(this.getPlayer());
+			}
 
-		this.getKit().removeBossBar(this.getPlayer());
-		this.kit = null;
+			this.getKit().removeBossBar(this.getPlayer());
+			this.kit = null;
+		}
 	}
 
 	public void buildUser() {
@@ -106,7 +104,7 @@ public class User {
 	}
 	@SuppressWarnings("unchecked")
 	public void loadDatabaseDataIntoUser(Map<String, Object> values) {
-		this.setUserRank((String) values.get("rank"));
+		this.setUserRank(UserRank.valueOf((String) values.get("rank")));
 
 		this.permissionsStorage.addPermissions((List<String>) values.get("permissions"));
 
@@ -117,12 +115,10 @@ public class User {
 		return this.player;
 	}
 
-	public void setWarpItems() {
-		this.getWarp().setDefaultItems(this.getPlayer());
-	}
-	
 	public void teleportToWarp() {
 		this.getPlayer().teleport(this.getWarp().getSpawnLocation());
+
+		this.getWarp().setDefaultItems(this.getPlayer());
 	}
 	
 	public boolean isProtected() {
@@ -145,22 +141,12 @@ public class User {
 		return this.permissionsStorage;
 	}
 
-	public void refreshRankPermissions() {
-		this.permissionsStorage.getPermissions().removeIf(perm -> perm.startsWith("rank."));
-
-		this.permissionsStorage.addPermissions(this.getUserRank().getPermissions());
-	}
-
-	public void setUserRank(String userRank) {
-		this.userRank = UserRank.valueOf(userRank);
-
-		refreshRankPermissions();
-	}
-
 	public void setUserRank(UserRank userRank) {
 		this.userRank = userRank;
 
-		refreshRankPermissions();
+		this.permissionsStorage.getPermissions().removeIf(perm -> perm.startsWith("rank."));
+
+		this.permissionsStorage.addPermissions(this.getUserRank().getPermissions());
 	}
 
 	public void dieEffect() {
