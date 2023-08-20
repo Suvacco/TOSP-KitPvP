@@ -11,10 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LMotd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/events/listeners/common/LMotd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/managers/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/utils/builders/MessageBuilder.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/warps/instances/Duels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/warps/instances/Duels.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,6 +161,10 @@
       <workItem from="1692228117483" duration="2513000" />
       <workItem from="1692231473043" duration="13619000" />
       <workItem from="1692323055607" duration="6182000" />
+      <workItem from="1692377205852" duration="819000" />
+      <workItem from="1692378921365" duration="223000" />
+      <workItem from="1692379251265" duration="2935000" />
+      <workItem from="1692504971894" duration="489000" />
     </task>
     <servers />
   </component>

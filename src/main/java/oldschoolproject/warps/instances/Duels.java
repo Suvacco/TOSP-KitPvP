@@ -84,7 +84,11 @@ public class Duels extends BaseWarp implements BaseListener {
 	private void startMatchForPlayer(User user) {
 		cantMove.remove(user.getPlayer());
 
-		user.getPlayer().sendMessage("§aFIGHT!");
+		user.getPlayer().sendMessage("§a§lFIGHT!");
+
+		user.getPlayer().sendTitle("§a§lFIGHT!", "", 0, 40, 20);
+
+		user.getPlayer().playSound(user.getPlayer(), Sound.ITEM_GOAT_HORN_SOUND_0, 1.0F, 1.0F);
 
 		user.setUserGuard(UserGuard.Playing);
 	}
@@ -119,7 +123,10 @@ public class Duels extends BaseWarp implements BaseListener {
 
 					this.cancel();
 				} else {
-				
+					clicked.playSound(clicked, Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+					player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+					clicked.sendTitle("§e§l" + i, "", 0, 20, 0);
+					clicked.sendTitle("§e§l" + i, "", 0, 20, 0);
 				clicked.sendMessage("§e" + i + "...");
 				player.sendMessage("§e" + i + "...");
 				
@@ -134,10 +141,14 @@ public class Duels extends BaseWarp implements BaseListener {
 				// If the match still exists
 				if (matchMap.containsKey(clicked)) {
 					if (i == 60) {
+						clicked.playSound(clicked, Sound.BLOCK_ANVIL_LAND, 1.0F, 1.0F);
+						player.playSound(player, Sound.BLOCK_ANVIL_LAND, 1.0F, 1.0F);
 						clicked.sendMessage("§cTime is running out! End the battle before it's too late!");
 						player.sendMessage("§cTime is running out! End the battle before it's too late!");
 					}
 					if (i == 1) {
+						clicked.playSound(clicked, Sound.ENTITY_ENDER_DRAGON_GROWL, 1.0F, 1.0F);
+						player.playSound(player, Sound.ENTITY_ENDER_DRAGON_GROWL, 1.0F, 1.0F);
 						clicked.sendMessage("§cTime's up!");
 						player.sendMessage("§cTime's up!");
 					}
@@ -153,39 +164,39 @@ public class Duels extends BaseWarp implements BaseListener {
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 20);
 	}
+
+	public void handleWin(Player loser) {
+		if (matchMap.containsKey(loser)) {
+
+			User userWinner = UserManager.getUser(matchMap.get(loser));
+
+			userWinner.getPlayer().sendMessage("§aYou won!");
+			userWinner.getPlayer().sendTitle("§lYOU WON!", "§fYou gained §a+3 Coins", 0, 40, 20);
+
+			if (loser.isOnline()) {
+				loser.sendMessage("§cYou lost!");
+				loser.sendTitle("§c§lYOU LOST!", "§fThe battle is over.", 0, 40, 20);
+			}
+
+			matchMap.remove(userWinner.getPlayer());
+			matchMap.remove(loser);
+
+			userWinner.reset();
+		}
+	}
 	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Player player = e.getPlayer();
 		
-		if (matchMap.containsKey(player)) {
-			User winner = UserManager.getUser(matchMap.get(player));
-			
-			winner.getPlayer().sendMessage("§aYou won!");
-			
-			matchMap.remove(matchMap.get(player));
-			matchMap.remove(player);
-			
-			winner.reset();
-		}
+		handleWin(player);
 	}
-	
+
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player player = (Player)e.getEntity();
 		
-		if (matchMap.containsKey(player)) {
-			
-			User winner = UserManager.getUser(matchMap.get(player));
-			
-			winner.getPlayer().sendMessage("§aYou won!");
-			player.sendMessage("§cYou lost");
-			
-			matchMap.remove(matchMap.get(player));
-			matchMap.remove(player);
-			
-			winner.reset();
-		}
+		handleWin(player);
 	}
 	
 	@EventHandler
@@ -210,9 +221,7 @@ public class Duels extends BaseWarp implements BaseListener {
 					if (players.contains(player) && players.contains(clicked)) {
 						// If player clicking was clicked before by the player he is clicking
 						if (requestsMap.get(clicked) == player) {
-							
 							startMatch(player, clicked);
-							
 							return;
 						}
 					
