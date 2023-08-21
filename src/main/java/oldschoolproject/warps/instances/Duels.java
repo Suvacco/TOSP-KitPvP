@@ -84,11 +84,11 @@ public class Duels extends BaseWarp implements BaseListener {
 	private void startMatchForPlayer(User user) {
 		cantMove.remove(user.getPlayer());
 
-		user.getPlayer().sendMessage("§a§lFIGHT!");
+		user.getPlayer().sendMessage("§6§lFIGHT!");
 
-		user.getPlayer().sendTitle("§a§lFIGHT!", "", 0, 40, 20);
+		user.getPlayer().sendTitle("§6§lFIGHT!", "Deathmatch will start in §63 minutes", 0, 40, 20);
 
-		user.getPlayer().playSound(user.getPlayer(), Sound.ITEM_GOAT_HORN_SOUND_0, 1.0F, 1.0F);
+		user.getPlayer().playSound(user.getPlayer(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 2.0F);
 
 		user.setUserGuard(UserGuard.Playing);
 	}
@@ -125,18 +125,19 @@ public class Duels extends BaseWarp implements BaseListener {
 				} else {
 					clicked.playSound(clicked, Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
 					player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
-					clicked.sendTitle("§e§l" + i, "", 0, 20, 0);
-					clicked.sendTitle("§e§l" + i, "", 0, 20, 0);
-				clicked.sendMessage("§e" + i + "...");
-				player.sendMessage("§e" + i + "...");
-				
-				i--;
+					clicked.resetTitle();
+					player.resetTitle();
+					clicked.sendMessage("§e" + i + "...");
+					player.sendMessage("§e" + i + "...");
+					clickedUser.getPlayer().sendTitle("§e§l" + i, "", 0, 40, 20);
+					playerUser.getPlayer().sendTitle("§e§l" + i, "", 0, 40, 20);
+					i--;
 				}
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 20);
 		
 		new BukkitRunnable() {
-			int i = 300;
+			int i = 180;
 			public void run() {
 				// If the match still exists
 				if (matchMap.containsKey(clicked)) {
@@ -171,7 +172,8 @@ public class Duels extends BaseWarp implements BaseListener {
 			User userWinner = UserManager.getUser(matchMap.get(loser));
 
 			userWinner.getPlayer().sendMessage("§aYou won!");
-			userWinner.getPlayer().sendTitle("§lYOU WON!", "§fYou gained §a+3 Coins", 0, 40, 20);
+			userWinner.getPlayer().sendTitle("§a§lYOU WON!", "§fYou gained §a+3 Coins", 0, 40, 20);
+			userWinner.getPlayer().playSound(userWinner.getPlayer(), Sound.ITEM_GOAT_HORN_SOUND_0, 1.0F, 1.0F);
 
 			if (loser.isOnline()) {
 				loser.sendMessage("§cYou lost!");
@@ -197,6 +199,14 @@ public class Duels extends BaseWarp implements BaseListener {
 		Player player = (Player)e.getEntity();
 		
 		handleWin(player);
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				player.spigot().respawn();
+				player.playSound(player, Sound.ENTITY_CAT_AMBIENT, 1.0F, 0.5F);
+			}
+		}.runTask(Main.getInstance());
 	}
 	
 	@EventHandler
