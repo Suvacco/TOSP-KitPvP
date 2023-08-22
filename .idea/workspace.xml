@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="68f55dbe-41be-4cb4-8b65-3f9461f2083f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oldschoolproject/warps/instances/Duels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oldschoolproject/warps/instances/Duels.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +58,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15370595&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2226311&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -166,7 +165,9 @@
       <workItem from="1692379251265" duration="2935000" />
       <workItem from="1692504971894" duration="602000" />
       <workItem from="1692557170010" duration="596000" />
-      <workItem from="1692581102475" duration="3656000" />
+      <workItem from="1692581102475" duration="3691000" />
+      <workItem from="1692661401034" duration="2854000" />
+      <workItem from="1692666559957" duration="605000" />
     </task>
     <servers />
   </component>
