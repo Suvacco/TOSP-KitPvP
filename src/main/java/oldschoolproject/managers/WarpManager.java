@@ -14,6 +14,8 @@ public class WarpManager {
 		user.setWarp(warp);
 		
 		warp.addPlayer(user.getPlayer());
+
+//		warp.setScoreboard(user);
 		
 		user.reset();
 	}

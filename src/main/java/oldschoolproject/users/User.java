@@ -29,6 +29,7 @@ public class User {
 
 	Map<UserStats, Object> statsMap = new HashMap<>();
 
+//	BaseScoreboard scoreboard;
 	BaseKit kit;
 	BaseWarp warp;
 

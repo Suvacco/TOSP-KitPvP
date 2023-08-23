@@ -12,7 +12,8 @@ public abstract class BaseWarp {
 	protected String warpName;
 	protected FileBuilder fileBuilder;
 	protected ItemStack menuItem;
-	
+
+
 	public BaseWarp(String warpName, ItemStack menuItem) {
 		this.warpName = warpName;
 		this.menuItem = menuItem;
